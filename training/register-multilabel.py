@@ -7,6 +7,10 @@ import logging
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 
+
+# disable dataset caching and remove previous files
+datasets.disable_caching()
+
 pprint = PrettyPrinter(compact=True).pprint
 logging.disable(logging.INFO)
 
@@ -18,32 +22,25 @@ def arguments():
     )
     parser.add_argument('--train_set', nargs="+", required=True,
         help="Give at least one or more train files separated by a space.")
+    parser.add_argument('--dev_set', nargs="+", required=True,
+        help="Give at least one or more dev files separated by a space.")
     parser.add_argument('--test_set', nargs="+", required=True,
         help="Give at least one or more test files separated by a space.")
-    parser.add_argument('--full', action='store_true', default=False,
-        help="Decide whether or not to use full labels or only upper labels. Defaults to upper labels.")
     parser.add_argument('--model', default="xlm-roberta-large",
         help="Decide which model to use for training. Defaults to xlmr-large.")
-    parser.add_argument('--treshold', type=float, default=0.5,
-        help="The treshold which to use for predictions, used in evaluation. Defaults to 0.5."
-    )
+    parser.add_argument('--threshold', type=float, default=None,
+        help="The treshold which to use for predictions, used in evaluation. Defaults to 0.5.")
     parser.add_argument('--batch', type=int, default=8,
-        help="The batch size for the model. Defaults to 8."
-    )
+        help="The batch size for the model. Defaults to 8.")
     parser.add_argument('--epochs', type=int, default=3,
-        help="The number of epochs to train for. Defaults to 3."
-    )
+        help="The number of epochs to train for. Defaults to 3.")
     parser.add_argument('--learning', type=float, default=8e-6,
-        help="The learning rate for the model. Defaults to 8e-6."
-    )
-    parser.add_argument('--multilingual', action='store_true', default=False,
-        help="Decide whether or not to save the model. Defaults to not saving.")
-    parser.add_argument('--saved', default="saved_models/all_multilingual",
-        help="Give a new path for the saved model.")
-    parser.add_argument('--checkpoint', default="../multilabel/checkpoints",
-        help="Give a new path for the checkpoints")
-    parser.add_argument('--lang', default="",
-        help="Give a name to the saved plots.")
+        help="The learning rate for the model. Defaults to 8e-6.")
+    parser.add_argument('--save', action="store_true", default=False,
+        help="Whether to save the model.")
+    parser.add_argument('--weights', action="store_true", default=False,
+        help="Whether to use class weights or not for the loss function.")
+
     args = parser.parse_args()
 
     return args 
@@ -52,44 +49,37 @@ args = arguments()
 pprint(args)
 
 # the data is fitted to these labels
-if(args.full == False):
-    unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP"]
-else:
-    unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'fi', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr']
+#unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", QA_NEW""]
+unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'QA_NEW'] # 'fi', there should be nothing fi but just in case
 
 
-# it is possible to load zipped csv files like this according to documentation: https://huggingface.co/docs/datasets/loading#csv
-train = datasets.load_dataset(
-    "csv", 
-    data_files={'train':args.train_set},
-    delimiter="\t",
-    split='train', # so that it returns a dataset instead of datasetdict
-    column_names=['label', 'text'],
-    features=datasets.Features({    # Here we tell how to interpret the attributes
-      "text":datasets.Value("string"),
-      "label":datasets.Value("string")})
-    )
 
-# remember to shuffle because the data is in en,fi,fre,swe order!
+def load_dataset(name, files):
+    # it is possible to load zipped csv files like this according to documentation: https://huggingface.co/docs/datasets/loading#csv
+    dset = datasets.load_dataset(
+        "csv", 
+        data_files={name: files},
+        delimiter="\t",
+        split=name, # so that it returns a dataset instead of datasetdict
+        column_names=['label', 'text'],
+        features=datasets.Features({    # Here we tell how to interpret the attributes
+        "text":datasets.Value("string"),
+        "label":datasets.Value("string")})
+        )
 
-train.shuffle(seed=1234)
+    # remember to shuffle because the data is in en,fi,fre,swe order! (or whatever language order)
+    dset.shuffle(seed=1234)
 
-# this also shuffles by default (should I set a seed? or not shuffle anymore?) shuffle=False or seed=1234
-#train, dev = train.train_test_split(test_size=0.2).values()
+    return dset
 
-test = datasets.load_dataset(
-    "csv", 
-    data_files={'test':args.test_set}, 
-    delimiter="\t",
-    split='test',
-    column_names=['label', 'text'],
-    features=datasets.Features({    # Here we tell how to interpret the attributes
-      "text":datasets.Value("string"),
-      "label":datasets.Value("string")})
-    )
+train = load_dataset("train", args.train_set)
+dev = load_dataset("dev", args.dev_set)
+test = load_dataset("test", args.test_set)
+ 
 
-dataset = datasets.DatasetDict({"train":train, "test":test}) #"dev":dev,
-pprint(dataset)
+dataset = datasets.DatasetDict({"train":train, "dev":dev, "test":test})
+print(dataset)
+print(dataset["train"][0])
 
 
 #register scheme mapping:
@@ -110,7 +100,7 @@ sub_register_map = {
     'AV': 'av',
     'IN': 'IN',
     'JD': 'IN',
-    'FA': 'fi',
+    'FA': 'QA_NEW', #fi
     'DT': 'dtp',
     'IB': 'IN',
     'DP': 'dtp',
@@ -121,7 +111,7 @@ sub_register_map = {
     'RP': 'IN',
     'ID': 'ID',
     'DF': 'ID',
-    'QA': 'ID',
+    'QA': 'QA_NEW', # ID
     'HI': 'HI',
     'RE': 're',
     'IP': 'IP',
@@ -139,7 +129,7 @@ sub_register_map = {
     'IG': 'IP',
     'MT': 'MT',
     'HT': 'HI',
-    'FI': 'fi',
+    'FI': 'QA_NEW', # fi
     'OI': 'IN',
     'TR': 'IN',
     'AD': 'OP',
@@ -152,7 +142,7 @@ sub_register_map = {
     'PA': 'IP',
     'OF': 'ID',
     'RR': 'ID',
-    'FH': 'HI',
+    'FH': 'QA_NEW', # HI
     'OH': 'HI',
     'TS': 'HI',
     'OL': 'LY',
@@ -170,20 +160,25 @@ def split_labels(dataset):
         dataset['label'] = np.array('NA')
     else:
         dataset['label'] = np.array(dataset['label'].split())
-        mapped = [sub_register_map[l] if l not in unique_labels else l for l in dataset['label']] # added for full 
+        mapped = [sub_register_map[l] if l not in unique_labels else l for l in dataset['label']] # added for full
         dataset['label'] = np.array(sorted(list(set(mapped)))) # added for full
     return dataset
 
 def binarize(dataset):
     mlb = MultiLabelBinarizer()
-    mlb.fit([unique_labels])
+    mlb.fit([unique_labels]) # REMEMBER THIS FITS TO THE UNIQUE LABELS SO IF SOMETHING ISN'T THERE IT WILL BE DISCARDED
     dataset = dataset.map(lambda line: {'label': mlb.transform([line['label']])[0]})
     return dataset
 
 #pprint(dataset['train']['label'][:5])
 dataset = dataset.map(split_labels)
 #pprint(dataset['train']['label'][:5])
-dataset = binarize(dataset)
+
+# remove comments that have MT label
+filtered_dataset = dataset.filter(lambda example: "MT" not in example['label']) 
+filtered_dataset = filtered_dataset.filter(lambda example: "OS" not in example['label']) # now no warnings for this one either
+
+dataset = binarize(filtered_dataset)
 #pprint(dataset['train']['label'][:5])
 #pprint(dataset['train'][:2])
 
@@ -198,36 +193,32 @@ def tokenize(example):
         truncation=True # use some other method for this?
     )
 
-dataset = dataset.map(tokenize)
+dataset = dataset.map(tokenize) # this gives weird error now what ValueError: You need to specify either `text` or `text_target`.
+# some poor thing might be missing text? they should have the text label but idk what is going on
 
 num_labels = len(unique_labels)
-model = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, problem_type="multi_label_classification", cache_dir="../new_cache_dir/")
-# these are in eval mode already and documentation says to change it to train but is that really necessary? it has worked with eval on but I should try stuff
-#model.train()
-# model.eval() 
+print(num_labels)
 
-trainer_args = transformers.TrainingArguments(
-    args.checkpoint, # change this to put the checkpoints somewhere else
-    evaluation_strategy="epoch",
-    logging_strategy="epoch",  # number of epochs = how many times the model has seen the whole training data
-    save_strategy="epoch",
-    load_best_model_at_end=True,
-    num_train_epochs=args.epochs,
-    learning_rate=args.learning,
-    per_device_train_batch_size=args.batch,
-    per_device_eval_batch_size=32,
-)
 
-data_collator = transformers.DataCollatorWithPadding(tokenizer)
+# in case a threshold was not given, choose the one that works best with the evaluated data
+def optimize_threshold(predictions, labels):
+    sigmoid = torch.nn.Sigmoid()
+    probs = sigmoid(torch.Tensor(predictions))
+    best_f1 = 0
+    best_f1_threshold = 0.5 # use 0.5 as a default threshold
+    y_true = labels
+    for th in np.arange(0.3, 0.7, 0.05):
+        y_pred = np.zeros(probs.shape)
+        y_pred[np.where(probs >= th)] = 1
+        f1 = f1_score(y_true=y_true, y_pred=y_pred, average='micro')
+        if f1 > best_f1:
+            best_f1 = f1
+            best_f1_threshold = th
+    return best_f1_threshold 
 
-#compute accuracy and loss
-from transformers import EvalPrediction
-from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
+from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, precision_score, recall_score
 # source: https://jesusleal.io/2021/04/21/Longformer-multilabel-classification/
-def multi_label_metrics(predictions, labels):
-    # the treshold has to be really low because the probabilities of the predictions are not great, could even do without any treshold then? or find one that works best between 0.1 and 0.5
-    threshold=args.treshold
-
+def multi_label_metrics(predictions, labels, threshold):
     # first, apply sigmoid on predictions which are of shape (batch_size, num_labels) # why is the sigmoid applies? could do without it
     sigmoid = torch.nn.Sigmoid()
     probs = sigmoid(torch.Tensor(predictions))
@@ -236,21 +227,38 @@ def multi_label_metrics(predictions, labels):
     y_pred[np.where(probs >= threshold)] = 1
     # finally, compute metrics
     y_true = labels
+
     f1_micro_average = f1_score(y_true=y_true, y_pred=y_pred, average='micro')
+    pre = precision_score(y_true=y_true, y_pred=y_pred, average='micro')
+    rec = recall_score(y_true=y_true, y_pred=y_pred, average='micro')
     roc_auc = roc_auc_score(y_true, y_pred, average = 'micro')
     accuracy = accuracy_score(y_true, y_pred)
+
+    #import comet_ml 
+    #experiment = comet_ml.config.get_global_experiment()
+    #experiment.log_confusion_matrix(y_pred, y_true)
+
     # return as dictionary
     metrics = {'f1': f1_micro_average,
+                'precision': pre,
+                'recall': rec,
                'roc_auc': roc_auc,
                'accuracy': accuracy}
     return metrics
 
-def compute_metrics(p: EvalPrediction):
+def compute_metrics(p):
     preds = p.predictions[0] if isinstance(p.predictions, 
             tuple) else p.predictions
+    if args.threshold == None:
+        best_f1_th = optimize_threshold(preds, p.label_ids)
+        threshold = best_f1_th
+        print("Best threshold:", threshold)
+    else:
+        threshold=args.treshold
     result = multi_label_metrics(
         predictions=preds, 
-        labels=p.label_ids)
+        labels=p.label_ids,
+        threshold=threshold)
     return result
 
 from collections import defaultdict
@@ -281,10 +289,32 @@ class MultilabelTrainer(transformers.Trainer):
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs.logits
-        loss_fct = torch.nn.BCEWithLogitsLoss()
+        if args.weights == True:
+            loss_fct = torch.nn.BCEWithLogitsLoss(pos_weight = class_weights)
+        else:
+            loss_fct = torch.nn.BCEWithLogitsLoss()
         loss = loss_fct(logits.view(-1, self.model.config.num_labels), 
-                        labels.float().view(-1, self.model.config.num_labels))
+            labels.float().view(-1, self.model.config.num_labels))
         return (loss, outputs) if return_outputs else loss
+
+
+
+model = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, problem_type="multi_label_classification", cache_dir="../new_cache_dir/")
+
+trainer_args = transformers.TrainingArguments(
+    args.checkpoint, # change this to put the checkpoints somewhere else
+    evaluation_strategy="epoch",
+    logging_strategy="epoch",  # number of epochs = how many times the model has seen the whole training data
+    save_strategy="epoch",
+    load_best_model_at_end=True,
+    num_train_epochs=args.epochs,
+    learning_rate=args.learning,
+    per_device_train_batch_size=args.batch,
+    per_device_eval_batch_size=32,
+)
+
+data_collator = transformers.DataCollatorWithPadding(tokenizer)
+
 
 # and finally train the model
 trainer = MultilabelTrainer(
@@ -300,43 +330,28 @@ trainer = MultilabelTrainer(
 
 trainer.train()
 
-# plot to see how the loss and evaluation go
-import matplotlib.pyplot as plt
 
-def plot(logs, keys, labels, filename):
-    values = sum([logs[k] for k in keys], [])
-    plt.ylim(max(min(values)-0.1, 0.0), min(max(values)+0.1, 1.0))
-    for key, label in zip(keys, labels):    
-        plt.plot(logs["epoch"], logs[key], label=label)
-    plt.legend()
-    plt.show()
-    plt.savefig(filename) # set file name where to save the plots
-    plt.close() # this closes the current figure so that no texts are left hanging in the next one
+eval_results = trainer.evaluate(dataset["test"])
+print('F1:', eval_results['eval_f1'])
 
-plot(training_logs.logs, ["loss", "eval_loss"], ["Training loss", "Evaluation loss"], "logs/"+ args.lang +"_loss.jpg")
-plot(training_logs.logs, ["eval_f1"], ["Evaluation F1-score"], "logs/"+ args.lang +"_f1.jpg")
+# see how the labels are predicted
+test_pred = trainer.predict(dataset['test'])
+trues = test_pred.label_ids
+predictions = test_pred.predictions
 
-
-
-
-
-if args.multilingual == True:
-    trainer.model.save_pretrained(args.saved)
+if args.threshold == None:
+    threshold = optimize_threshold(predictions, trues)
 else:
-    model.eval()
-    eval_results = trainer.evaluate(dataset["test"])
-    print('F1:', eval_results['eval_f1'])
+    threshold = args.threshold
+sigmoid = torch.nn.Sigmoid()
+probs = sigmoid(torch.Tensor(predictions))
+# next, use threshold to turn them into integer predictions
+preds = np.zeros(probs.shape)
+preds[np.where(probs >= treshold)] = 1
 
-    # see how the labels are predicted
-    test_pred = trainer.predict(dataset['test'])
-    trues = test_pred.label_ids
-    predictions = test_pred.predictions
+from sklearn.metrics import classification_report
+print(classification_report(trues, preds, target_names=unique_labels))
 
-    sigmoid = torch.nn.Sigmoid()
-    probs = sigmoid(torch.Tensor(predictions))
-    # next, use threshold to turn them into integer predictions
-    preds = np.zeros(probs.shape)
-    preds[np.where(probs >= args.treshold)] = 1
-
-    from sklearn.metrics import classification_report
-    print(classification_report(trues, preds, target_names=unique_labels))
+if args.save == True:
+    trainer.model.save_pretrained("../models/new_model")
+    print("saved")
