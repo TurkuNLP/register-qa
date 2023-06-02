@@ -2,4 +2,6 @@
 /data/FinCORE_full
 /data/FreCORE
 /data/SweCORE
-.env
+/training/.env
+/checkpoints
+/mlruns

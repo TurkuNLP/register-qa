@@ -1,3 +1,4 @@
+import comet_ml
 import transformers
 import datasets
 import torch
@@ -8,8 +9,15 @@ import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 
 
-# disable dataset caching and remove previous files
-datasets.disable_caching()
+# disable dataset caching (only works on mapping and stuff, not for raw dataset -> have to force redownload)
+#datasets.disable_caching()
+datasets.enable_caching()
+
+# get comet-ml variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
+# no need to use them otherwise so nothing else here
+
 
 pprint = PrettyPrinter(compact=True).pprint
 logging.disable(logging.INFO)
@@ -78,8 +86,9 @@ test = load_dataset("test", args.test_set)
  
 
 dataset = datasets.DatasetDict({"train":train, "dev":dev, "test":test})
+shuffled_dataset = dataset.shuffle(seed=42)
 print(dataset)
-print(dataset["train"][0])
+#print(dataset["train"][0])
 
 
 #register scheme mapping:
@@ -170,14 +179,23 @@ def binarize(dataset):
     dataset = dataset.map(lambda line: {'label': mlb.transform([line['label']])[0]})
     return dataset
 
+print("sub-register mapping")
 #pprint(dataset['train']['label'][:5])
 dataset = dataset.map(split_labels)
 #pprint(dataset['train']['label'][:5])
 
+print("filtering")
 # remove comments that have MT label
 filtered_dataset = dataset.filter(lambda example: "MT" not in example['label']) 
 filtered_dataset = filtered_dataset.filter(lambda example: "OS" not in example['label']) # now no warnings for this one either
+filtered_dataset = filtered_dataset.filter(lambda example: example["text"] != None) # filter empty text lines from english train (and others?)
+# would be more efficient to filter before I ever use in this code but ehh
 
+print("train", len(filtered_dataset["train"]))
+print("test", len(filtered_dataset["test"]))
+print("dev", len(filtered_dataset["dev"]))
+
+print("binarization")
 dataset = binarize(filtered_dataset)
 #pprint(dataset['train']['label'][:5])
 #pprint(dataset['train'][:2])
@@ -193,8 +211,8 @@ def tokenize(example):
         truncation=True # use some other method for this?
     )
 
-dataset = dataset.map(tokenize) # this gives weird error now what ValueError: You need to specify either `text` or `text_target`.
-# some poor thing might be missing text? they should have the text label but idk what is going on
+print("tokenization")
+dataset = dataset.map(tokenize)
 
 num_labels = len(unique_labels)
 print(num_labels)
@@ -234,9 +252,8 @@ def multi_label_metrics(predictions, labels, threshold):
     roc_auc = roc_auc_score(y_true, y_pred, average = 'micro')
     accuracy = accuracy_score(y_true, y_pred)
 
-    #import comet_ml 
-    #experiment = comet_ml.config.get_global_experiment()
-    #experiment.log_confusion_matrix(y_pred, y_true)
+    experiment = comet_ml.config.get_global_experiment()
+    experiment.log_confusion_matrix(y_pred, y_true)
 
     # return as dictionary
     metrics = {'f1': f1_micro_average,
@@ -302,12 +319,13 @@ class MultilabelTrainer(transformers.Trainer):
 model = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, problem_type="multi_label_classification", cache_dir="../new_cache_dir/")
 
 trainer_args = transformers.TrainingArguments(
-    args.checkpoint, # change this to put the checkpoints somewhere else
-    evaluation_strategy="epoch",
-    logging_strategy="epoch",  # number of epochs = how many times the model has seen the whole training data
-    save_strategy="epoch",
+    output_dir="checkpoints",
+    evaluation_strategy="steps",
+    logging_strategy="steps",  
+    save_strategy="steps",
     load_best_model_at_end=True,
-    num_train_epochs=args.epochs,
+    metric_for_best_model="f1",
+    num_train_epochs=args.epochs, # number of epochs = how many times the model has seen the whole training data
     learning_rate=args.learning,
     per_device_train_batch_size=args.batch,
     per_device_eval_batch_size=32,
@@ -321,13 +339,14 @@ trainer = MultilabelTrainer(
     model=model,
     args=trainer_args,
     train_dataset=dataset["train"],
-    eval_dataset=dataset["test"],
+    eval_dataset=dataset["dev"],
     compute_metrics=compute_metrics,
     data_collator=data_collator,
     tokenizer = tokenizer,
     callbacks=[early_stopping, training_logs]
 )
 
+print("training")
 trainer.train()
 
 

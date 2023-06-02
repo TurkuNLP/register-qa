@@ -12,9 +12,18 @@ TODO:
 
 - check with veronika the sub_register_map and unique labels, do we have to change anything other than the qa related things
 - add class weights for the minority classes, can use the one from toxicity or one anna made before for register stuff as well?
-- add use of some automatic logging thing, could not get the one I tried with toxicity working so try something else? > DONE? comet-ml has automatic logging I guesss, if it does not work I coult try weights and biases
+- comet_ml automatic logging, figure out why it creates random name and then "checkpoints" (trainer output dir) where all the metrics etc. go
 
 
-- having problems with the dataset and tokenization, weird stuff, maybe need to check that each line is working fine (as in does not have more or less columns than it should)
+- had problems with the dataset and tokenization, text field was missing for some english data (train at least)
+-> IN DT but no text, line 95, also 301 same problem, 6436
+-> ID QA 22701
+-> ID DF 11815
+-> NA NE 13800
+-> SP OS 20585
+-> IN 14130
+THESE ATLEAST, NOW I FILTER THEM AWAY IF THERE IS NO TEXT FIELD IN THE CODE
+-> mention to Veronika, I might have had this problem already last summer(?)
 
-later if multi-label does not work even when mapped under one QA label, try binary (or well still multiclass) stuff where it is QA vs. something else
+
+- later if multi-label does not work even when mapped under one QA label, try binary (or well still multiclass) stuff where it is QA vs. something else
