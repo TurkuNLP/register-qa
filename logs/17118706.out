@@ -1,0 +1,73 @@
+learning rate: 7e-5 treshold: 0.5 batch: 8 epochs: 1
+Namespace(train_set=['data/CORE-corpus/train.tsv.gz', 'data/FinCORE_full/train.tsv', 'data/SweCORE/swe_train.tsv', 'data/FreCORE/fre_train.tsv'], dev_set=['data/CORE-corpus/dev.tsv.gz', 'data/FinCORE_full/dev.tsv', 'data/SweCORE/swe_dev.tsv', 'data/FreCORE/fre_dev.tsv'], test_set=['data/CORE-corpus/test.tsv.gz', 'data/FinCORE_full/test.tsv', 'data/SweCORE/swe_test.tsv', 'data/FreCORE/fre_test.tsv'], model='xlm-roberta-base', threshold=0.5, batch=8, epochs=1, learning=7e-05, save=True, weights=False)
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 45597
+    })
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7609
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 14377
+    })
+})
+sub-register mapping
+filtering
+train 43891
+test 13794
+dev 7289
+binarization
+tokenization
+24
+training
+{'loss': 0.2364, 'learning_rate': 6.36212866776016e-05, 'epoch': 0.09}
+{'eval_loss': 0.22644270956516266, 'eval_f1': 0.04398483281627026, 'eval_precision': 0.8075949367088607, 'eval_recall': 0.022608079376328846, 'eval_roc_auc': 0.5110677594847147, 'eval_accuracy': 0.0012347372753464124, 'eval_runtime': 113.307, 'eval_samples_per_second': 64.33, 'eval_steps_per_second': 2.012, 'epoch': 0.09}
+{'loss': 0.2238, 'learning_rate': 5.72425733552032e-05, 'epoch': 0.18}
+{'eval_loss': 0.23081329464912415, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 67.5352, 'eval_samples_per_second': 107.929, 'eval_steps_per_second': 3.376, 'epoch': 0.18}
+{'loss': 0.2273, 'learning_rate': 5.08638600328048e-05, 'epoch': 0.27}
+{'eval_loss': 0.23119254410266876, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 67.4342, 'eval_samples_per_second': 108.091, 'eval_steps_per_second': 3.381, 'epoch': 0.27}
+{'loss': 0.2264, 'learning_rate': 4.4485146710406415e-05, 'epoch': 0.36}
+{'eval_loss': 0.23078611493110657, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 80.2541, 'eval_samples_per_second': 90.824, 'eval_steps_per_second': 2.841, 'epoch': 0.36}
+{'loss': 0.2264, 'learning_rate': 3.8106433388008014e-05, 'epoch': 0.46}
+{'eval_loss': 0.23067088425159454, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 166.2395, 'eval_samples_per_second': 43.846, 'eval_steps_per_second': 1.372, 'epoch': 0.46}
+{'loss': 0.2273, 'learning_rate': 3.172772006560962e-05, 'epoch': 0.55}
+{'eval_loss': 0.23029057681560516, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 80.2468, 'eval_samples_per_second': 90.832, 'eval_steps_per_second': 2.841, 'epoch': 0.55}
+{'train_runtime': 2235.117, 'train_samples_per_second': 19.637, 'train_steps_per_second': 2.455, 'train_loss': 0.2279416987101237, 'epoch': 0.55}
+F1: 0.05188180857652931
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       673
+          ID       0.00      0.00      0.00      1088
+          IN       0.00      0.00      0.00      3531
+          IP       0.00      0.00      0.00      1423
+          LY       0.00      0.00      0.00       168
+          NA       0.81      0.12      0.22      5734
+          OP       0.00      0.00      0.00      2647
+          SP       0.00      0.00      0.00       376
+          av       0.00      0.00      0.00       182
+          ds       0.00      0.00      0.00       300
+         dtp       0.00      0.00      0.00      1011
+          ed       0.00      0.00      0.00      1468
+          en       0.00      0.00      0.00        59
+          it       0.00      0.00      0.00       319
+          lt       0.00      0.00      0.00       131
+          nb       0.00      0.00      0.00       140
+          ne       0.00      0.00      0.00      1429
+          ob       0.00      0.00      0.00      2802
+          ra       0.00      0.00      0.00      1200
+          re       0.00      0.00      0.00       214
+          rs       0.00      0.00      0.00        84
+          rv       0.00      0.00      0.00       261
+          sr       0.00      0.00      0.00       587
+      QA_NEW       0.00      0.00      0.00       743
+
+   micro avg       0.81      0.03      0.05     26570
+   macro avg       0.03      0.01      0.01     26570
+weighted avg       0.18      0.03      0.05     26570
+ samples avg       0.05      0.03      0.03     26570
+
+saved
+END: ma 5.6.2023 11.24.30 +0300

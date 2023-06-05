@@ -10,11 +10,9 @@ Map all QA related sublabels under one label, although they may be in different 
 
 TODO:
 
-- check with veronika the sub_register_map and unique labels, do we have to change anything other than the qa related things
-- add class weights for the minority classes, can use the one from toxicity or one anna made before for register stuff as well?
 - comet_ml automatic logging, figure out why it creates random name and then "checkpoints" (trainer output dir) where all the metrics etc. go
 
-
+- check with veronika the sub_register_map and unique labels, do we have to change anything other than the qa related things
 - had problems with the dataset and tokenization, text field was missing for some english data (train at least)
 -> IN DT but no text, line 95, also 301 same problem, 6436
 -> ID QA 22701

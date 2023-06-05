@@ -8,7 +8,6 @@ import logging
 import numpy as np
 from sklearn.preprocessing import MultiLabelBinarizer
 
-
 # disable dataset caching (only works on mapping and stuff, not for raw dataset -> have to force redownload)
 #datasets.disable_caching()
 datasets.enable_caching()
@@ -25,7 +24,7 @@ logging.disable(logging.INFO)
 def arguments():
     #parser for the optional arguments related to hyperparameters
     parser = argparse.ArgumentParser(
-        description="A script for getting register labeling benchmarks",
+        description="A script making a register identification classifier.",
         epilog="Made by Anni Eskelinen"
     )
     parser.add_argument('--train_set', nargs="+", required=True,
@@ -37,7 +36,7 @@ def arguments():
     parser.add_argument('--model', default="xlm-roberta-large",
         help="Decide which model to use for training. Defaults to xlmr-large.")
     parser.add_argument('--threshold', type=float, default=None,
-        help="The treshold which to use for predictions, used in evaluation. Defaults to 0.5.")
+        help="The threshold which to use for predictions, used in evaluation. Defaults to 0.5.")
     parser.add_argument('--batch', type=int, default=8,
         help="The batch size for the model. Defaults to 8.")
     parser.add_argument('--epochs', type=int, default=3,
@@ -57,8 +56,8 @@ args = arguments()
 pprint(args)
 
 # the data is fitted to these labels
-#unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", QA_NEW""]
-unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'QA_NEW'] # 'fi', there should be nothing fi but just in case
+unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", "QA_NEW"] # upper labels plus qa_new
+#unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'QA_NEW'] # 'fi', there should be nothing fi but just in case
 
 
 
@@ -180,14 +179,12 @@ def binarize(dataset):
     return dataset
 
 print("sub-register mapping")
-#pprint(dataset['train']['label'][:5])
 dataset = dataset.map(split_labels)
-#pprint(dataset['train']['label'][:5])
 
 print("filtering")
-# remove comments that have MT label
+# remove comments that have MT label, all, not just the ones with QA_NEW (could change to keep this but take out only ones with QA_NEW)
 filtered_dataset = dataset.filter(lambda example: "MT" not in example['label']) 
-filtered_dataset = filtered_dataset.filter(lambda example: "OS" not in example['label']) # now no warnings for this one either
+#filtered_dataset = filtered_dataset.filter(lambda example: "OS" not in example['label']) # now no warnings for this one either
 filtered_dataset = filtered_dataset.filter(lambda example: example["text"] != None) # filter empty text lines from english train (and others?)
 # would be more efficient to filter before I ever use in this code but ehh
 
@@ -197,8 +194,6 @@ print("dev", len(filtered_dataset["dev"]))
 
 print("binarization")
 dataset = binarize(filtered_dataset)
-#pprint(dataset['train']['label'][:5])
-#pprint(dataset['train'][:2])
 
 # then use the tokenizer
 model_name = args.model
@@ -217,6 +212,28 @@ dataset = dataset.map(tokenize)
 num_labels = len(unique_labels)
 print(num_labels)
 
+
+def make_class_weights(train, label_names):
+    """Calculates class weights for the loss function based on the train split."""
+
+    labels = train["label"] # get all rows (examples) from train data, labels only
+    n_samples = len(labels) # number of examples (rows) in train data
+    # number of unique labels
+    n_classes = len(unique_labels)
+    # Count each class frequency
+    class_count = [0] * n_classes
+    for classes in labels: # go through every label list (example)
+        for index in range(n_classes):
+            if classes[index] != 0:
+                class_count[index] += 1
+    # Compute class weights using balanced method
+    class_weights = [n_samples / (n_classes * freq) if freq > 0 else 1 for freq in class_count]
+    class_weights = torch.tensor(class_weights).to("cuda:0") # have to decide on a device
+    print(list(zip(unique_labels, class_weights)))
+    return class_weights
+
+
+class_weights = make_class_weights(dataset["train"], unique_labels)
 
 # in case a threshold was not given, choose the one that works best with the evaluated data
 def optimize_threshold(predictions, labels):
@@ -252,8 +269,10 @@ def multi_label_metrics(predictions, labels, threshold):
     roc_auc = roc_auc_score(y_true, y_pred, average = 'micro')
     accuracy = accuracy_score(y_true, y_pred)
 
-    experiment = comet_ml.config.get_global_experiment()
-    experiment.log_confusion_matrix(y_pred, y_true)
+    # experiment shuts down after training so None is for evaluation
+    experiment = comet_ml.get_global_experiment()
+    if experiment != None:
+        experiment.log_confusion_matrix(y_pred, y_true)
 
     # return as dictionary
     metrics = {'f1': f1_micro_average,
@@ -271,7 +290,7 @@ def compute_metrics(p):
         threshold = best_f1_th
         print("Best threshold:", threshold)
     else:
-        threshold=args.treshold
+        threshold=args.threshold
     result = multi_label_metrics(
         predictions=preds, 
         labels=p.label_ids,
@@ -366,11 +385,11 @@ sigmoid = torch.nn.Sigmoid()
 probs = sigmoid(torch.Tensor(predictions))
 # next, use threshold to turn them into integer predictions
 preds = np.zeros(probs.shape)
-preds[np.where(probs >= treshold)] = 1
+preds[np.where(probs >= threshold)] = 1
 
 from sklearn.metrics import classification_report
 print(classification_report(trues, preds, target_names=unique_labels))
 
 if args.save == True:
-    trainer.model.save_pretrained("../models/new_model")
+    trainer.model.save_pretrained("models/new_model")
     print("saved")

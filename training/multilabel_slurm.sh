@@ -2,7 +2,7 @@
 #SBATCH --job-name=translated
 #SBATCH --account=project_2005092 #2005092 # 2000539
 #SBATCH --partition=gpu #gputest
-#SBATCH --time=02:00:00 #2ish hours for one epoch with large, 30min with base
+#SBATCH --time=02:30:00 #2ish hours for one epoch with large, 30min with base
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=5 # from 10 to 1
 #SBATCH --mem-per-cpu=2G # 8000 # need a lot of memory if mapping from scratch ...
@@ -60,8 +60,7 @@ srun python3 training/register-multilabel.py \
     --train_set data/CORE-corpus/train.tsv.gz data/FinCORE_full/train.tsv data/SweCORE/swe_train.tsv data/FreCORE/fre_train.tsv \
     --dev_set data/CORE-corpus/dev.tsv.gz data/FinCORE_full/dev.tsv data/SweCORE/swe_dev.tsv data/FreCORE/fre_dev.tsv \
     --test_set data/CORE-corpus/test.tsv.gz data/FinCORE_full/test.tsv data/SweCORE/swe_test.tsv data/FreCORE/fre_test.tsv \
-    --batch $BATCH --threshold $TR --epochs $EPOCHS --learning $LR 
-# --save or --weigths can be used
+    --batch $BATCH --threshold $TR --epochs $EPOCHS --learning $LR --save --weights 
 
 
 echo "END: $(date)"
