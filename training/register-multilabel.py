@@ -209,9 +209,6 @@ def tokenize(example):
 print("tokenization")
 dataset = dataset.map(tokenize)
 
-num_labels = len(unique_labels)
-print(num_labels)
-
 
 def make_class_weights(train, label_names):
     """Calculates class weights for the loss function based on the train split."""
@@ -228,6 +225,7 @@ def make_class_weights(train, label_names):
                 class_count[index] += 1
     # Compute class weights using balanced method
     class_weights = [n_samples / (n_classes * freq) if freq > 0 else 1 for freq in class_count]
+    class_weights[len(unique_labels)-1] = class_weights[len(unique_labels)-1]*3 # multiply qa label 3 times to help?
     class_weights = torch.tensor(class_weights).to("cuda:0") # have to decide on a device
     print(list(zip(unique_labels, class_weights)))
     return class_weights
@@ -251,7 +249,7 @@ def optimize_threshold(predictions, labels):
             best_f1_threshold = th
     return best_f1_threshold 
 
-from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, precision_score, recall_score
+from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, precision_score, recall_score, classification_report
 # source: https://jesusleal.io/2021/04/21/Longformer-multilabel-classification/
 def multi_label_metrics(predictions, labels, threshold):
     # first, apply sigmoid on predictions which are of shape (batch_size, num_labels) # why is the sigmoid applies? could do without it
@@ -273,6 +271,8 @@ def multi_label_metrics(predictions, labels, threshold):
     experiment = comet_ml.get_global_experiment()
     if experiment != None:
         experiment.log_confusion_matrix(y_pred, y_true)
+
+    print(classification_report(y_true, y_pred, target_names=unique_labels))
 
     # return as dictionary
     metrics = {'f1': f1_micro_average,
@@ -334,8 +334,13 @@ class MultilabelTrainer(transformers.Trainer):
         return (loss, outputs) if return_outputs else loss
 
 
+num_labels = len(unique_labels)
+print(num_labels)
+# do this so that the model has these ready for easy pipeline usage
+id2label = dict(zip(range(len(unique_labels)), unique_labels))
+label2id = dict(zip(unique_labels, range(len(unique_labels))))
 
-model = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, problem_type="multi_label_classification", cache_dir="../new_cache_dir/")
+model = transformers.AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels, problem_type="multi_label_classification", cache_dir="../new_cache_dir/", id2label=id2label, label2id=label2id)
 
 trainer_args = transformers.TrainingArguments(
     output_dir="checkpoints",
@@ -387,7 +392,6 @@ probs = sigmoid(torch.Tensor(predictions))
 preds = np.zeros(probs.shape)
 preds[np.where(probs >= threshold)] = 1
 
-from sklearn.metrics import classification_report
 print(classification_report(trues, preds, target_names=unique_labels))
 
 if args.save == True:
