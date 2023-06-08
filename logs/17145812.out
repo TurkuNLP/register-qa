@@ -462,3 +462,171 @@ weighted avg       0.81      0.62      0.70      8378
 
 {'eval_loss': 0.18662282824516296, 'eval_f1': 0.6996637525218562, 'eval_precision': 0.8012939001848429, 'eval_recall': 0.6209119121508714, 'eval_roc_auc': 0.7992896385365267, 'eval_accuracy': 0.5920533405905566, 'eval_runtime': 69.2111, 'eval_samples_per_second': 106.182, 'eval_steps_per_second': 3.323, 'epoch': 2.08}
 {'loss': 0.1606, 'learning_rate': 3.667870036101083e-06, 'epoch': 2.17}
+              precision    recall  f1-score   support
+
+          IN       0.56      0.73      0.63       364
+          NA       0.87      0.75      0.81       554
+          HI       0.84      0.54      0.66      1855
+          LY       0.72      0.74      0.73       856
+          IP       0.86      0.81      0.84        81
+          SP       0.88      0.71      0.79      3020
+          ID       0.78      0.42      0.55      1355
+          OP       0.65      0.61      0.63       195
+      QA_NEW       0.56      0.78      0.65        98
+
+   micro avg       0.80      0.63      0.71      8378
+   macro avg       0.74      0.68      0.70      8378
+weighted avg       0.81      0.63      0.70      8378
+ samples avg       0.70      0.66      0.67      8378
+
+{'eval_loss': 0.1868707686662674, 'eval_f1': 0.7085165933626549, 'eval_precision': 0.8020519010259505, 'eval_recall': 0.6345189782764383, 'eval_roc_auc': 0.8059027382769413, 'eval_accuracy': 0.5998094978908695, 'eval_runtime': 69.1577, 'eval_samples_per_second': 106.264, 'eval_steps_per_second': 3.326, 'epoch': 2.17}
+{'loss': 0.1506, 'learning_rate': 3.487364620938628e-06, 'epoch': 2.26}
+              precision    recall  f1-score   support
+
+          IN       0.64      0.61      0.62       364
+          NA       0.84      0.78      0.81       554
+          HI       0.82      0.56      0.66      1855
+          LY       0.81      0.66      0.73       856
+          IP       0.88      0.81      0.85        81
+          SP       0.92      0.61      0.73      3020
+          ID       0.70      0.60      0.65      1355
+          OP       0.60      0.62      0.61       195
+      QA_NEW       0.62      0.67      0.64        98
+
+   micro avg       0.81      0.62      0.70      8378
+   macro avg       0.76      0.66      0.70      8378
+weighted avg       0.82      0.62      0.70      8378
+ samples avg       0.68      0.64      0.65      8378
+
+{'eval_loss': 0.19472253322601318, 'eval_f1': 0.6996476009758743, 'eval_precision': 0.8093446221386015, 'eval_recall': 0.6161375029840057, 'eval_roc_auc': 0.7975429824010624, 'eval_accuracy': 0.5881072254728534, 'eval_runtime': 69.1772, 'eval_samples_per_second': 106.234, 'eval_steps_per_second': 3.325, 'epoch': 2.26}
+{'loss': 0.1634, 'learning_rate': 3.306859205776173e-06, 'epoch': 2.35}
+              precision    recall  f1-score   support
+
+          IN       0.60      0.65      0.62       364
+          NA       0.82      0.77      0.79       554
+          HI       0.81      0.58      0.68      1855
+          LY       0.78      0.67      0.72       856
+          IP       0.88      0.81      0.85        81
+          SP       0.92      0.63      0.75      3020
+          ID       0.73      0.51      0.60      1355
+          OP       0.59      0.62      0.60       195
+      QA_NEW       0.56      0.73      0.64        98
+
+   micro avg       0.81      0.62      0.70      8378
+   macro avg       0.74      0.66      0.70      8378
+weighted avg       0.82      0.62      0.70      8378
+ samples avg       0.68      0.64      0.65      8378
+
+{'eval_loss': 0.18586553633213043, 'eval_f1': 0.7006352209758075, 'eval_precision': 0.8074766355140187, 'eval_recall': 0.6187634280257818, 'eval_roc_auc': 0.7986828237197967, 'eval_accuracy': 0.5875629337324806, 'eval_runtime': 69.1737, 'eval_samples_per_second': 106.24, 'eval_steps_per_second': 3.325, 'epoch': 2.35}
+{'loss': 0.1522, 'learning_rate': 3.1263537906137183e-06, 'epoch': 2.44}
+              precision    recall  f1-score   support
+
+          IN       0.63      0.63      0.63       364
+          NA       0.85      0.74      0.79       554
+          HI       0.77      0.63      0.69      1855
+          LY       0.75      0.71      0.73       856
+          IP       0.89      0.81      0.85        81
+          SP       0.92      0.62      0.74      3020
+          ID       0.75      0.49      0.59      1355
+          OP       0.72      0.54      0.62       195
+      QA_NEW       0.56      0.71      0.63        98
+
+   micro avg       0.81      0.62      0.70      8378
+   macro avg       0.76      0.66      0.70      8378
+weighted avg       0.82      0.62      0.70      8378
+ samples avg       0.68      0.65      0.66      8378
+
+{'eval_loss': 0.19317585229873657, 'eval_f1': 0.701823092505064, 'eval_precision': 0.8079912935323383, 'eval_recall': 0.6203151110050131, 'eval_roc_auc': 0.79946732126952, 'eval_accuracy': 0.5911008300449041, 'eval_runtime': 69.1896, 'eval_samples_per_second': 106.215, 'eval_steps_per_second': 3.324, 'epoch': 2.44}
+{'loss': 0.1508, 'learning_rate': 2.9458483754512636e-06, 'epoch': 2.53}
+              precision    recall  f1-score   support
+
+          IN       0.57      0.70      0.63       364
+          NA       0.82      0.75      0.78       554
+          HI       0.78      0.62      0.69      1855
+          LY       0.74      0.72      0.73       856
+          IP       0.85      0.81      0.83        81
+          SP       0.91      0.65      0.76      3020
+          ID       0.74      0.50      0.59      1355
+          OP       0.66      0.62      0.64       195
+      QA_NEW       0.67      0.69      0.68        98
+
+   micro avg       0.80      0.64      0.71      8378
+   macro avg       0.75      0.67      0.70      8378
+weighted avg       0.80      0.64      0.71      8378
+ samples avg       0.70      0.66      0.67      8378
+
+{'eval_loss': 0.19681088626384735, 'eval_f1': 0.707021149638666, 'eval_precision': 0.795227442207308, 'eval_recall': 0.6364287419431846, 'eval_roc_auc': 0.8063296004437458, 'eval_accuracy': 0.5994012790855898, 'eval_runtime': 69.1842, 'eval_samples_per_second': 106.224, 'eval_steps_per_second': 3.324, 'epoch': 2.53}
+{'loss': 0.1606, 'learning_rate': 2.7653429602888086e-06, 'epoch': 2.62}
+              precision    recall  f1-score   support
+
+          IN       0.61      0.65      0.63       364
+          NA       0.89      0.69      0.78       554
+          HI       0.81      0.59      0.68      1855
+          LY       0.75      0.72      0.73       856
+          IP       0.88      0.81      0.85        81
+          SP       0.92      0.63      0.74      3020
+          ID       0.77      0.47      0.58      1355
+          OP       0.65      0.62      0.63       195
+      QA_NEW       0.60      0.70      0.65        98
+
+   micro avg       0.82      0.61      0.70      8378
+   macro avg       0.76      0.65      0.70      8378
+weighted avg       0.83      0.61      0.70      8378
+ samples avg       0.67      0.64      0.64      8378
+
+{'eval_loss': 0.19121186435222626, 'eval_f1': 0.6991658690004101, 'eval_precision': 0.8183418693982074, 'eval_recall': 0.6102888517545954, 'eval_roc_auc': 0.7953197976550793, 'eval_accuracy': 0.5808953599129133, 'eval_runtime': 69.1618, 'eval_samples_per_second': 106.258, 'eval_steps_per_second': 3.326, 'epoch': 2.62}
+{'train_runtime': 6553.3652, 'train_samples_per_second': 27.047, 'train_steps_per_second': 3.381, 'train_loss': 0.20294057911839977, 'epoch': 2.62}
+              precision    recall  f1-score   support
+
+          IN       0.59      0.76      0.66       673
+          NA       0.87      0.74      0.80      1088
+          HI       0.84      0.54      0.65      3531
+          LY       0.70      0.74      0.72      1423
+          IP       0.88      0.85      0.86       168
+          SP       0.88      0.72      0.79      5735
+          ID       0.77      0.42      0.55      2647
+          OP       0.65      0.64      0.65       376
+      QA_NEW       0.58      0.76      0.66       186
+
+   micro avg       0.81      0.63      0.71     15827
+   macro avg       0.75      0.68      0.70     15827
+weighted avg       0.82      0.63      0.70     15827
+ samples avg       0.69      0.66      0.67     15827
+
+F1: 0.7096226615270361
+              precision    recall  f1-score   support
+
+          IN       0.59      0.76      0.66       673
+          NA       0.87      0.74      0.80      1088
+          HI       0.84      0.54      0.65      3531
+          LY       0.70      0.74      0.72      1423
+          IP       0.88      0.85      0.86       168
+          SP       0.88      0.72      0.79      5735
+          ID       0.77      0.42      0.55      2647
+          OP       0.65      0.64      0.65       376
+      QA_NEW       0.58      0.76      0.66       186
+
+   micro avg       0.81      0.63      0.71     15827
+   macro avg       0.75      0.68      0.70     15827
+weighted avg       0.82      0.63      0.70     15827
+ samples avg       0.69      0.66      0.67     15827
+
+              precision    recall  f1-score   support
+
+          IN       0.59      0.76      0.66       673
+          NA       0.87      0.74      0.80      1088
+          HI       0.84      0.54      0.65      3531
+          LY       0.70      0.74      0.72      1423
+          IP       0.88      0.85      0.86       168
+          SP       0.88      0.72      0.79      5735
+          ID       0.77      0.42      0.55      2647
+          OP       0.65      0.64      0.65       376
+      QA_NEW       0.58      0.76      0.66       186
+
+   micro avg       0.81      0.63      0.71     15827
+   macro avg       0.75      0.68      0.70     15827
+weighted avg       0.82      0.63      0.70     15827
+ samples avg       0.69      0.66      0.67     15827
+
+saved
+END: ti 6.6.2023 16.13.52 +0300

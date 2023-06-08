@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-export CACHE_DIR=/scratch/project_462000185/risto/huggingface-t5-checkpoints/cache_dir/
+export CACHE_DIR=/scratch/project_2005092/Anni/new_cache_dir/
 
 ### Split the dataset into chunks of ~4G with 
 # split -C 4G <dataset-name> --additional-suffix .jsonl
@@ -20,7 +20,8 @@ for file in $DATA_DIR/x*.jsonl;do
         --file_type 'jsonl' \
         --text $file \
         --output $SAVE_NAME \
-        --id_col_name 'id'
+        --id_col_name 'id' #\
+        #--labels 'upper'
 
     sleep 0.5 
 done

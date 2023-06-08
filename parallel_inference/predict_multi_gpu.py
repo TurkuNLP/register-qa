@@ -10,14 +10,14 @@ import csv
 from tqdm import tqdm
 import os
 
-# This was originally made by Risto Luukkonen, edited by me
+# This script was originally made by Risto Luukkonen, edited by me
 
 torch.set_num_threads(2)
-MODEL_PATH = "finbert-base-fin-0.00002-MTv2.pt" # TODO change this, I use base model too now so that's good, inference does not take super long
+MODEL_PATH = "" #"models/new_model" #I use base model too now so that's good, inference does not take super long
 TOKENIZER_PATH = "TurkuNLP/bert-base-finnish-cased-v1"
 
 DEVICE = "cuda"
-# TODO change this here to the labels I am now using, maybe add upper list too
+LABELS_UPPER = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", "QA_NEW"] #added upper labels (with qa label)
 LABELS_FULL = ['HI', 'ID', 'IN', 'IP', 'LY', 'MT', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'fi', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr']
 DEVICE_COUNT = torch.cuda.device_count()
 
@@ -40,6 +40,8 @@ def argparser():
     ap.add_argument('--labels', choices=['full', 'upper'], default='full')
     ap.add_argument('--output', default="output_predictions.tsv", metavar='FILE', help='Location to save predictions')
     ap.add_argument('--id_col_name', default=None, type=str, help="which column to use as a id. For cc-fi it's \"id\"")
+    ap.add_argument('--long_text', default=False, , action="store_true",
+    help='whether to split long texts and predict labels for each part.')
     return ap
 
 
@@ -48,6 +50,54 @@ def argparser():
 def tokenize(batch, tokenizer):
     tokenized = tokenizer(batch, padding=True, truncation=True, max_length=512, return_tensors='pt')
     return tokenized
+
+def tokenize_split(batch, tokenizer):
+    # in the example here is only one text but this should be fine, later just have to loop these
+    tokens = tokenizer.encode_plus(batch, add_special_tokens=False, 
+                               return_tensors='pt')
+
+    chunksize = 512
+
+    # for loop, go through each text to split
+    all_inputs = []
+    for token in tokens:
+        # split into chunks of 510 tokens, we also convert to list (default is tuple which is immutable)
+        input_id_chunks = list(token['input_ids'][0].split(chunksize - 2))
+        mask_chunks = list(token['attention_mask'][0].split(chunksize - 2))
+
+        # loop through each chunk
+        for i in range(len(input_id_chunks)):
+            # add CLS and SEP tokens to input IDs
+            input_id_chunks[i] = torch.cat([
+                torch.tensor([101]), input_id_chunks[i], torch.tensor([102])
+            ])
+            # add attention tokens to attention mask
+            mask_chunks[i] = torch.cat([
+                torch.tensor([1]), mask_chunks[i], torch.tensor([1])
+            ])
+            # get required padding length
+            pad_len = chunksize - input_id_chunks[i].shape[0]
+            # check if tensor length satisfies required chunk size
+            if pad_len > 0:
+                # if padding length is more than 0, we must add padding
+                input_id_chunks[i] = torch.cat([
+                    input_id_chunks[i], torch.Tensor([0] * pad_len)
+                ])
+                mask_chunks[i] = torch.cat([
+                    mask_chunks[i], torch.Tensor([0] * pad_len)
+                ])
+
+            input_ids = torch.stack(input_id_chunks)
+        attention_mask = torch.stack(mask_chunks)
+
+
+        input_dict = {
+            'input_ids': input_ids.long(),
+            'attention_mask': attention_mask.int()
+        }
+        all_inputs.append(input_dict)
+
+    return all_inputs
 
 def predict_labels(data, model, options):
     with torch.no_grad():
@@ -60,13 +110,39 @@ def predict_labels(data, model, options):
 
     preds = np.zeros(probs.shape)
     preds[np.where(probs >= options.threshold)] = 1
-    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds]
+    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA
     labellist = [ labels if len(labels) > 0 else ["No labels"] for labels in labellist]
 
     return labellist, probs.numpy()
 
 # predict labels text at a time
 #outf = open(options.text+'_preds.txt', 'w')
+
+def predict_split_labels(data, model, options):
+    probs = torch.Tensor() # does this work or not?
+    with torch.no_grad():
+        # here needs for loop because will be list of lists instead of list
+        for text in data:
+            pred = model(**text)
+
+        sigmoid = torch.nn.Sigmoid()
+        new_probs = sigmoid(torch.Tensor(pred.logits.cpu().detach().numpy()))
+        # check the labels
+        preds = np.zeros(probs.shape)
+        preds[np.where(probs >= options.threshold)] = 1
+        # if labels are different for each part of the text
+        # (check in for loop)
+        # do something about it!
+
+        # TODO add only one tensor ^^ edit above, do whatever with those many tensors to turn into one
+        probs = torch.cat(probs, new_probs, 0)
+
+    preds = np.zeros(probs.shape)
+    preds[np.where(probs >= options.threshold)] = 1
+    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA
+    labellist = [ labels if len(labels) > 0 else ["No labels"] for labels in labellist]
+
+    return labellist, probs.numpy()
 
 def load_text_batch(handle, options):
     ids = []
@@ -96,6 +172,8 @@ def main():
     log(options)
     if options.labels == 'full':
         labels = LABELS_FULL 
+    elif options.labels == 'upper':
+        labels = LABELS_UPPER
     else:
         assert "TODO"
         # labels = labels_upper
@@ -109,7 +187,9 @@ def main():
     log("...done") 
     # load our fine-tuned model
     log("Loading model")
-    model = torch.load(options.model_path, map_location=torch.device(DEVICE)) # TODO change this to from pretrained because I do not use pytorch to save my models, 
+    model = torch.load(options.model_path, map_location=torch.device(DEVICE))
+#    model = transformers.AutoModelForSequenceClassification.from_pretrained(options.model_path)
+ #   model.to(DEVICE)
     model = DataParallel(model) # TODO  here the documentation says to use distributed parallelism but this works too https://pytorch.org/docs/stable/notes/cuda.html#cuda-nn-ddp-instead 
     # https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html
     log("..done")
@@ -129,8 +209,20 @@ def main():
 
             while text_batch:
 
-                tokenized_batch = tokenize(text_batch, tokenizer).to(DEVICE)
-                labels, scores = predict_labels(tokenized_batch, model, options) 
+                # TODO here I have to do some changes to make this work with long texts
+                # change tokenizer, change predict_labels script -> make new defs for those!
+                # MAYBEE HAVE TO CHANGE TEXT_LOAD ABOVE DUE TO THE BATCHING IT MAKES, WHAT I DO MIGHT RUIN IT
+                # note that if changing batch, have to make sure that a text is not split to separate batches
+                # maybe I can just make the batch size smaller, but not sure how much there is these long texts
+                #(ask risto?)
+
+                if options.long_text:
+                    tokenized_batch = tokenize_split(text_batch, tokenizer).to(DEVICE)
+                    labels, scores = predict_split_labels(tokenized_batch, model, options) 
+
+                else:
+                    tokenized_batch = tokenize(text_batch, tokenizer).to(DEVICE)
+                    labels, scores = predict_labels(tokenized_batch, model, options) 
 
                 for i in range(len(text_batch)):
                     

@@ -377,22 +377,23 @@ trainer.train()
 eval_results = trainer.evaluate(dataset["test"])
 print('F1:', eval_results['eval_f1'])
 
-# see how the labels are predicted
-test_pred = trainer.predict(dataset['test'])
-trues = test_pred.label_ids
-predictions = test_pred.predictions
+# this part is now unnecessary as I print the classification report in the compute multilabel metrics method
+# # see how the labels are predicted
+# test_pred = trainer.predict(dataset['test'])
+# trues = test_pred.label_ids
+# predictions = test_pred.predictions
 
-if args.threshold == None:
-    threshold = optimize_threshold(predictions, trues)
-else:
-    threshold = args.threshold
-sigmoid = torch.nn.Sigmoid()
-probs = sigmoid(torch.Tensor(predictions))
-# next, use threshold to turn them into integer predictions
-preds = np.zeros(probs.shape)
-preds[np.where(probs >= threshold)] = 1
+# if args.threshold == None:
+#     threshold = optimize_threshold(predictions, trues)
+# else:
+#     threshold = args.threshold
+# sigmoid = torch.nn.Sigmoid()
+# probs = sigmoid(torch.Tensor(predictions))
+# # next, use threshold to turn them into integer predictions
+# preds = np.zeros(probs.shape)
+# preds[np.where(probs >= threshold)] = 1
 
-print(classification_report(trues, preds, target_names=unique_labels))
+# print(classification_report(trues, preds, target_names=unique_labels))
 
 if args.save == True:
     trainer.model.save_pretrained("models/new_model")
