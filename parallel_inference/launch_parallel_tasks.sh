@@ -21,7 +21,7 @@ for file in $DATA_DIR/x*.jsonl;do
         --text $file \
         --output $SAVE_NAME \
         --id_col_name 'id' #\
-        #--labels 'upper'
+        --labels 'upper'
 
     sleep 0.5 
 done

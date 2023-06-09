@@ -40,10 +40,9 @@ def argparser():
     ap.add_argument('--labels', choices=['full', 'upper'], default='full')
     ap.add_argument('--output', default="output_predictions.tsv", metavar='FILE', help='Location to save predictions')
     ap.add_argument('--id_col_name', default=None, type=str, help="which column to use as a id. For cc-fi it's \"id\"")
-    ap.add_argument('--long_text', default=False, , action="store_true",
-    help='whether to split long texts and predict labels for each part.')
+    ap.add_argument('--long_text', default=False, action="store_true",
+                    help='whether to split long texts and predict labels for each part.')
     return ap
-
 
 
 
@@ -87,7 +86,7 @@ def tokenize_split(batch, tokenizer):
                     mask_chunks[i], torch.Tensor([0] * pad_len)
                 ])
 
-            input_ids = torch.stack(input_id_chunks)
+        input_ids = torch.stack(input_id_chunks)
         attention_mask = torch.stack(mask_chunks)
 
 
@@ -110,7 +109,7 @@ def predict_labels(data, model, options):
 
     preds = np.zeros(probs.shape)
     preds[np.where(probs >= options.threshold)] = 1
-    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA
+    labellist = [ [LABELS_UPPER[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA, FULL for others
     labellist = [ labels if len(labels) > 0 else ["No labels"] for labels in labellist]
 
     return labellist, probs.numpy()
@@ -118,28 +117,49 @@ def predict_labels(data, model, options):
 # predict labels text at a time
 #outf = open(options.text+'_preds.txt', 'w')
 
-def predict_split_labels(data, model, options):
+def predict_split_labels(data, model, options, text_batch, ids, labels_used):
     probs = torch.Tensor() # does this work or not?
     with torch.no_grad():
         # here needs for loop because will be list of lists instead of list
-        for text in data:
+        for i, text in enumerate(data):
             pred = model(**text)
 
-        sigmoid = torch.nn.Sigmoid()
-        new_probs = sigmoid(torch.Tensor(pred.logits.cpu().detach().numpy()))
-        # check the labels
-        preds = np.zeros(probs.shape)
-        preds[np.where(probs >= options.threshold)] = 1
-        # if labels are different for each part of the text
-        # (check in for loop)
-        # do something about it!
+            sigmoid = torch.nn.Sigmoid()
+            new_probs = sigmoid(torch.Tensor(pred.logits.cpu().detach().numpy()))
+            # check the labels
+            preds = np.zeros(new_probs.shape)
+            preds[np.where(new_probs >= options.threshold)] = 1
 
-        # TODO add only one tensor ^^ edit above, do whatever with those many tensors to turn into one
-        probs = torch.cat(probs, new_probs, 0)
+            probs2 = new_probs.numpy()
+            # if labels are different for each part of the text
+
+            labels = [ [labels_used[i] for i, val in enumerate(line) if val == 1] for line in preds] 
+            labels = [ labell if len(labell) > 0 else ["No labels"] for labell in labels]
+            for index, predicts in enumerate(preds):
+                if predicts != preds[index-1]:
+                    different = True
+                    # set the texts and predictions and labels like in the main one :D
+                    if options.id_col_name:
+                        line = [ ids[i],  " ".join(labels[i]), text ]
+                    else:
+                        line = [ " ".join(labels[i]), text ] 
+                    pred_list = [str(val) for val in probs2[i]]
+                    line = [*line, *pred_list]
+
+                     with open("different.tsv", 'w') as outfile:
+                        writer = csv.writer(outfile, delimiter="\t")
+                        writer.writerow(line)
+
+                                
+            # just take one part if the labels are the same
+            if different == False:
+                prob = new_probs[0]
+
+            probs = torch.cat(probs, prob, 0)
 
     preds = np.zeros(probs.shape)
     preds[np.where(probs >= options.threshold)] = 1
-    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA
+    labellist = [ [labels[i] for i, val in enumerate(line) if val == 1] for line in preds] 
     labellist = [ labels if len(labels) > 0 else ["No labels"] for labels in labellist]
 
     return labellist, probs.numpy()
@@ -171,14 +191,14 @@ def main():
         assert False, "Output-file exists. Overwriting not allowed. Please give a different outname or delete the old file."
     log(options)
     if options.labels == 'full':
-        labels = LABELS_FULL 
+        labels_used = LABELS_FULL 
     elif options.labels == 'upper':
-        labels = LABELS_UPPER
+        labels_used = LABELS_UPPER
     else:
         assert "TODO"
         # labels = labels_upper
 
-    num_labels = len(labels)
+    num_labels = len(labels_used)
     log(f"Number of labels: {num_labels}")
 
     # tokenizer from the pretrained model
@@ -187,9 +207,9 @@ def main():
     log("...done") 
     # load our fine-tuned model
     log("Loading model")
-    model = torch.load(options.model_path, map_location=torch.device(DEVICE))
-#    model = transformers.AutoModelForSequenceClassification.from_pretrained(options.model_path)
- #   model.to(DEVICE)
+    # model = torch.load(options.model_path, map_location=torch.device(DEVICE))
+    model = transformers.AutoModelForSequenceClassification.from_pretrained(options.model_path)
+    model.to(DEVICE)
     model = DataParallel(model) # TODO  here the documentation says to use distributed parallelism but this works too https://pytorch.org/docs/stable/notes/cuda.html#cuda-nn-ddp-instead 
     # https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html
     log("..done")
@@ -198,9 +218,9 @@ def main():
         p_bar = tqdm(desc="Process batch: ")
         with open(options.output, 'w') as outfile:
             if options.id_col_name:
-                header = [options.id_col_name, "labels", "text", *LABELS_FULL]
+                header = [options.id_col_name, "labels", "text", *labels_used]
             else:
-                header = ["labels", "text", *LABELS_FULL]
+                header = ["labels", "text", *labels_used]
             
             writer = csv.writer(outfile, delimiter="\t")
             writer.writerow(header)
@@ -209,8 +229,6 @@ def main():
 
             while text_batch:
 
-                # TODO here I have to do some changes to make this work with long texts
-                # change tokenizer, change predict_labels script -> make new defs for those!
                 # MAYBEE HAVE TO CHANGE TEXT_LOAD ABOVE DUE TO THE BATCHING IT MAKES, WHAT I DO MIGHT RUIN IT
                 # note that if changing batch, have to make sure that a text is not split to separate batches
                 # maybe I can just make the batch size smaller, but not sure how much there is these long texts
@@ -218,7 +236,7 @@ def main():
 
                 if options.long_text:
                     tokenized_batch = tokenize_split(text_batch, tokenizer).to(DEVICE)
-                    labels, scores = predict_split_labels(tokenized_batch, model, options) 
+                    labels, scores = predict_split_labels(tokenized_batch, model, options,text_batch, ids, labels_used) 
 
                 else:
                     tokenized_batch = tokenize(text_batch, tokenizer).to(DEVICE)
