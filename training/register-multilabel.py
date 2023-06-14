@@ -36,7 +36,7 @@ def arguments():
     parser.add_argument('--model', default="xlm-roberta-large",
         help="Decide which model to use for training. Defaults to xlmr-large.")
     parser.add_argument('--threshold', type=float, default=None,
-        help="The threshold which to use for predictions, used in evaluation. Defaults to 0.5.")
+        help="The threshold which to use for predictions, used in evaluation.")
     parser.add_argument('--batch', type=int, default=8,
         help="The batch size for the model. Defaults to 8.")
     parser.add_argument('--epochs', type=int, default=3,
@@ -225,7 +225,9 @@ def make_class_weights(train, label_names):
                 class_count[index] += 1
     # Compute class weights using balanced method
     class_weights = [n_samples / (n_classes * freq) if freq > 0 else 1 for freq in class_count]
-    class_weights[len(unique_labels)-1] = class_weights[len(unique_labels)-1]*3 # multiply qa label 3 times to help?
+    #class_weights[4] = 1 # change IP weight to something less so that there is hopefully less overfitting?
+    #class_weights[8] = 25 # change QA_NEW weight to be even bigger?
+    class_weights[len(unique_labels)-1] = class_weights[len(unique_labels)-1]*3 # can multiply e.g. * 3
     class_weights = torch.tensor(class_weights).to("cuda:0") # have to decide on a device
     print(list(zip(unique_labels, class_weights)))
     return class_weights
@@ -396,5 +398,5 @@ print('F1:', eval_results['eval_f1'])
 # print(classification_report(trues, preds, target_names=unique_labels))
 
 if args.save == True:
-    trainer.model.save_pretrained("models/new_model")
+    trainer.model.save_pretrained("models/new_model3")
     print("saved")

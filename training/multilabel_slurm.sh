@@ -2,10 +2,10 @@
 #SBATCH --job-name=qa_new
 #SBATCH --account=project_2005092 #2005092 # 2000539
 #SBATCH --partition=gpu #gputest
-#SBATCH --time=04:00:00 #2ish hours for one epoch with large, 30min with base
+#SBATCH --time=05:00:00 #2ish hours for one epoch with large, 30min with base
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1 # from 10 to 1
-#SBATCH --mem-per-cpu=5G # 8000 # need a lot of memory if mapping from scratch ... # now maybe not so much
+#SBATCH --cpus-per-task=1
+#SBATCH --mem-per-cpu=5G  # need a lot of memory if mapping from scratch ... # now maybe not so much
 #SBATCH --gres=gpu:v100:1
 #SBATCH --output=logs/%j.out
 #SBATCH --error=../logs/%j.err
@@ -43,6 +43,7 @@ module load pytorch
 # done
 # done
 
+echo "START: $(date)"
 
 EPOCHS=4 #3
 LR=8e-6 # "1e-5 4e-6 5e-6 7e-5 8e-6"
@@ -50,7 +51,7 @@ TR=0.5    # "0.3 0.4 0.5 0.6"
 BATCH=8
 MODEL="xlm-roberta-base" # or large
 
-echo "learning rate: $LR treshold: $TR batch: $BATCH epochs: $EPOCHS"
+#echo "learning rate: $LR treshold: $TR batch: $BATCH epochs: $EPOCHS"
 
 #data/CORE-corpus/train.tsv.gz data/FinCORE_full/train.tsv data/SweCORE/swe_train.tsv data/FreCORE/fre_train.tsv 
 #data/CORE-corpus/dev.tsv.gz data/FinCORE_full/dev.tsv data/SweCORE/swe_dev.tsv data/FreCORE/fre_dev.tsv 
@@ -60,7 +61,7 @@ srun python3 training/register-multilabel.py \
     --train_set data/CORE-corpus/train.tsv.gz data/FinCORE_full/train.tsv data/SweCORE/swe_train.tsv data/FreCORE/fre_train.tsv \
     --dev_set data/CORE-corpus/dev.tsv.gz data/FinCORE_full/dev.tsv data/SweCORE/swe_dev.tsv data/FreCORE/fre_dev.tsv \
     --test_set data/CORE-corpus/test.tsv.gz data/FinCORE_full/test.tsv data/SweCORE/swe_test.tsv data/FreCORE/fre_test.tsv \
-    --batch $BATCH --threshold $TR --epochs $EPOCHS --learning $LR --save --weights 
+    --batch $BATCH --epochs $EPOCHS --learning $LR --save --weights # --threshold $TR
 
 
 echo "END: $(date)"
