@@ -47,6 +47,8 @@ def arguments():
         help="Whether to save the model.")
     parser.add_argument('--weights', action="store_true", default=False,
         help="Whether to use class weights or not for the loss function.")
+    parser.add_argument('--QA', action="store_true", default=False,
+        help="Whether to use qa_label or not.")
 
     args = parser.parse_args()
 
@@ -56,8 +58,12 @@ args = arguments()
 pprint(args)
 
 # the data is fitted to these labels
-unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", "QA_NEW"] # upper labels plus qa_new
-#unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'QA_NEW'] # 'fi', there should be nothing fi but just in case
+if args.QA:
+    unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", "QA_NEW"] # upper labels plus qa_new
+    #unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'QA_NEW'] # 'fi', there should be nothing fi but just in case
+else:
+    #unique_labels = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP"]
+    unique_labels = ['HI', 'ID', 'IN', 'IP', 'LY', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr', 'fi']
 
 
 
@@ -89,76 +95,146 @@ shuffled_dataset = dataset.shuffle(seed=42)
 print(dataset)
 #print(dataset["train"][0])
 
-
-#register scheme mapping:
-sub_register_map = {
-    'NA': 'NA',
-    'NE': 'ne',
-    'SR': 'sr',
-    'PB': 'nb',
-    'HA': 'NA',
-    'FC': 'NA',
-    'TB': 'nb',
-    'CB': 'nb',
-    'OA': 'NA',
-    'OP': 'OP',
-    'OB': 'ob',
-    'RV': 'rv',
-    'RS': 'rs',
-    'AV': 'av',
-    'IN': 'IN',
-    'JD': 'IN',
-    'FA': 'QA_NEW', #fi
-    'DT': 'dtp',
-    'IB': 'IN',
-    'DP': 'dtp',
-    'RA': 'ra',
-    'LT': 'lt',
-    'CM': 'IN',
-    'EN': 'en',
-    'RP': 'IN',
-    'ID': 'ID',
-    'DF': 'ID',
-    'QA': 'QA_NEW', # ID
-    'HI': 'HI',
-    'RE': 're',
-    'IP': 'IP',
-    'DS': 'ds',
-    'EB': 'ed',
-    'ED': 'ed',
-    'LY': 'LY',
-    'PO': 'LY',
-    'SO': 'LY',
-    'SP': 'SP',
-    'IT': 'it',
-    'FS': 'SP',
-    'TV': 'SP',
-    'OS': 'OS',
-    'IG': 'IP',
-    'MT': 'MT',
-    'HT': 'HI',
-    'FI': 'QA_NEW', # fi
-    'OI': 'IN',
-    'TR': 'IN',
-    'AD': 'OP',
-    'LE': 'OP',
-    'OO': 'OP',
-    'MA': 'NA',
-    'ON': 'NA',
-    'SS': 'NA',
-    'OE': 'IP',
-    'PA': 'IP',
-    'OF': 'ID',
-    'RR': 'ID',
-    'FH': 'QA_NEW', # HI
-    'OH': 'HI',
-    'TS': 'HI',
-    'OL': 'LY',
-    'PR': 'LY',
-    'SL': 'LY',
-    'TA': 'SP',
-    'OTHER': 'OS'
-}
+if args.QA:
+    #register scheme mapping:
+    sub_register_map = {
+        'NA': 'NA',
+        'NE': 'ne',
+        'SR': 'sr',
+        'PB': 'nb',
+        'HA': 'NA',
+        'FC': 'NA',
+        'TB': 'nb',
+        'CB': 'nb',
+        'OA': 'NA',
+        'OP': 'OP',
+        'OB': 'ob',
+        'RV': 'rv',
+        'RS': 'rs',
+        'AV': 'av',
+        'IN': 'IN',
+        'JD': 'IN',
+        'FA': 'QA_NEW', #fi
+        'DT': 'dtp',
+        'IB': 'IN',
+        'DP': 'dtp',
+        'RA': 'ra',
+        'LT': 'lt',
+        'CM': 'IN',
+        'EN': 'en',
+        'RP': 'IN',
+        'ID': 'ID',
+        'DF': 'ID',
+        'QA': 'QA_NEW', # ID
+        'HI': 'HI',
+        'RE': 're',
+        'IP': 'IP',
+        'DS': 'ds',
+        'EB': 'ed',
+        'ED': 'ed',
+        'LY': 'LY',
+        'PO': 'LY',
+        'SO': 'LY',
+        'SP': 'SP',
+        'IT': 'it',
+        'FS': 'SP',
+        'TV': 'SP',
+        'OS': 'OS',
+        'IG': 'IP',
+        'MT': 'MT',
+        'HT': 'HI',
+        'FI': 'QA_NEW', # fi
+        'OI': 'IN',
+        'TR': 'IN',
+        'AD': 'OP',
+        'LE': 'OP',
+        'OO': 'OP',
+        'MA': 'NA',
+        'ON': 'NA',
+        'SS': 'NA',
+        'OE': 'IP',
+        'PA': 'IP',
+        'OF': 'ID',
+        'RR': 'ID',
+        'FH': 'QA_NEW', # HI
+        'OH': 'HI',
+        'TS': 'HI',
+        'OL': 'LY',
+        'PR': 'LY',
+        'SL': 'LY',
+        'TA': 'SP',
+        'OTHER': 'OS'
+    }
+else:
+    #register scheme mapping:
+    sub_register_map = {
+        'NA': 'NA',
+        'NE': 'ne',
+        'SR': 'sr',
+        'PB': 'nb',
+        'HA': 'NA',
+        'FC': 'NA',
+        'TB': 'nb',
+        'CB': 'nb',
+        'OA': 'NA',
+        'OP': 'OP',
+        'OB': 'ob',
+        'RV': 'rv',
+        'RS': 'rs',
+        'AV': 'av',
+        'IN': 'IN',
+        'JD': 'IN',
+        'FA': 'fi',
+        'DT': 'dtp',
+        'IB': 'IN',
+        'DP': 'dtp',
+        'RA': 'ra',
+        'LT': 'lt',
+        'CM': 'IN',
+        'EN': 'en',
+        'RP': 'IN',
+        'ID': 'ID',
+        'DF': 'ID',
+        'QA': 'ID',
+        'HI': 'HI',
+        'RE': 're',
+        'IP': 'IP',
+        'DS': 'ds',
+        'EB': 'ed',
+        'ED': 'ed',
+        'LY': 'LY',
+        'PO': 'LY',
+        'SO': 'LY',
+        'SP': 'SP',
+        'IT': 'it',
+        'FS': 'SP',
+        'TV': 'SP',
+        'OS': 'OS',
+        'IG': 'IP',
+        'MT': 'MT',
+        'HT': 'HI',
+        'FI': 'fi',
+        'OI': 'IN',
+        'TR': 'IN',
+        'AD': 'OP',
+        'LE': 'OP',
+        'OO': 'OP',
+        'MA': 'NA',
+        'ON': 'NA',
+        'SS': 'NA',
+        'OE': 'IP',
+        'PA': 'IP',
+        'OF': 'ID',
+        'RR': 'ID',
+        'FH': 'HI', 
+        'OH': 'HI',
+        'TS': 'HI',
+        'OL': 'LY',
+        'PR': 'LY',
+        'SL': 'LY',
+        'TA': 'SP',
+        'OTHER': 'OS'
+    }
 
 
 def split_labels(dataset):
@@ -182,10 +258,12 @@ print("sub-register mapping")
 dataset = dataset.map(split_labels)
 
 print("filtering")
-# remove comments that have MT label, all, not just the ones with QA_NEW (could change to keep this but take out only ones with QA_NEW)
-filtered_dataset = dataset.filter(lambda example: "MT" not in example['label']) 
+if args.QA:
+    # remove comments that have MT label, all, not just the ones with QA_NEW (could change to keep this but take out only ones with QA_NEW)
+    filtered_dataset = dataset.filter(lambda example: "MT" not in example['label']) 
+    filtered_dataset = filtered_dataset.filter(lambda example: example["text"] != None)
 #filtered_dataset = filtered_dataset.filter(lambda example: "OS" not in example['label']) # now no warnings for this one either
-filtered_dataset = filtered_dataset.filter(lambda example: example["text"] != None) # filter empty text lines from english train (and others?)
+filtered_dataset = dataset.filter(lambda example: example["text"] != None) # filter empty text lines from english train (and others?)
 # would be more efficient to filter before I ever use in this code but ehh
 
 print("train", len(filtered_dataset["train"]))
@@ -227,7 +305,7 @@ def make_class_weights(train, label_names):
     class_weights = [n_samples / (n_classes * freq) if freq > 0 else 1 for freq in class_count]
     #class_weights[4] = 1 # change IP weight to something less so that there is hopefully less overfitting?
     #class_weights[8] = 25 # change QA_NEW weight to be even bigger?
-    class_weights[len(unique_labels)-1] = class_weights[len(unique_labels)-1]*3 # can multiply e.g. * 3
+    #class_weights[len(unique_labels)-1] = class_weights[len(unique_labels)-1]*3 # can multiply e.g. * 3
     class_weights = torch.tensor(class_weights).to("cuda:0") # have to decide on a device
     print(list(zip(unique_labels, class_weights)))
     return class_weights
@@ -398,5 +476,4 @@ print('F1:', eval_results['eval_f1'])
 # print(classification_report(trues, preds, target_names=unique_labels))
 
 if args.save == True:
-    trainer.model.save_pretrained("models/new_model3")
-    print("saved")
+    trainer.model.save_pretrained("models/register-full-5e-6")

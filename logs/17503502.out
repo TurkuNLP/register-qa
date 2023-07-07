@@ -1,0 +1,155 @@
+START: Tue Jun 27 15:56:10 EEST 2023
+Namespace(train_set=['data/CORE-corpus/train.tsv.gz', 'data/FinCORE_full/train.tsv', 'data/SweCORE/swe_train.tsv', 'data/FreCORE/fre_train.tsv'], dev_set=['data/CORE-corpus/dev.tsv.gz', 'data/FinCORE_full/dev.tsv', 'data/SweCORE/swe_dev.tsv', 'data/FreCORE/fre_dev.tsv'], test_set=['data/CORE-corpus/test.tsv.gz', 'data/FinCORE_full/test.tsv', 'data/SweCORE/swe_test.tsv', 'data/FreCORE/fre_test.tsv'], model='xlm-roberta-base', batch=8, epochs=10, learning=7e-05, save=True, save_name='register-qa-binary-7e-5', weights=True)
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 45597
+    })
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7609
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 14377
+    })
+})
+sub-register mapping
+filtering
+train 44313
+test 13915
+dev 7349
+change labels to only qa
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+tokenization
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+[0 1]
+[ 0.51464508 17.57057891]
+2
+training
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+{'loss': 0.8645, 'learning_rate': 6.93682310469314e-05, 'epoch': 0.09}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.6941381692886353, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 80.6677, 'eval_samples_per_second': 91.102, 'eval_steps_per_second': 2.851, 'epoch': 0.09}
+{'loss': 0.8866, 'learning_rate': 6.873646209386281e-05, 'epoch': 0.18}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.720529556274414, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 71.6087, 'eval_samples_per_second': 102.627, 'eval_steps_per_second': 3.212, 'epoch': 0.18}
+{'loss': 0.7799, 'learning_rate': 6.810469314079422e-05, 'epoch': 0.27}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.491761326789856, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 71.7495, 'eval_samples_per_second': 102.426, 'eval_steps_per_second': 3.206, 'epoch': 0.27}
+{'loss': 0.7582, 'learning_rate': 6.747292418772562e-05, 'epoch': 0.36}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.5998473167419434, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 71.7751, 'eval_samples_per_second': 102.389, 'eval_steps_per_second': 3.204, 'epoch': 0.36}
+{'loss': 0.7383, 'learning_rate': 6.684115523465703e-05, 'epoch': 0.45}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.5315639972686768, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 71.8534, 'eval_samples_per_second': 102.278, 'eval_steps_per_second': 3.201, 'epoch': 0.45}
+{'loss': 0.7833, 'learning_rate': 6.620938628158844e-05, 'epoch': 0.54}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99      7154
+      QA_NEW       0.00      0.00      0.00       195
+
+    accuracy                           0.97      7349
+   macro avg       0.49      0.50      0.49      7349
+weighted avg       0.95      0.97      0.96      7349
+
+{'eval_loss': 1.6987690925598145, 'eval_accuracy': 0.9734657776568241, 'eval_f1': 0.9734657776568241, 'eval_precision': 0.9734657776568241, 'eval_recall': 0.9734657776568241, 'eval_runtime': 71.8244, 'eval_samples_per_second': 102.319, 'eval_steps_per_second': 3.202, 'epoch': 0.54}
+{'train_runtime': 1884.0458, 'train_samples_per_second': 235.201, 'train_steps_per_second': 29.405, 'train_loss': 0.8018092142740886, 'epoch': 0.54}
+              precision    recall  f1-score   support
+
+      NOT_QA       0.97      1.00      0.99     13539
+      QA_NEW       0.00      0.00      0.00       376
+
+    accuracy                           0.97     13915
+   macro avg       0.49      0.50      0.49     13915
+weighted avg       0.95      0.97      0.96     13915
+
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+F1: 0.9729787998562702
+END: Tue Jun 27 16:33:16 EEST 2023

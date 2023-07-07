@@ -1,0 +1,253 @@
+START: ti 20.6.2023 15.05.54 +0300
+Namespace(train_set=['data/FinCORE_full/train.tsv', 'data/FreCORE/fre_train.tsv'], dev_set=['data/FinCORE_full/dev.tsv', 'data/FreCORE/fre_dev.tsv'], test_set=['data/FinCORE_full/test.tsv', 'data/FreCORE/fre_test.tsv'], model='xlm-roberta-base', threshold=0.5, batch=8, epochs=4, learning=8e-06, save=True, weights=True)
+Downloading and preparing dataset csv/default to /users/annieske/.cache/huggingface/datasets/csv/default-288d08f1e3546398/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317...
+Dataset csv downloaded and prepared to /users/annieske/.cache/huggingface/datasets/csv/default-288d08f1e3546398/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317. Subsequent calls will reuse this data.
+Downloading and preparing dataset csv/default to /users/annieske/.cache/huggingface/datasets/csv/default-83a8ff9a1ac10116/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317...
+Dataset csv downloaded and prepared to /users/annieske/.cache/huggingface/datasets/csv/default-83a8ff9a1ac10116/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317. Subsequent calls will reuse this data.
+Downloading and preparing dataset csv/default to /users/annieske/.cache/huggingface/datasets/csv/default-a66b6cfaa9d8c553/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317...
+Dataset csv downloaded and prepared to /users/annieske/.cache/huggingface/datasets/csv/default-a66b6cfaa9d8c553/0.0.0/6b34fb8fcf56f7c8ba51dc895bfa2bfbe43546f190a60fcf74bb5e8afdcc2317. Subsequent calls will reuse this data.
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 9557
+    })
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 1907
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 3392
+    })
+})
+sub-register mapping
+filtering
+train 8475
+test 3052
+dev 1725
+binarization
+tokenization
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[('IN', tensor(1.8647, device='cuda:0')), ('NA', tensor(1.0236, device='cuda:0')), ('HI', tensor(0.5662, device='cuda:0')), ('LY', tensor(0.5964, device='cuda:0')), ('IP', tensor(24.7807, device='cuda:0')), ('SP', tensor(0.2844, device='cuda:0')), ('ID', tensor(0.8600, device='cuda:0')), ('OP', tensor(8.8836, device='cuda:0')), ('QA_NEW', tensor(33.6310, device='cuda:0'))]
+9
+training
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+{'loss': 0.4479, 'learning_rate': 7.056603773584905e-06, 'epoch': 0.47}
+              precision    recall  f1-score   support
+
+          IN       0.00      0.00      0.00       112
+          NA       0.00      0.00      0.00       182
+          HI       0.00      0.00      0.00       362
+          LY       0.00      0.00      0.00       391
+          IP       0.00      0.00      0.00        10
+          SP       0.00      0.00      0.00       629
+          ID       0.00      0.00      0.00       206
+          OP       0.00      0.00      0.00        22
+      QA_NEW       0.00      0.00      0.00        16
+
+   micro avg       0.00      0.00      0.00      1930
+   macro avg       0.00      0.00      0.00      1930
+weighted avg       0.00      0.00      0.00      1930
+ samples avg       0.00      0.00      0.00      1930
+
+{'eval_loss': 0.4629212021827698, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.0, 'eval_runtime': 16.3046, 'eval_samples_per_second': 105.798, 'eval_steps_per_second': 3.312, 'epoch': 0.47}
+{'loss': 0.366, 'learning_rate': 6.113207547169811e-06, 'epoch': 0.94}
+              precision    recall  f1-score   support
+
+          IN       0.86      0.17      0.28       112
+          NA       0.78      0.58      0.66       182
+          HI       0.69      0.02      0.05       362
+          LY       0.94      0.29      0.44       391
+          IP       0.00      0.00      0.00        10
+          SP       0.00      0.00      0.00       629
+          ID       0.71      0.08      0.15       206
+          OP       0.00      0.00      0.00        22
+      QA_NEW       0.00      0.00      0.00        16
+
+   micro avg       0.84      0.14      0.23      1930
+   macro avg       0.44      0.13      0.18      1930
+weighted avg       0.52      0.14      0.19      1930
+ samples avg       0.15      0.15      0.15      1930
+
+{'eval_loss': 0.3649049699306488, 'eval_f1': 0.2337198929527208, 'eval_precision': 0.8397435897435898, 'eval_recall': 0.13575129533678756, 'eval_roc_auc': 0.5660367363039216, 'eval_accuracy': 0.13855072463768117, 'eval_runtime': 16.2226, 'eval_samples_per_second': 106.333, 'eval_steps_per_second': 3.329, 'epoch': 0.94}
+{'loss': 0.3029, 'learning_rate': 5.169811320754717e-06, 'epoch': 1.42}
+              precision    recall  f1-score   support
+
+          IN       0.65      0.42      0.51       112
+          NA       0.85      0.66      0.74       182
+          HI       0.86      0.24      0.38       362
+          LY       0.91      0.52      0.66       391
+          IP       0.00      0.00      0.00        10
+          SP       0.92      0.32      0.48       629
+          ID       0.65      0.43      0.51       206
+          OP       0.00      0.00      0.00        22
+      QA_NEW       0.00      0.00      0.00        16
+
+   micro avg       0.84      0.39      0.53      1930
+   macro avg       0.54      0.29      0.36      1930
+weighted avg       0.83      0.39      0.51      1930
+ samples avg       0.43      0.41      0.42      1930
+
+{'eval_loss': 0.32037100195884705, 'eval_f1': 0.5292242295430393, 'eval_precision': 0.8365061590145577, 'eval_recall': 0.3870466321243523, 'eval_roc_auc': 0.6881536948779172, 'eval_accuracy': 0.39072463768115945, 'eval_runtime': 16.2326, 'eval_samples_per_second': 106.267, 'eval_steps_per_second': 3.327, 'epoch': 1.42}
+{'loss': 0.3034, 'learning_rate': 4.226415094339623e-06, 'epoch': 1.89}
+              precision    recall  f1-score   support
+
+          IN       0.74      0.46      0.57       112
+          NA       0.87      0.63      0.73       182
+          HI       0.78      0.47      0.59       362
+          LY       0.91      0.52      0.66       391
+          IP       0.00      0.00      0.00        10
+          SP       0.90      0.49      0.63       629
+          ID       0.69      0.43      0.53       206
+          OP       0.50      0.05      0.08        22
+      QA_NEW       0.00      0.00      0.00        16
+
+   micro avg       0.84      0.48      0.61      1930
+   macro avg       0.60      0.34      0.42      1930
+weighted avg       0.83      0.48      0.61      1930
+ samples avg       0.54      0.52      0.52      1930
+
+{'eval_loss': 0.2888588011264801, 'eval_f1': 0.6140696909927679, 'eval_precision': 0.8399280575539568, 'eval_recall': 0.48393782383419687, 'eval_roc_auc': 0.7354223874595774, 'eval_accuracy': 0.48927536231884056, 'eval_runtime': 16.2313, 'eval_samples_per_second': 106.276, 'eval_steps_per_second': 3.327, 'epoch': 1.89}
+{'loss': 0.2507, 'learning_rate': 3.2830188679245285e-06, 'epoch': 2.36}
+              precision    recall  f1-score   support
+
+          IN       0.71      0.46      0.56       112
+          NA       0.87      0.65      0.74       182
+          HI       0.83      0.47      0.60       362
+          LY       0.86      0.60      0.70       391
+          IP       1.00      0.60      0.75        10
+          SP       0.88      0.60      0.71       629
+          ID       0.74      0.27      0.39       206
+          OP       1.00      0.18      0.31        22
+      QA_NEW       0.33      0.19      0.24        16
+
+   micro avg       0.84      0.53      0.65      1930
+   macro avg       0.80      0.45      0.56      1930
+weighted avg       0.84      0.53      0.64      1930
+ samples avg       0.59      0.56      0.57      1930
+
+{'eval_loss': 0.27683624625205994, 'eval_f1': 0.6496815286624203, 'eval_precision': 0.8429752066115702, 'eval_recall': 0.5284974093264249, 'eval_roc_auc': 0.757260841478218, 'eval_accuracy': 0.528695652173913, 'eval_runtime': 16.2348, 'eval_samples_per_second': 106.253, 'eval_steps_per_second': 3.326, 'epoch': 2.36}
+{'loss': 0.2293, 'learning_rate': 2.339622641509434e-06, 'epoch': 2.83}
+              precision    recall  f1-score   support
+
+          IN       0.55      0.62      0.59       112
+          NA       0.80      0.73      0.76       182
+          HI       0.76      0.59      0.66       362
+          LY       0.82      0.66      0.73       391
+          IP       0.50      0.70      0.58        10
+          SP       0.90      0.59      0.72       629
+          ID       0.68      0.38      0.49       206
+          OP       0.38      0.27      0.32        22
+      QA_NEW       0.28      0.31      0.29        16
+
+   micro avg       0.78      0.59      0.67      1930
+   macro avg       0.63      0.54      0.57      1930
+weighted avg       0.79      0.59      0.67      1930
+ samples avg       0.65      0.62      0.63      1930
+
+{'eval_loss': 0.24567891657352448, 'eval_f1': 0.6737275669314505, 'eval_precision': 0.7794417971409122, 'eval_recall': 0.5932642487046632, 'eval_roc_auc': 0.7847159787105514, 'eval_accuracy': 0.5733333333333334, 'eval_runtime': 16.2258, 'eval_samples_per_second': 106.312, 'eval_steps_per_second': 3.328, 'epoch': 2.83}
+{'loss': 0.2142, 'learning_rate': 1.3962264150943394e-06, 'epoch': 3.3}
+              precision    recall  f1-score   support
+
+          IN       0.72      0.52      0.60       112
+          NA       0.82      0.74      0.77       182
+          HI       0.78      0.57      0.66       362
+          LY       0.87      0.63      0.73       391
+          IP       0.50      0.70      0.58        10
+          SP       0.87      0.65      0.74       629
+          ID       0.69      0.41      0.52       206
+          OP       0.44      0.18      0.26        22
+      QA_NEW       0.42      0.31      0.36        16
+
+   micro avg       0.81      0.60      0.69      1930
+   macro avg       0.68      0.52      0.58      1930
+weighted avg       0.81      0.60      0.69      1930
+ samples avg       0.66      0.63      0.64      1930
+
+{'eval_loss': 0.25238218903541565, 'eval_f1': 0.6891609435652434, 'eval_precision': 0.8132487667371389, 'eval_recall': 0.5979274611398964, 'eval_roc_auc': 0.7892175003382453, 'eval_accuracy': 0.5901449275362319, 'eval_runtime': 16.2816, 'eval_samples_per_second': 105.948, 'eval_steps_per_second': 3.317, 'epoch': 3.3}
+{'loss': 0.2035, 'learning_rate': 4.5283018867924526e-07, 'epoch': 3.77}
+              precision    recall  f1-score   support
+
+          IN       0.65      0.61      0.63       112
+          NA       0.85      0.68      0.75       182
+          HI       0.78      0.57      0.66       362
+          LY       0.85      0.64      0.73       391
+          IP       0.50      0.70      0.58        10
+          SP       0.86      0.65      0.74       629
+          ID       0.68      0.40      0.50       206
+          OP       0.40      0.18      0.25        22
+      QA_NEW       0.38      0.31      0.34        16
+
+   micro avg       0.80      0.60      0.69      1930
+   macro avg       0.66      0.53      0.58      1930
+weighted avg       0.80      0.60      0.68      1930
+ samples avg       0.66      0.63      0.64      1930
+
+{'eval_loss': 0.2405269891023636, 'eval_f1': 0.6854098845812371, 'eval_precision': 0.7991718426501035, 'eval_recall': 0.6, 'eval_roc_auc': 0.7892975358587717, 'eval_accuracy': 0.5884057971014492, 'eval_runtime': 16.2406, 'eval_samples_per_second': 106.215, 'eval_steps_per_second': 3.325, 'epoch': 3.77}
+{'train_runtime': 1303.3, 'train_samples_per_second': 26.011, 'train_steps_per_second': 3.253, 'train_loss': 0.28473203227205096, 'epoch': 4.0}
+              precision    recall  f1-score   support
+
+          IN       0.71      0.51      0.59       185
+          NA       0.81      0.73      0.77       351
+          HI       0.79      0.52      0.63       676
+          LY       0.83      0.59      0.69       625
+          IP       0.56      0.50      0.53        18
+          SP       0.84      0.67      0.74      1079
+          ID       0.64      0.43      0.52       380
+          OP       0.59      0.65      0.62        31
+      QA_NEW       0.32      0.18      0.23        33
+
+   micro avg       0.79      0.59      0.68      3378
+   macro avg       0.68      0.53      0.59      3378
+weighted avg       0.79      0.59      0.67      3378
+ samples avg       0.64      0.61      0.62      3378
+
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+F1: 0.6750381808925844
+saved
+END: ti 20.6.2023 15.31.10 +0300

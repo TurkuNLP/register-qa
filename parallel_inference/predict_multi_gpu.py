@@ -13,12 +13,13 @@ import os
 # This script was originally made by Risto Luukkonen, edited by me
 
 torch.set_num_threads(2)
-MODEL_PATH = "./../models/new_model2" #"models/new_model" #I use base model too now so that's good, inference does not take super long
+MODEL_PATH = "./../models/register-qa-no-weights" #"models/new_model" #I use base model too now so that's good, inference does not take super long
  #"finbert-base-fin-0.00002-MTv2.pt"
 TOKENIZER_PATH = "xlm-roberta-base" #"TurkuNLP/bert-base-finnish-cased-v1"
 
 DEVICE = "cuda"
-LABELS_UPPER = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP", "QA_NEW"] #added upper labels (with qa label)
+LABELS_QA = ["NOT_QA", "QA_NEW"]
+LABELS_UPPER = ["IN", "NA", "HI", "LY", "IP", "SP", "ID", "OP"] #added upper labels (with qa label) , "QA_NEW"
 LABELS_FULL = ['HI', 'ID', 'IN', 'IP', 'LY', 'MT', 'NA', 'OP', 'SP', 'av', 'ds', 'dtp', 'ed', 'en', 'fi', 'it', 'lt', 'nb', 'ne', 'ob', 'ra', 're', 'rs', 'rv', 'sr']
 DEVICE_COUNT = torch.cuda.device_count()
 
@@ -38,7 +39,7 @@ def argparser():
     # TODO check threshold, for training currently using 0.5 instead of optimization actually
     ap.add_argument('--threshold', default=0.45, metavar='FLOAT', type=float,
                     help='threshold for calculating f-score')
-    ap.add_argument('--labels', choices=['full', 'upper'], default='full')
+    ap.add_argument('--labels', choices=['full', 'upper', 'qa'], default='full')
     ap.add_argument('--output', default="output_predictions.tsv", metavar='FILE', help='Location to save predictions')
     ap.add_argument('--id_col_name', default=None, type=str, help="which column to use as a id. For cc-fi and parsebank it's \"id\"")
     ap.add_argument('--long_text', default=False, action="store_true",
@@ -104,7 +105,6 @@ def tokenize_split(batch, tokenizer):
 
         input_ids = torch.stack(input_id_chunks)
         attention_mask = torch.stack(mask_chunks)
-        #offset_mappings = torch.stack(offset_chunks) # no need to do anything else since I just use this to index chars
         offset_mappings = torch.cat(offset_chunks, dim=0)
 
         input_dict = {
@@ -127,7 +127,7 @@ def predict_labels(data, model, options):
 
     preds = np.zeros(probs.shape)
     preds[np.where(probs >= options.threshold)] = 1
-    labellist = [ [LABELS_UPPER[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA, FULL for others
+    labellist = [ [LABELS_FULL[i] for i, val in enumerate(line) if val == 1] for line in preds] # change to UPPER FOR QA, FULL for others # REMEMBER TO CHANGE MANUALLY
     labellist = [ labels if len(labels) > 0 else ["No labels"] for labels in labellist]
 
     return labellist, probs.numpy()
@@ -135,21 +135,48 @@ def predict_labels(data, model, options):
 # predict labels text at a time
 #outf = open(options.text+'_preds.txt', 'w')
 
+def predict_multiclass(data, model):
+    with torch.no_grad():
+        pred = model(**data)
+
+    #print(pred.logits)
+    probs = torch.softmax(pred.logits, dim=1)
+    #probs = torch.exp(pred.logits) # this should sum the logits to one
+    probs = probs.cpu().detach().numpy() 
+    #print(probs)
+
+    preds = [prob.argmax(-1) for prob in probs] # returns index of biggest probability probs.argmax(-1)
+    #print(preds[:10])
+
+    labellist = [[LABELS_QA[pred]] for pred in preds]
+
+    return labellist, probs
+
+
+
+# TODO check efficiency of this! especially if I am to do the falcon dataset
 def predict_split_labels(data, model, options, text_batch, ids, labels_used):
     probs = torch.empty(0,9) # does this work or not?
     remove = []
 
-    # get shorter texts for the different.tsv file
-    # TODO figure out why there is a problem with the index below where I put another TODO
-    # shortened = []
-    # for i in range(len(text_batch)):
-    #     begin = 0
-    #     temp = []
-    #     for j in range(len(data[i])):
-    #         num = len(data[j]["offset_mapping"])-1 # have to find where there is 0's so I can take the offsets before that
-    #         temp.append(text_batch[i][begin:num])
-    #         begin = num # to continue from
-    #     shortened.append(temp)
+    #get shorter texts for the different.tsv file
+    shortened = []
+    for i in range(len(text_batch)):
+        begin = 0
+        num = 0
+        temp = []
+        for j in range(len(data[i])):
+            num = num + len(data[j]["offset_mapping"])-1
+            text = text_batch[i][begin:num]
+            if len(text) == 0 or text == "": # THIS FIXED IT!!!!
+                temp.append([" "])
+            else:
+                temp.append(text)
+            # text_test = text.replace("\n", "\\n")
+            # print(i, j)
+            # print(text_test)
+            begin = num # to continue from
+        shortened.append(temp)
         
     for i in range(len(data)): # or double loop if this does not work
         data[i].pop("offset_mapping")
@@ -170,7 +197,7 @@ def predict_split_labels(data, model, options, text_batch, ids, labels_used):
             labels = [ [labels_used[i] for i, val in enumerate(line) if val == 1] for line in preds] 
             labels = [ labell if len(labell) > 0 else ["No labels"] for labell in labels]
             # compare the predictions for the different parts of the texts
-            for j in range(len(preds)):
+            for j in range(len(data[i])):
                 if len(preds) == 1:
                     break
                 if j == 1:
@@ -182,8 +209,8 @@ def predict_split_labels(data, model, options, text_batch, ids, labels_used):
                     probs2 = new_probs.numpy() # this is just if different and need to get the probs for file
 
                     # set the texts and predictions and labels like in the main one :D
-                    #text = shortened[i][j].replace("\n", "\\n") #TODO index out of range? HOW CAN THIS BE WHEN THIS AND DATA DIMENSIONS ARE THE SAMEEE
-                    text = text_batch[i][j].replace("\n", "\\n")
+                    text = shortened[i][j].replace("\n", "\\n") # TODO CHECK THAT THIS ACTUALLY WORKS NOW
+                    #text = text_batch[i].replace("\n", "\\n")
                     if options.id_col_name:
                         line = [ ids[i],  " ".join(labels[j]), text ]
                         line2 = [ ids[i],  " ".join(labels[j-1]), text ]
@@ -191,9 +218,12 @@ def predict_split_labels(data, model, options, text_batch, ids, labels_used):
                         line = [ " ".join(labels[j]), text ] 
                         line2 = [ " ".join(labels[j-1]), text ] 
                     pred_list = [str(val) for val in probs2[j]]
+                    pred_list2 = [str(val) for val in probs2[j-1]]
                     line = [*line, *pred_list]
+                    line2 = [*line, *pred_list2]
 
-                    with open("different.tsv", 'a') as outfile: # change from w to a so no overwriting
+                    file_name = options.output + "different.tsv"
+                    with open(file_name, 'a') as outfile: # change from w to a so no overwriting
                         different_writer = csv.writer(outfile, delimiter="\t")
                         different_writer.writerow(line)
                         different_writer.writerow(line2)
@@ -233,7 +263,14 @@ def load_text_batch(handle, options):
         texts = [json.loads(line)["text"] for line in batch]
         if options.id_col_name:
             ids = [json.loads(line)[options.id_col_name] for line in batch]
-    
+    elif options.file_type == "tsv": # note that might have to change the column number
+        batch = batch[1:]
+        for i in range(len(batch)):
+            batch[i] = batch[i].replace("\n", "")
+            batch[i] = batch[i].split("\t")
+        texts = [row[2] for row in batch]
+        if options.id_col_name:
+            ids = [row[0] for row in batch] 
     else:
         assert "TODO"
 
@@ -250,6 +287,8 @@ def main():
         labels_used = LABELS_FULL 
     elif options.labels == 'upper':
         labels_used = LABELS_UPPER
+    elif options.labels == 'qa':
+        labels_used = LABELS_QA
     else:
         assert "TODO"
         # labels = labels_upper
@@ -299,10 +338,12 @@ def main():
 
                 else:
                     tokenized_batch = tokenize(text_batch, tokenizer).to(DEVICE)
+                
+                if options.labels == 'qa':
+                    labels, scores = predict_multiclass(tokenized_batch, model)
+                else:
                     labels, scores = predict_labels(tokenized_batch, model, options) 
 
-                # TODO here is now list out of range as I do not put the different ones here oh noo
-                # I have to delete those from the text_batch
                 for i in range(len(text_batch)):
                     
                     text = text_batch[i].replace("\n", "\\n")

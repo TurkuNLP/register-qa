@@ -11,17 +11,7 @@ Map all QA related sublabels under one label, although they may be in different 
 TODO:
 
 - comet_ml automatic logging, figure out why it creates random name and then "checkpoints" (trainer output dir) where all the metrics etc. go. Works for training though so good enough for now.
-- QA_NEW gets 0.65 with base and class weights, maybe put more importance to that class still (don't know how I would go about that yet with the method I am doing)? Anyway the result is decent though I think
 
-- had problems with the dataset and tokenization, text field was missing for some english data (train at least)
--> IN DT but no text, line 95, also 301 same problem, 6436
--> ID QA 22701
--> ID DF 11815
--> NA NE 13800
--> SP OS 20585
--> IN 14130
-THESE ATLEAST, NOW I FILTER THEM AWAY IF THERE IS NO TEXT FIELD IN THE CODE
+- had problems with the dataset and tokenization, text field was missing for some english data (train at least) 
+NOW I FILTER THEM AWAY IF THERE IS NO TEXT FIELD IN THE CODE
 -> mention to Veronika, I might have had this problem already last summer(?)
-
-
-- later if multi-label does not work even when mapped under one QA label, try binary (or well still multiclass) stuff where it is QA vs. something else

@@ -2,7 +2,10 @@
 /data/FinCORE_full
 /data/FreCORE
 /data/SweCORE
-/training/.env
-/checkpoints
-/mlruns
+*.env
+*checkpoints
+*mlruns
 /models
+/tmp_trainer
+*.ipynb_checkpoints
+/token-qa/datasets/*

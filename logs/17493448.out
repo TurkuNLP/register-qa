@@ -1,0 +1,1326 @@
+START: Mon Jun 26 19:30:05 EEST 2023
+Namespace(train_set=['data/CORE-corpus/train.tsv.gz', 'data/FinCORE_full/train.tsv', 'data/SweCORE/swe_train.tsv', 'data/FreCORE/fre_train.tsv'], dev_set=['data/CORE-corpus/dev.tsv.gz', 'data/FinCORE_full/dev.tsv', 'data/SweCORE/swe_dev.tsv', 'data/FreCORE/fre_dev.tsv'], test_set=['data/CORE-corpus/test.tsv.gz', 'data/FinCORE_full/test.tsv', 'data/SweCORE/swe_test.tsv', 'data/FreCORE/fre_test.tsv'], model='xlm-roberta-base', threshold=None, batch=8, epochs=4, learning=5e-06, save=True, weights=True, QA=False)
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 45597
+    })
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 7609
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 14377
+    })
+})
+sub-register mapping
+filtering
+train 45587
+test 14371
+dev 7608
+binarization
+tokenization
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[('HI', tensor(0.9163, device='cuda:0')), ('ID', tensor(0.5597, device='cuda:0')), ('IN', tensor(0.1706, device='cuda:0')), ('IP', tensor(0.5270, device='cuda:0')), ('LY', tensor(3.6249, device='cuda:0')), ('NA', tensor(0.1008, device='cuda:0')), ('OP', tensor(0.2128, device='cuda:0')), ('SP', tensor(3.1190, device='cuda:0')), ('av', tensor(2.0646, device='cuda:0')), ('ds', tensor(0.6955, device='cuda:0')), ('dtp', tensor(0.4023, device='cuda:0')), ('ed', tensor(10.9795, device='cuda:0')), ('en', tensor(2.1758, device='cuda:0')), ('it', tensor(5.9358, device='cuda:0')), ('lt', tensor(4.2684, device='cuda:0')), ('nb', tensor(5.6031, device='cuda:0')), ('ne', tensor(0.4443, device='cuda:0')), ('ob', tensor(0.1987, device='cuda:0')), ('ra', tensor(0.4662, device='cuda:0')), ('re', tensor(2.6345, device='cuda:0')), ('rs', tensor(9.1761, device='cuda:0')), ('rv', tensor(2.1883, device='cuda:0')), ('sr', tensor(0.9181, device='cuda:0')), ('fi', tensor(0.7481, device='cuda:0'))]
+24
+training
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+{'loss': 0.2843, 'learning_rate': 4.8903316371293215e-06, 'epoch': 0.09}
+Best threshold: 0.5
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       364
+          ID       0.00      0.00      0.00       554
+          IN       0.00      0.00      0.00      1857
+          IP       0.00      0.00      0.00       858
+          LY       0.00      0.00      0.00        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.00      0.00      0.00        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.00      0.00      0.00        46
+          rv       0.00      0.00      0.00       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       0.00      0.00      0.00     14085
+   macro avg       0.00      0.00      0.00     14085
+weighted avg       0.00      0.00      0.00     14085
+ samples avg       0.00      0.00      0.00     14085
+
+{'eval_loss': 0.18494120240211487, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.02983701366982124, 'eval_runtime': 72.4404, 'eval_samples_per_second': 105.024, 'eval_steps_per_second': 3.285, 'epoch': 0.09}
+{'loss': 0.1752, 'learning_rate': 4.7806632742586426e-06, 'epoch': 0.18}
+Best threshold: 0.5
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       364
+          ID       0.00      0.00      0.00       554
+          IN       0.00      0.00      0.00      1857
+          IP       0.00      0.00      0.00       858
+          LY       0.00      0.00      0.00        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.00      0.00      0.00        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.00      0.00      0.00        46
+          rv       0.00      0.00      0.00       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       0.00      0.00      0.00     14085
+   macro avg       0.00      0.00      0.00     14085
+weighted avg       0.00      0.00      0.00     14085
+ samples avg       0.00      0.00      0.00     14085
+
+{'eval_loss': 0.17764852941036224, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.02983701366982124, 'eval_runtime': 72.5584, 'eval_samples_per_second': 104.853, 'eval_steps_per_second': 3.28, 'epoch': 0.18}
+{'loss': 0.1708, 'learning_rate': 4.670994911387964e-06, 'epoch': 0.26}
+Best threshold: 0.5
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       364
+          ID       0.00      0.00      0.00       554
+          IN       0.00      0.00      0.00      1857
+          IP       0.00      0.00      0.00       858
+          LY       0.00      0.00      0.00        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.00      0.00      0.00        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.00      0.00      0.00        46
+          rv       0.00      0.00      0.00       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       0.00      0.00      0.00     14085
+   macro avg       0.00      0.00      0.00     14085
+weighted avg       0.00      0.00      0.00     14085
+ samples avg       0.00      0.00      0.00     14085
+
+{'eval_loss': 0.17606496810913086, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.02983701366982124, 'eval_runtime': 79.704, 'eval_samples_per_second': 95.453, 'eval_steps_per_second': 2.986, 'epoch': 0.26}
+{'loss': 0.1699, 'learning_rate': 4.561326548517284e-06, 'epoch': 0.35}
+Best threshold: 0.5
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       364
+          ID       0.00      0.00      0.00       554
+          IN       0.00      0.00      0.00      1857
+          IP       0.00      0.00      0.00       858
+          LY       0.00      0.00      0.00        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.00      0.00      0.00        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.00      0.00      0.00        46
+          rv       0.00      0.00      0.00       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       0.00      0.00      0.00     14085
+   macro avg       0.00      0.00      0.00     14085
+weighted avg       0.00      0.00      0.00     14085
+ samples avg       0.00      0.00      0.00     14085
+
+{'eval_loss': 0.17289148271083832, 'eval_f1': 0.0, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_roc_auc': 0.5, 'eval_accuracy': 0.02983701366982124, 'eval_runtime': 86.8803, 'eval_samples_per_second': 87.569, 'eval_steps_per_second': 2.739, 'epoch': 0.35}
+{'loss': 0.1603, 'learning_rate': 4.451658185646605e-06, 'epoch': 0.44}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.00      0.00      0.00       364
+          ID       0.00      0.00      0.00       554
+          IN       0.00      0.00      0.00      1857
+          IP       0.00      0.00      0.00       858
+          LY       0.00      0.00      0.00        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       1.00      0.06      0.11        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.00      0.00      0.00        46
+          rv       0.00      0.00      0.00       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       1.00      0.00      0.00     14085
+   macro avg       0.04      0.00      0.00     14085
+weighted avg       0.00      0.00      0.00     14085
+ samples avg       0.00      0.00      0.00     14085
+
+{'eval_loss': 0.16202622652053833, 'eval_f1': 0.0005678188657818156, 'eval_precision': 1.0, 'eval_recall': 0.00028399006034788784, 'eval_roc_auc': 0.500141995030174, 'eval_accuracy': 0.02983701366982124, 'eval_runtime': 87.246, 'eval_samples_per_second': 87.202, 'eval_steps_per_second': 2.728, 'epoch': 0.44}
+{'loss': 0.1542, 'learning_rate': 4.341989822775926e-06, 'epoch': 0.53}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.89      0.07      0.13       364
+          ID       0.00      0.00      0.00       554
+          IN       0.86      0.01      0.01      1857
+          IP       0.00      0.00      0.00       858
+          LY       1.00      0.41      0.58        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.00      0.00      0.00       153
+          ds       0.00      0.00      0.00       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.00      0.00      0.00       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.74      0.52      0.61        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.00      0.00      0.00       112
+          rs       0.96      0.54      0.69        46
+          rv       0.90      0.29      0.43       122
+          sr       0.00      0.00      0.00       350
+          fi       0.00      0.00      0.00       371
+
+   micro avg       0.59      0.01      0.02     14085
+   macro avg       0.22      0.08      0.10     14085
+weighted avg       0.16      0.01      0.02     14085
+ samples avg       0.01      0.01      0.01     14085
+
+{'eval_loss': 0.1515139490365982, 'eval_f1': 0.02297250261051166, 'eval_precision': 0.5892857142857143, 'eval_recall': 0.011714589989350373, 'eval_roc_auc': 0.5055160628796888, 'eval_accuracy': 0.03430599369085174, 'eval_runtime': 82.6138, 'eval_samples_per_second': 92.091, 'eval_steps_per_second': 2.881, 'epoch': 0.53}
+{'loss': 0.146, 'learning_rate': 4.232321459905247e-06, 'epoch': 0.61}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.75      0.11      0.19       364
+          ID       0.05      0.00      0.00       554
+          IN       0.89      0.03      0.05      1857
+          IP       0.11      0.00      0.01       858
+          LY       0.98      0.60      0.75        81
+          NA       0.00      0.00      0.00      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.02      0.01      0.01       153
+          ds       0.44      0.06      0.11       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.61      0.51      0.55       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.31      0.60      0.41        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.16      0.24      0.19       112
+          rs       0.73      0.80      0.76        46
+          rv       0.57      0.75      0.65       122
+          sr       0.00      0.00      0.00       350
+          fi       0.86      0.51      0.64       371
+
+   micro avg       0.52      0.05      0.09     14085
+   macro avg       0.27      0.18      0.18     14085
+weighted avg       0.21      0.05      0.06     14085
+ samples avg       0.06      0.05      0.05     14085
+
+{'eval_loss': 0.140790194272995, 'eval_f1': 0.08754471544715448, 'eval_precision': 0.5217054263565891, 'eval_recall': 0.04778132765353213, 'eval_roc_auc': 0.5220598793489699, 'eval_accuracy': 0.03706624605678233, 'eval_runtime': 81.7053, 'eval_samples_per_second': 93.115, 'eval_steps_per_second': 2.913, 'epoch': 0.61}
+{'loss': 0.1415, 'learning_rate': 4.122653097034568e-06, 'epoch': 0.7}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.72      0.12      0.20       364
+          ID       0.00      0.00      0.00       554
+          IN       0.95      0.07      0.14      1857
+          IP       0.31      0.01      0.03       858
+          LY       0.97      0.69      0.81        81
+          NA       0.89      0.02      0.05      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.00      0.00      0.00        98
+          av       0.04      0.01      0.02       153
+          ds       0.62      0.16      0.26       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.54      0.64      0.59       202
+          it       0.00      0.00      0.00        65
+          lt       0.00      0.00      0.00        71
+          nb       0.30      0.76      0.43        67
+          ne       0.00      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.46      0.34      0.39       112
+          rs       0.70      0.87      0.78        46
+          rv       0.57      0.77      0.66       122
+          sr       0.00      0.00      0.00       350
+          fi       0.89      0.62      0.73       371
+
+   micro avg       0.63      0.07      0.13     14085
+   macro avg       0.33      0.21      0.21     14085
+weighted avg       0.43      0.07      0.09     14085
+ samples avg       0.09      0.07      0.07     14085
+
+{'eval_loss': 0.13254201412200928, 'eval_f1': 0.12877725360193804, 'eval_precision': 0.6308557151780138, 'eval_recall': 0.07170749023784168, 'eval_roc_auc': 0.5341001087714693, 'eval_accuracy': 0.05073606729758149, 'eval_runtime': 82.8218, 'eval_samples_per_second': 91.86, 'eval_steps_per_second': 2.874, 'epoch': 0.7}
+{'loss': 0.1318, 'learning_rate': 4.012984734163889e-06, 'epoch': 0.79}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.72      0.13      0.22       364
+          ID       1.00      0.01      0.02       554
+          IN       0.96      0.07      0.13      1857
+          IP       0.60      0.12      0.19       858
+          LY       0.70      0.78      0.74        81
+          NA       0.82      0.02      0.04      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.88      0.14      0.25        98
+          av       0.18      0.08      0.12       153
+          ds       0.66      0.45      0.54       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.82      0.65      0.72       202
+          it       0.02      0.02      0.02        65
+          lt       0.89      0.11      0.20        71
+          nb       0.42      0.73      0.53        67
+          ne       0.17      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.44      0.52      0.47       112
+          rs       0.67      0.89      0.77        46
+          rv       0.52      0.84      0.64       122
+          sr       0.00      0.00      0.00       350
+          fi       0.86      0.76      0.81       371
+
+   micro avg       0.66      0.10      0.17     14085
+   macro avg       0.47      0.26      0.27     14085
+weighted avg       0.50      0.10      0.12     14085
+ samples avg       0.13      0.09      0.10     14085
+
+{'eval_loss': 0.125662162899971, 'eval_f1': 0.17107213438735175, 'eval_precision': 0.6573327005220693, 'eval_recall': 0.09833155839545615, 'eval_roc_auc': 0.5470234349627705, 'eval_accuracy': 0.06782334384858044, 'eval_runtime': 84.5731, 'eval_samples_per_second': 89.958, 'eval_steps_per_second': 2.814, 'epoch': 0.79}
+{'loss': 0.12, 'learning_rate': 3.9033163712932095e-06, 'epoch': 0.88}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.80      0.16      0.27       364
+          ID       0.94      0.24      0.38       554
+          IN       0.92      0.14      0.24      1857
+          IP       0.74      0.35      0.47       858
+          LY       0.68      0.78      0.72        81
+          NA       0.86      0.12      0.21      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.88      0.29      0.43        98
+          av       0.30      0.24      0.27       153
+          ds       0.63      0.59      0.61       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.54      0.82      0.65       202
+          it       0.20      0.26      0.23        65
+          lt       0.80      0.34      0.48        71
+          nb       0.62      0.67      0.65        67
+          ne       0.05      0.00      0.00       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.56      0.53      0.54       112
+          rs       0.68      0.91      0.78        46
+          rv       0.52      0.88      0.65       122
+          sr       0.73      0.05      0.10       350
+          fi       0.80      0.88      0.84       371
+
+   micro avg       0.69      0.17      0.28     14085
+   macro avg       0.51      0.34      0.36     14085
+weighted avg       0.52      0.17      0.22     14085
+ samples avg       0.19      0.17      0.17     14085
+
+{'eval_loss': 0.11884711682796478, 'eval_f1': 0.2762732072900698, 'eval_precision': 0.689625850340136, 'eval_recall': 0.17273695420660276, 'eval_roc_auc': 0.5831193539214751, 'eval_accuracy': 0.14865930599369084, 'eval_runtime': 99.1982, 'eval_samples_per_second': 76.695, 'eval_steps_per_second': 2.399, 'epoch': 0.88}
+{'loss': 0.1178, 'learning_rate': 3.7936480084225306e-06, 'epoch': 0.97}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.60      0.24      0.35       364
+          ID       0.88      0.42      0.57       554
+          IN       0.91      0.16      0.28      1857
+          IP       0.79      0.29      0.43       858
+          LY       0.73      0.81      0.77        81
+          NA       0.81      0.14      0.23      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.64      0.50      0.56        98
+          av       0.31      0.25      0.28       153
+          ds       0.73      0.50      0.59       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.63      0.82      0.71       202
+          it       0.20      0.25      0.22        65
+          lt       0.61      0.61      0.61        71
+          nb       0.60      0.73      0.66        67
+          ne       0.71      0.14      0.23       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.08      0.01      0.01       618
+          re       0.48      0.57      0.52       112
+          rs       0.79      0.89      0.84        46
+          rv       0.60      0.80      0.69       122
+          sr       0.62      0.26      0.36       350
+          fi       0.81      0.88      0.84       371
+
+   micro avg       0.71      0.20      0.31     14085
+   macro avg       0.52      0.39      0.41     14085
+weighted avg       0.54      0.20      0.26     14085
+ samples avg       0.23      0.20      0.21     14085
+
+{'eval_loss': 0.11310339719057083, 'eval_f1': 0.307393212242404, 'eval_precision': 0.7062276671771311, 'eval_recall': 0.1964501242456514, 'eval_roc_auc': 0.5948097737371799, 'eval_accuracy': 0.16653522607781282, 'eval_runtime': 73.3871, 'eval_samples_per_second': 103.669, 'eval_steps_per_second': 3.243, 'epoch': 0.97}
+{'loss': 0.1095, 'learning_rate': 3.6839796455518517e-06, 'epoch': 1.05}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.71      0.21      0.32       364
+          ID       0.85      0.51      0.64       554
+          IN       0.92      0.19      0.32      1857
+          IP       0.80      0.39      0.52       858
+          LY       0.89      0.79      0.84        81
+          NA       0.91      0.13      0.23      3020
+          OP       0.81      0.02      0.04      1378
+          SP       0.65      0.15      0.25        98
+          av       0.30      0.42      0.35       153
+          ds       0.68      0.59      0.63       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.63      0.84      0.72       202
+          it       0.30      0.17      0.22        65
+          lt       0.62      0.11      0.19        71
+          nb       0.59      0.73      0.65        67
+          ne       0.90      0.10      0.19       762
+          ob       0.00      0.00      0.00      1489
+          ra       0.00      0.00      0.00       618
+          re       0.52      0.57      0.54       112
+          rs       0.70      0.91      0.79        46
+          rv       0.60      0.85      0.70       122
+          sr       0.69      0.47      0.56       350
+          fi       0.83      0.86      0.85       371
+
+   micro avg       0.74      0.21      0.33     14085
+   macro avg       0.58      0.38      0.40     14085
+weighted avg       0.66      0.21      0.27     14085
+ samples avg       0.25      0.22      0.23     14085
+
+{'eval_loss': 0.11014951020479202, 'eval_f1': 0.3313289568047664, 'eval_precision': 0.7429490351311232, 'eval_recall': 0.2132055378061768, 'eval_roc_auc': 0.6035198109250816, 'eval_accuracy': 0.18309674027339642, 'eval_runtime': 73.1355, 'eval_samples_per_second': 104.026, 'eval_steps_per_second': 3.254, 'epoch': 1.05}
+{'loss': 0.1087, 'learning_rate': 3.5743112826811728e-06, 'epoch': 1.14}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.53      0.46      0.49       364
+          ID       0.68      0.69      0.69       554
+          IN       0.93      0.19      0.31      1857
+          IP       0.75      0.48      0.58       858
+          LY       0.81      0.83      0.82        81
+          NA       0.91      0.14      0.24      3020
+          OP       0.88      0.02      0.03      1378
+          SP       0.78      0.47      0.59        98
+          av       0.30      0.39      0.34       153
+          ds       0.64      0.65      0.65       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.67      0.84      0.75       202
+          it       0.29      0.28      0.28        65
+          lt       0.75      0.59      0.66        71
+          nb       0.57      0.64      0.61        67
+          ne       0.88      0.27      0.41       762
+          ob       1.00      0.01      0.01      1489
+          ra       0.00      0.00      0.00       618
+          re       0.48      0.57      0.52       112
+          rs       0.79      0.91      0.85        46
+          rv       0.54      0.84      0.66       122
+          sr       0.66      0.52      0.58       350
+          fi       0.83      0.84      0.84       371
+
+   micro avg       0.71      0.25      0.37     14085
+   macro avg       0.61      0.44      0.45     14085
+weighted avg       0.75      0.25      0.30     14085
+ samples avg       0.30      0.27      0.27     14085
+
+{'eval_loss': 0.10605823248624802, 'eval_f1': 0.3703897736797988, 'eval_precision': 0.7065760543673796, 'eval_recall': 0.25097621583244584, 'eval_roc_auc': 0.6211322057875279, 'eval_accuracy': 0.20833333333333334, 'eval_runtime': 72.8561, 'eval_samples_per_second': 104.425, 'eval_steps_per_second': 3.267, 'epoch': 1.14}
+{'loss': 0.1058, 'learning_rate': 3.4646429198104934e-06, 'epoch': 1.23}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.62      0.24      0.35       364
+          ID       0.77      0.63      0.69       554
+          IN       0.93      0.16      0.27      1857
+          IP       0.82      0.40      0.54       858
+          LY       0.78      0.78      0.78        81
+          NA       0.91      0.21      0.34      3020
+          OP       0.00      0.00      0.00      1378
+          SP       0.61      0.56      0.59        98
+          av       0.43      0.27      0.33       153
+          ds       0.78      0.56      0.65       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.76      0.79      0.78       202
+          it       1.00      0.23      0.38        65
+          lt       0.56      0.69      0.62        71
+          nb       0.67      0.64      0.66        67
+          ne       0.90      0.19      0.31       762
+          ob       0.94      0.27      0.41      1489
+          ra       0.00      0.00      0.00       618
+          re       0.56      0.55      0.56       112
+          rs       0.75      0.91      0.82        46
+          rv       0.69      0.75      0.72       122
+          sr       0.86      0.36      0.51       350
+          fi       0.84      0.84      0.84       371
+
+   micro avg       0.81      0.26      0.39     14085
+   macro avg       0.63      0.42      0.46     14085
+weighted avg       0.69      0.26      0.35     14085
+ samples avg       0.32      0.27      0.28     14085
+
+{'eval_loss': 0.10404272377490997, 'eval_f1': 0.39345317950093917, 'eval_precision': 0.8057142857142857, 'eval_recall': 0.2602768903088392, 'eval_roc_auc': 0.6275154087226986, 'eval_accuracy': 0.2196372239747634, 'eval_runtime': 72.8103, 'eval_samples_per_second': 104.491, 'eval_steps_per_second': 3.269, 'epoch': 1.23}
+{'loss': 0.1022, 'learning_rate': 3.3549745569398145e-06, 'epoch': 1.32}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.54      0.44      0.48       364
+          ID       0.80      0.65      0.72       554
+          IN       0.92      0.24      0.39      1857
+          IP       0.72      0.52      0.60       858
+          LY       0.88      0.79      0.83        81
+          NA       0.92      0.32      0.48      3020
+          OP       0.80      0.11      0.19      1378
+          SP       0.65      0.55      0.60        98
+          av       0.28      0.54      0.37       153
+          ds       0.66      0.66      0.66       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.74      0.83      0.78       202
+          it       0.34      0.46      0.39        65
+          lt       0.63      0.69      0.66        71
+          nb       0.44      0.73      0.55        67
+          ne       0.79      0.49      0.60       762
+          ob       0.91      0.42      0.57      1489
+          ra       0.68      0.13      0.22       618
+          re       0.49      0.60      0.54       112
+          rs       0.68      0.96      0.79        46
+          rv       0.57      0.88      0.69       122
+          sr       0.63      0.58      0.61       350
+          fi       0.81      0.89      0.85       371
+
+   micro avg       0.75      0.38      0.50     14085
+   macro avg       0.62      0.52      0.52     14085
+weighted avg       0.77      0.38      0.46     14085
+ samples avg       0.44      0.38      0.39     14085
+
+{'eval_loss': 0.09897617250680923, 'eval_f1': 0.4995272314674736, 'eval_precision': 0.7475590774020093, 'eval_recall': 0.37507987220447286, 'eval_roc_auc': 0.6822463874662746, 'eval_accuracy': 0.291403785488959, 'eval_runtime': 88.9364, 'eval_samples_per_second': 85.544, 'eval_steps_per_second': 2.676, 'epoch': 1.32}
+{'loss': 0.0986, 'learning_rate': 3.245306194069135e-06, 'epoch': 1.4}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.42      0.65      0.51       364
+          ID       0.85      0.61      0.71       554
+          IN       0.84      0.33      0.47      1857
+          IP       0.73      0.55      0.63       858
+          LY       0.86      0.81      0.84        81
+          NA       0.92      0.34      0.50      3020
+          OP       0.77      0.09      0.16      1378
+          SP       0.69      0.51      0.59        98
+          av       0.30      0.56      0.39       153
+          ds       0.66      0.69      0.67       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.67      0.84      0.74       202
+          it       0.33      0.55      0.41        65
+          lt       0.64      0.65      0.64        71
+          nb       0.51      0.75      0.61        67
+          ne       0.78      0.47      0.58       762
+          ob       0.89      0.46      0.61      1489
+          ra       0.68      0.05      0.09       618
+          re       0.47      0.58      0.52       112
+          rs       0.75      0.93      0.83        46
+          rv       0.54      0.90      0.67       122
+          sr       0.77      0.47      0.59       350
+          fi       0.81      0.90      0.86       371
+
+   micro avg       0.74      0.39      0.51     14085
+   macro avg       0.62      0.53      0.53     14085
+weighted avg       0.75      0.39      0.48     14085
+ samples avg       0.46      0.40      0.41     14085
+
+{'eval_loss': 0.09797663986682892, 'eval_f1': 0.5128062875635692, 'eval_precision': 0.7350563286944997, 'eval_recall': 0.39375221867234644, 'eval_roc_auc': 0.6909446050069763, 'eval_accuracy': 0.30809674027339645, 'eval_runtime': 94.7298, 'eval_samples_per_second': 80.313, 'eval_steps_per_second': 2.512, 'epoch': 1.4}
+{'loss': 0.1005, 'learning_rate': 3.135637831198456e-06, 'epoch': 1.49}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.49      0.63      0.55       364
+          ID       0.73      0.72      0.73       554
+          IN       0.88      0.30      0.45      1857
+          IP       0.73      0.56      0.63       858
+          LY       0.87      0.81      0.84        81
+          NA       0.94      0.30      0.45      3020
+          OP       0.84      0.13      0.22      1378
+          SP       0.74      0.50      0.60        98
+          av       0.42      0.45      0.43       153
+          ds       0.66      0.69      0.68       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.83      0.77      0.80       202
+          it       0.26      0.69      0.38        65
+          lt       0.70      0.63      0.67        71
+          nb       0.48      0.72      0.57        67
+          ne       0.78      0.50      0.61       762
+          ob       0.90      0.41      0.56      1489
+          ra       0.78      0.05      0.09       618
+          re       0.51      0.57      0.54       112
+          rs       0.72      0.93      0.81        46
+          rv       0.53      0.90      0.67       122
+          sr       0.67      0.60      0.63       350
+          fi       0.82      0.91      0.86       371
+
+   micro avg       0.75      0.39      0.51     14085
+   macro avg       0.64      0.53      0.53     14085
+weighted avg       0.77      0.39      0.47     14085
+ samples avg       0.46      0.40      0.41     14085
+
+{'eval_loss': 0.09634091705083847, 'eval_f1': 0.5094957432874918, 'eval_precision': 0.7467434526258055, 'eval_recall': 0.38665246716364926, 'eval_roc_auc': 0.687845749091566, 'eval_accuracy': 0.30586225026288116, 'eval_runtime': 89.8132, 'eval_samples_per_second': 84.709, 'eval_steps_per_second': 2.65, 'epoch': 1.49}
+{'loss': 0.096, 'learning_rate': 3.025969468327777e-06, 'epoch': 1.58}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.54      0.54      0.54       364
+          ID       0.79      0.69      0.74       554
+          IN       0.85      0.35      0.50      1857
+          IP       0.71      0.62      0.67       858
+          LY       0.85      0.81      0.83        81
+          NA       0.91      0.43      0.58      3020
+          OP       0.76      0.25      0.37      1378
+          SP       0.66      0.53      0.59        98
+          av       0.35      0.52      0.42       153
+          ds       0.62      0.75      0.68       637
+         dtp       0.00      0.00      0.00       784
+          ed       0.00      0.00      0.00        26
+          en       0.57      0.90      0.70       202
+          it       0.43      0.51      0.46        65
+          lt       0.60      0.65      0.62        71
+          nb       0.51      0.73      0.60        67
+          ne       0.78      0.50      0.61       762
+          ob       0.86      0.55      0.67      1489
+          ra       0.71      0.10      0.18       618
+          re       0.42      0.65      0.51       112
+          rs       0.73      0.96      0.83        46
+          rv       0.56      0.88      0.68       122
+          sr       0.46      0.74      0.57       350
+          fi       0.79      0.92      0.85       371
+
+   micro avg       0.73      0.46      0.56     14085
+   macro avg       0.60      0.57      0.55     14085
+weighted avg       0.73      0.46      0.53     14085
+ samples avg       0.51      0.46      0.47     14085
+
+{'eval_loss': 0.09483437985181808, 'eval_f1': 0.5623993383537196, 'eval_precision': 0.7268226822682268, 'eval_recall': 0.45864394746183884, 'eval_roc_auc': 0.7221175252510343, 'eval_accuracy': 0.3617245005257624, 'eval_runtime': 92.4244, 'eval_samples_per_second': 82.316, 'eval_steps_per_second': 2.575, 'epoch': 1.58}
+{'loss': 0.0947, 'learning_rate': 2.916301105457098e-06, 'epoch': 1.67}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.47      0.65      0.55       364
+          ID       0.73      0.74      0.73       554
+          IN       0.86      0.34      0.49      1857
+          IP       0.74      0.57      0.64       858
+          LY       0.89      0.81      0.85        81
+          NA       0.94      0.34      0.50      3020
+          OP       0.87      0.17      0.29      1378
+          SP       0.47      0.64      0.54        98
+          av       0.46      0.36      0.40       153
+          ds       0.65      0.70      0.68       637
+         dtp       0.75      0.00      0.01       784
+          ed       0.00      0.00      0.00        26
+          en       0.69      0.87      0.77       202
+          it       0.27      0.69      0.39        65
+          lt       0.43      0.76      0.55        71
+          nb       0.32      0.82      0.46        67
+          ne       0.83      0.44      0.58       762
+          ob       0.89      0.50      0.64      1489
+          ra       0.74      0.14      0.24       618
+          re       0.57      0.57      0.57       112
+          rs       0.75      0.93      0.83        46
+          rv       0.55      0.84      0.67       122
+          sr       0.67      0.59      0.63       350
+          fi       0.85      0.85      0.85       371
+
+   micro avg       0.74      0.42      0.54     14085
+   macro avg       0.64      0.56      0.54     14085
+weighted avg       0.81      0.42      0.51     14085
+ samples avg       0.49      0.43      0.44     14085
+
+{'eval_loss': 0.0935874655842781, 'eval_f1': 0.5363290451168691, 'eval_precision': 0.7408334376173195, 'eval_recall': 0.420305289314874, 'eval_roc_auc': 0.7040074993519007, 'eval_accuracy': 0.34003680336487907, 'eval_runtime': 90.1478, 'eval_samples_per_second': 84.395, 'eval_steps_per_second': 2.64, 'epoch': 1.67}
+{'loss': 0.0947, 'learning_rate': 2.8066327425864186e-06, 'epoch': 1.75}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.47      0.66      0.55       364
+          ID       0.79      0.70      0.74       554
+          IN       0.90      0.32      0.48      1857
+          IP       0.76      0.52      0.62       858
+          LY       0.87      0.83      0.85        81
+          NA       0.90      0.51      0.65      3020
+          OP       0.82      0.25      0.38      1378
+          SP       0.59      0.62      0.61        98
+          av       0.38      0.54      0.45       153
+          ds       0.71      0.64      0.67       637
+         dtp       0.58      0.01      0.02       784
+          ed       0.00      0.00      0.00        26
+          en       0.75      0.84      0.79       202
+          it       0.54      0.52      0.53        65
+          lt       0.54      0.73      0.62        71
+          nb       0.44      0.75      0.56        67
+          ne       0.77      0.52      0.62       762
+          ob       0.85      0.61      0.71      1489
+          ra       0.64      0.25      0.36       618
+          re       0.52      0.53      0.52       112
+          rs       0.62      0.96      0.75        46
+          rv       0.63      0.79      0.70       122
+          sr       0.66      0.62      0.64       350
+          fi       0.79      0.92      0.85       371
+
+   micro avg       0.76      0.48      0.59     14085
+   macro avg       0.65      0.57      0.57     14085
+weighted avg       0.79      0.48      0.56     14085
+ samples avg       0.53      0.48      0.49     14085
+
+{'eval_loss': 0.09162312746047974, 'eval_f1': 0.5857561316836445, 'eval_precision': 0.7622894856622667, 'eval_recall': 0.47561235356762516, 'eval_roc_auc': 0.7316076212341915, 'eval_accuracy': 0.3886698212407992, 'eval_runtime': 122.2265, 'eval_samples_per_second': 62.245, 'eval_steps_per_second': 1.947, 'epoch': 1.75}
+{'loss': 0.09, 'learning_rate': 2.6969643797157397e-06, 'epoch': 1.84}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.54      0.58      0.56       364
+          ID       0.77      0.72      0.75       554
+          IN       0.84      0.36      0.51      1857
+          IP       0.78      0.50      0.60       858
+          LY       0.95      0.78      0.86        81
+          NA       0.92      0.42      0.58      3020
+          OP       0.85      0.21      0.34      1378
+          SP       0.51      0.63      0.56        98
+          av       0.41      0.48      0.44       153
+          ds       0.73      0.62      0.67       637
+         dtp       0.67      0.04      0.07       784
+          ed       0.00      0.00      0.00        26
+          en       0.78      0.82      0.80       202
+          it       0.54      0.51      0.52        65
+          lt       0.45      0.75      0.56        71
+          nb       0.51      0.72      0.60        67
+          ne       0.81      0.49      0.61       762
+          ob       0.88      0.53      0.66      1489
+          ra       0.69      0.16      0.26       618
+          re       0.52      0.58      0.55       112
+          rs       0.80      0.93      0.86        46
+          rv       0.56      0.86      0.68       122
+          sr       0.65      0.63      0.64       350
+          fi       0.80      0.92      0.86       371
+
+   micro avg       0.77      0.44      0.56     14085
+   macro avg       0.66      0.55      0.56     14085
+weighted avg       0.80      0.44      0.54     14085
+ samples avg       0.51      0.45      0.46     14085
+
+{'eval_loss': 0.09137007594108582, 'eval_f1': 0.5630138223868462, 'eval_precision': 0.7738730907736248, 'eval_recall': 0.44245651402200925, 'eval_roc_auc': 0.7158249206510908, 'eval_accuracy': 0.3643533123028391, 'eval_runtime': 72.0068, 'eval_samples_per_second': 105.657, 'eval_steps_per_second': 3.305, 'epoch': 1.84}
+{'loss': 0.0907, 'learning_rate': 2.5872960168450608e-06, 'epoch': 1.93}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.53      0.57      0.55       364
+          ID       0.80      0.72      0.76       554
+          IN       0.83      0.42      0.55      1857
+          IP       0.75      0.57      0.65       858
+          LY       0.89      0.83      0.86        81
+          NA       0.94      0.38      0.54      3020
+          OP       0.76      0.32      0.45      1378
+          SP       0.60      0.57      0.58        98
+          av       0.38      0.52      0.44       153
+          ds       0.68      0.70      0.69       637
+         dtp       0.68      0.08      0.15       784
+          ed       0.00      0.00      0.00        26
+          en       0.76      0.83      0.79       202
+          it       0.53      0.48      0.50        65
+          lt       0.51      0.48      0.49        71
+          nb       0.55      0.72      0.62        67
+          ne       0.78      0.53      0.63       762
+          ob       0.90      0.45      0.60      1489
+          ra       0.65      0.31      0.42       618
+          re       0.37      0.71      0.49       112
+          rs       0.79      0.89      0.84        46
+          rv       0.53      0.89      0.67       122
+          sr       0.58      0.72      0.64       350
+          fi       0.84      0.88      0.86       371
+
+   micro avg       0.75      0.46      0.57     14085
+   macro avg       0.65      0.56      0.57     14085
+weighted avg       0.79      0.46      0.55     14085
+ samples avg       0.52      0.47      0.48     14085
+
+{'eval_loss': 0.0916929543018341, 'eval_f1': 0.5719309041360819, 'eval_precision': 0.7507500576967459, 'eval_recall': 0.46190983315583956, 'eval_roc_auc': 0.7245456872877419, 'eval_accuracy': 0.3684279705573081, 'eval_runtime': 71.9007, 'eval_samples_per_second': 105.813, 'eval_steps_per_second': 3.31, 'epoch': 1.93}
+{'loss': 0.0873, 'learning_rate': 2.4776276539743814e-06, 'epoch': 2.02}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.54      0.59      0.56       364
+          ID       0.82      0.71      0.76       554
+          IN       0.85      0.40      0.54      1857
+          IP       0.76      0.57      0.65       858
+          LY       0.89      0.83      0.86        81
+          NA       0.93      0.43      0.59      3020
+          OP       0.78      0.29      0.42      1378
+          SP       0.58      0.63      0.61        98
+          av       0.41      0.48      0.44       153
+          ds       0.67      0.69      0.68       637
+         dtp       0.70      0.04      0.07       784
+          ed       0.00      0.00      0.00        26
+          en       0.78      0.83      0.80       202
+          it       0.61      0.51      0.55        65
+          lt       0.52      0.73      0.61        71
+          nb       0.55      0.75      0.63        67
+          ne       0.79      0.52      0.62       762
+          ob       0.89      0.51      0.64      1489
+          ra       0.63      0.32      0.42       618
+          re       0.48      0.60      0.53       112
+          rs       0.79      0.91      0.85        46
+          rv       0.60      0.83      0.70       122
+          sr       0.62      0.65      0.63       350
+          fi       0.83      0.90      0.86       371
+
+   micro avg       0.77      0.47      0.58     14085
+   macro avg       0.67      0.57      0.59     14085
+weighted avg       0.79      0.47      0.56     14085
+ samples avg       0.53      0.47      0.49     14085
+
+{'eval_loss': 0.08893164992332458, 'eval_f1': 0.5835389495946424, 'eval_precision': 0.7690163744048311, 'eval_recall': 0.4701455449059283, 'eval_roc_auc': 0.729170940481592, 'eval_accuracy': 0.3803890641430074, 'eval_runtime': 72.2501, 'eval_samples_per_second': 105.301, 'eval_steps_per_second': 3.294, 'epoch': 2.02}
+{'loss': 0.0849, 'learning_rate': 2.3679592911037025e-06, 'epoch': 2.11}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.53      0.61      0.57       364
+          ID       0.88      0.65      0.75       554
+          IN       0.81      0.47      0.59      1857
+          IP       0.80      0.48      0.60       858
+          LY       0.86      0.83      0.84        81
+          NA       0.90      0.56      0.69      3020
+          OP       0.80      0.24      0.37      1378
+          SP       0.62      0.62      0.62        98
+          av       0.40      0.50      0.44       153
+          ds       0.76      0.60      0.67       637
+         dtp       0.62      0.19      0.29       784
+          ed       0.00      0.00      0.00        26
+          en       0.76      0.85      0.80       202
+          it       0.56      0.54      0.55        65
+          lt       0.57      0.72      0.63        71
+          nb       0.54      0.75      0.62        67
+          ne       0.77      0.54      0.63       762
+          ob       0.85      0.60      0.70      1489
+          ra       0.68      0.17      0.27       618
+          re       0.41      0.62      0.49       112
+          rs       0.77      0.96      0.85        46
+          rv       0.58      0.88      0.70       122
+          sr       0.67      0.62      0.64       350
+          fi       0.79      0.94      0.86       371
+
+   micro avg       0.77      0.50      0.61     14085
+   macro avg       0.66      0.58      0.59     14085
+weighted avg       0.79      0.50      0.60     14085
+ samples avg       0.55      0.50      0.51     14085
+
+{'eval_loss': 0.08923643827438354, 'eval_f1': 0.6110466365785515, 'eval_precision': 0.7742919389978213, 'eval_recall': 0.5046503372381966, 'eval_roc_auc': 0.7461770560777796, 'eval_accuracy': 0.4152208201892745, 'eval_runtime': 73.0219, 'eval_samples_per_second': 104.188, 'eval_steps_per_second': 3.259, 'epoch': 2.11}
+{'loss': 0.0821, 'learning_rate': 2.2582909282330236e-06, 'epoch': 2.19}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.53      0.63      0.58       364
+          ID       0.79      0.74      0.77       554
+          IN       0.85      0.40      0.54      1857
+          IP       0.70      0.65      0.67       858
+          LY       0.89      0.83      0.86        81
+          NA       0.92      0.50      0.65      3020
+          OP       0.82      0.25      0.38      1378
+          SP       0.79      0.49      0.60        98
+          av       0.39      0.50      0.44       153
+          ds       0.62      0.76      0.68       637
+         dtp       0.64      0.12      0.20       784
+          ed       0.00      0.00      0.00        26
+          en       0.79      0.82      0.81       202
+          it       0.60      0.51      0.55        65
+          lt       0.76      0.58      0.66        71
+          nb       0.56      0.75      0.64        67
+          ne       0.78      0.54      0.63       762
+          ob       0.87      0.57      0.69      1489
+          ra       0.72      0.19      0.31       618
+          re       0.48      0.57      0.52       112
+          rs       0.79      0.96      0.86        46
+          rv       0.59      0.85      0.70       122
+          sr       0.71      0.57      0.63       350
+          fi       0.84      0.89      0.86       371
+
+   micro avg       0.77      0.49      0.60     14085
+   macro avg       0.68      0.57      0.59     14085
+weighted avg       0.79      0.49      0.58     14085
+ samples avg       0.54      0.50      0.51     14085
+
+{'eval_loss': 0.09070119261741638, 'eval_f1': 0.601945945945946, 'eval_precision': 0.7699115044247787, 'eval_recall': 0.4941427050053248, 'eval_roc_auc': 0.7408995020750837, 'eval_accuracy': 0.40930599369085174, 'eval_runtime': 72.7905, 'eval_samples_per_second': 104.519, 'eval_steps_per_second': 3.27, 'epoch': 2.19}
+{'loss': 0.0867, 'learning_rate': 2.1486225653623442e-06, 'epoch': 2.28}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.49      0.66      0.56       364
+          ID       0.78      0.74      0.76       554
+          IN       0.83      0.44      0.58      1857
+          IP       0.80      0.50      0.61       858
+          LY       0.84      0.83      0.83        81
+          NA       0.91      0.52      0.66      3020
+          OP       0.72      0.42      0.53      1378
+          SP       0.61      0.57      0.59        98
+          av       0.39      0.55      0.45       153
+          ds       0.75      0.62      0.68       637
+         dtp       0.66      0.14      0.23       784
+          ed       0.00      0.00      0.00        26
+          en       0.73      0.85      0.79       202
+          it       0.37      0.58      0.45        65
+          lt       0.56      0.69      0.62        71
+          nb       0.65      0.72      0.68        67
+          ne       0.72      0.59      0.65       762
+          ob       0.87      0.56      0.68      1489
+          ra       0.55      0.43      0.48       618
+          re       0.46      0.63      0.54       112
+          rs       0.73      0.96      0.83        46
+          rv       0.57      0.89      0.70       122
+          sr       0.63      0.66      0.64       350
+          fi       0.82      0.91      0.86       371
+
+   micro avg       0.75      0.53      0.62     14085
+   macro avg       0.64      0.60      0.60     14085
+weighted avg       0.77      0.53      0.61     14085
+ samples avg       0.57      0.53      0.53     14085
+
+{'eval_loss': 0.08803531527519226, 'eval_f1': 0.6183864915572233, 'eval_precision': 0.7490909090909091, 'eval_recall': 0.526517571884984, 'eval_roc_auc': 0.7558881722587875, 'eval_accuracy': 0.4313880126182965, 'eval_runtime': 73.0221, 'eval_samples_per_second': 104.188, 'eval_steps_per_second': 3.259, 'epoch': 2.28}
+{'loss': 0.0849, 'learning_rate': 2.0389542024916653e-06, 'epoch': 2.37}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.56      0.60      0.58       364
+          ID       0.79      0.73      0.76       554
+          IN       0.81      0.47      0.60      1857
+          IP       0.75      0.60      0.67       858
+          LY       0.89      0.81      0.85        81
+          NA       0.92      0.51      0.65      3020
+          OP       0.73      0.39      0.51      1378
+          SP       0.55      0.63      0.59        98
+          av       0.40      0.52      0.45       153
+          ds       0.68      0.72      0.70       637
+         dtp       0.64      0.19      0.29       784
+          ed       0.00      0.00      0.00        26
+          en       0.65      0.90      0.75       202
+          it       0.47      0.52      0.50        65
+          lt       0.49      0.73      0.58        71
+          nb       0.54      0.76      0.63        67
+          ne       0.81      0.50      0.62       762
+          ob       0.85      0.62      0.72      1489
+          ra       0.56      0.39      0.46       618
+          re       0.52      0.56      0.54       112
+          rs       0.81      0.85      0.83        46
+          rv       0.57      0.89      0.70       122
+          sr       0.62      0.67      0.65       350
+          fi       0.83      0.89      0.86       371
+
+   micro avg       0.75      0.53      0.62     14085
+   macro avg       0.64      0.60      0.60     14085
+weighted avg       0.77      0.53      0.62     14085
+ samples avg       0.58      0.53      0.54     14085
+
+{'eval_loss': 0.08767998963594437, 'eval_f1': 0.6247409004228505, 'eval_precision': 0.750722327388662, 'eval_recall': 0.5349662761803337, 'eval_roc_auc': 0.7600591141623774, 'eval_accuracy': 0.43664563617245006, 'eval_runtime': 99.7463, 'eval_samples_per_second': 76.274, 'eval_steps_per_second': 2.386, 'epoch': 2.37}
+{'loss': 0.0851, 'learning_rate': 1.9292858396209864e-06, 'epoch': 2.46}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.55      0.63      0.59       364
+          ID       0.84      0.70      0.76       554
+          IN       0.86      0.40      0.54      1857
+          IP       0.71      0.67      0.69       858
+          LY       0.91      0.83      0.86        81
+          NA       0.91      0.55      0.69      3020
+          OP       0.76      0.30      0.43      1378
+          SP       0.62      0.58      0.60        98
+          av       0.51      0.38      0.43       153
+          ds       0.62      0.77      0.69       637
+         dtp       0.71      0.12      0.20       784
+          ed       0.00      0.00      0.00        26
+          en       0.81      0.82      0.81       202
+          it       0.51      0.52      0.52        65
+          lt       0.54      0.69      0.60        71
+          nb       0.59      0.73      0.65        67
+          ne       0.81      0.52      0.64       762
+          ob       0.83      0.66      0.73      1489
+          ra       0.59      0.30      0.40       618
+          re       0.45      0.62      0.52       112
+          rs       0.66      0.96      0.78        46
+          rv       0.59      0.87      0.70       122
+          sr       0.63      0.65      0.64       350
+          fi       0.82      0.91      0.87       371
+
+   micro avg       0.76      0.53      0.62     14085
+   macro avg       0.66      0.59      0.60     14085
+weighted avg       0.78      0.53      0.61     14085
+ samples avg       0.57      0.53      0.53     14085
+
+{'eval_loss': 0.08758489042520523, 'eval_f1': 0.62385012811358, 'eval_precision': 0.7638346019337585, 'eval_recall': 0.5272275470358537, 'eval_roc_auc': 0.7568010001613305, 'eval_accuracy': 0.4324395373291272, 'eval_runtime': 87.7231, 'eval_samples_per_second': 86.727, 'eval_steps_per_second': 2.713, 'epoch': 2.46}
+{'loss': 0.0834, 'learning_rate': 1.8196174767503073e-06, 'epoch': 2.54}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.48      0.71      0.57       364
+          ID       0.85      0.69      0.76       554
+          IN       0.86      0.41      0.56      1857
+          IP       0.75      0.59      0.66       858
+          LY       0.88      0.83      0.85        81
+          NA       0.91      0.54      0.68      3020
+          OP       0.75      0.36      0.49      1378
+          SP       0.45      0.70      0.55        98
+          av       0.32      0.61      0.42       153
+          ds       0.68      0.71      0.69       637
+         dtp       0.65      0.16      0.25       784
+          ed       0.00      0.00      0.00        26
+          en       0.82      0.83      0.82       202
+          it       0.40      0.55      0.46        65
+          lt       0.38      0.77      0.51        71
+          nb       0.61      0.72      0.66        67
+          ne       0.74      0.56      0.64       762
+          ob       0.86      0.58      0.70      1489
+          ra       0.62      0.35      0.45       618
+          re       0.50      0.62      0.55       112
+          rs       0.69      0.93      0.80        46
+          rv       0.59      0.86      0.70       122
+          sr       0.63      0.65      0.64       350
+          fi       0.84      0.86      0.85       371
+
+   micro avg       0.75      0.53      0.62     14085
+   macro avg       0.64      0.61      0.59     14085
+weighted avg       0.78      0.53      0.61     14085
+ samples avg       0.57      0.53      0.53     14085
+
+{'eval_loss': 0.0861521065235138, 'eval_f1': 0.6184358238742671, 'eval_precision': 0.7462372065021071, 'eval_recall': 0.5280085197018104, 'eval_roc_auc': 0.7565001205569886, 'eval_accuracy': 0.42941640378548895, 'eval_runtime': 103.3326, 'eval_samples_per_second': 73.626, 'eval_steps_per_second': 2.303, 'epoch': 2.54}
+{'loss': 0.0842, 'learning_rate': 1.7099491138796281e-06, 'epoch': 2.63}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.50      0.70      0.59       364
+          ID       0.80      0.73      0.76       554
+          IN       0.87      0.37      0.52      1857
+          IP       0.73      0.61      0.66       858
+          LY       0.87      0.83      0.85        81
+          NA       0.92      0.48      0.64      3020
+          OP       0.77      0.33      0.46      1378
+          SP       0.54      0.62      0.58        98
+          av       0.36      0.58      0.44       153
+          ds       0.67      0.74      0.70       637
+         dtp       0.64      0.10      0.17       784
+          ed       0.00      0.00      0.00        26
+          en       0.81      0.82      0.82       202
+          it       0.49      0.52      0.51        65
+          lt       0.50      0.73      0.60        71
+          nb       0.55      0.75      0.63        67
+          ne       0.81      0.51      0.62       762
+          ob       0.87      0.58      0.69      1489
+          ra       0.62      0.33      0.43       618
+          re       0.56      0.59      0.58       112
+          rs       0.68      0.93      0.79        46
+          rv       0.59      0.87      0.70       122
+          sr       0.66      0.63      0.65       350
+          fi       0.84      0.89      0.86       371
+
+   micro avg       0.76      0.50      0.60     14085
+   macro avg       0.65      0.59      0.59     14085
+weighted avg       0.79      0.50      0.59     14085
+ samples avg       0.55      0.50      0.51     14085
+
+{'eval_loss': 0.08593647181987762, 'eval_f1': 0.6043645699614891, 'eval_precision': 0.7605815831987076, 'eval_recall': 0.501384451544196, 'eval_roc_auc': 0.7440960606276235, 'eval_accuracy': 0.4112776025236593, 'eval_runtime': 72.3089, 'eval_samples_per_second': 105.215, 'eval_steps_per_second': 3.291, 'epoch': 2.63}
+{'loss': 0.0831, 'learning_rate': 1.600280751008949e-06, 'epoch': 2.72}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.58      0.65      0.61       364
+          ID       0.84      0.70      0.76       554
+          IN       0.84      0.43      0.57      1857
+          IP       0.73      0.64      0.68       858
+          LY       0.88      0.81      0.85        81
+          NA       0.93      0.50      0.65      3020
+          OP       0.81      0.30      0.43      1378
+          SP       0.53      0.64      0.58        98
+          av       0.37      0.55      0.44       153
+          ds       0.66      0.73      0.69       637
+         dtp       0.60      0.18      0.28       784
+          ed       0.00      0.00      0.00        26
+          en       0.70      0.90      0.79       202
+          it       0.66      0.48      0.55        65
+          lt       0.49      0.73      0.58        71
+          nb       0.63      0.72      0.67        67
+          ne       0.76      0.56      0.65       762
+          ob       0.90      0.51      0.65      1489
+          ra       0.62      0.35      0.45       618
+          re       0.58      0.57      0.58       112
+          rs       0.78      0.91      0.84        46
+          rv       0.60      0.83      0.70       122
+          sr       0.67      0.68      0.67       350
+          fi       0.84      0.89      0.86       371
+
+   micro avg       0.76      0.51      0.61     14085
+   macro avg       0.67      0.59      0.61     14085
+weighted avg       0.79      0.51      0.60     14085
+ samples avg       0.56      0.51      0.52     14085
+
+{'eval_loss': 0.08525876700878143, 'eval_f1': 0.6127206977238885, 'eval_precision': 0.7644373673036093, 'eval_recall': 0.511253106141285, 'eval_roc_auc': 0.7490422568692978, 'eval_accuracy': 0.42008412197686645, 'eval_runtime': 71.9234, 'eval_samples_per_second': 105.779, 'eval_steps_per_second': 3.309, 'epoch': 2.72}
+{'loss': 0.0781, 'learning_rate': 1.49061238813827e-06, 'epoch': 2.81}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.55      0.65      0.59       364
+          ID       0.76      0.77      0.76       554
+          IN       0.84      0.42      0.56      1857
+          IP       0.77      0.58      0.66       858
+          LY       0.88      0.83      0.85        81
+          NA       0.90      0.60      0.72      3020
+          OP       0.80      0.29      0.43      1378
+          SP       0.54      0.63      0.58        98
+          av       0.38      0.54      0.44       153
+          ds       0.71      0.70      0.70       637
+         dtp       0.62      0.17      0.27       784
+          ed       0.00      0.00      0.00        26
+          en       0.77      0.87      0.81       202
+          it       0.49      0.54      0.51        65
+          lt       0.48      0.72      0.58        71
+          nb       0.53      0.76      0.63        67
+          ne       0.79      0.54      0.64       762
+          ob       0.84      0.65      0.74      1489
+          ra       0.67      0.27      0.39       618
+          re       0.52      0.58      0.55       112
+          rs       0.75      0.93      0.83        46
+          rv       0.56      0.89      0.69       122
+          sr       0.64      0.66      0.65       350
+          fi       0.80      0.93      0.86       371
+
+   micro avg       0.77      0.54      0.63     14085
+   macro avg       0.65      0.61      0.60     14085
+weighted avg       0.78      0.54      0.62     14085
+ samples avg       0.58      0.54      0.55     14085
+
+{'eval_loss': 0.0860816091299057, 'eval_f1': 0.6337424589140835, 'eval_precision': 0.7654271356783919, 'eval_recall': 0.5407170749023784, 'eval_roc_auc': 0.7634330091348581, 'eval_accuracy': 0.44742376445846477, 'eval_runtime': 71.849, 'eval_samples_per_second': 105.889, 'eval_steps_per_second': 3.313, 'epoch': 2.81}
+{'loss': 0.0816, 'learning_rate': 1.380944025267591e-06, 'epoch': 2.9}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.57      0.65      0.61       364
+          ID       0.83      0.72      0.77       554
+          IN       0.83      0.44      0.57      1857
+          IP       0.75      0.63      0.68       858
+          LY       0.91      0.83      0.86        81
+          NA       0.92      0.54      0.68      3020
+          OP       0.80      0.29      0.42      1378
+          SP       0.51      0.65      0.57        98
+          av       0.39      0.58      0.46       153
+          ds       0.67      0.74      0.70       637
+         dtp       0.65      0.16      0.26       784
+          ed       0.00      0.00      0.00        26
+          en       0.78      0.87      0.82       202
+          it       0.53      0.54      0.53        65
+          lt       0.45      0.75      0.56        71
+          nb       0.56      0.76      0.65        67
+          ne       0.78      0.55      0.64       762
+          ob       0.86      0.61      0.71      1489
+          ra       0.65      0.26      0.37       618
+          re       0.46      0.61      0.52       112
+          rs       0.74      0.93      0.83        46
+          rv       0.64      0.82      0.72       122
+          sr       0.67      0.63      0.65       350
+          fi       0.84      0.89      0.87       371
+
+   micro avg       0.77      0.52      0.62     14085
+   macro avg       0.66      0.60      0.60     14085
+weighted avg       0.79      0.52      0.61     14085
+ samples avg       0.57      0.52      0.53     14085
+
+{'eval_loss': 0.08489308506250381, 'eval_f1': 0.623780359028511, 'eval_precision': 0.7699687174139729, 'eval_recall': 0.5242456514022009, 'eval_roc_auc': 0.7555771035649281, 'eval_accuracy': 0.43086225026288116, 'eval_runtime': 71.8904, 'eval_samples_per_second': 105.828, 'eval_steps_per_second': 3.311, 'epoch': 2.9}
+{'loss': 0.0813, 'learning_rate': 1.2712756623969118e-06, 'epoch': 2.98}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.50      0.70      0.58       364
+          ID       0.75      0.77      0.76       554
+          IN       0.84      0.43      0.57      1857
+          IP       0.76      0.59      0.66       858
+          LY       0.88      0.83      0.85        81
+          NA       0.92      0.55      0.69      3020
+          OP       0.79      0.31      0.44      1378
+          SP       0.60      0.64      0.62        98
+          av       0.44      0.47      0.45       153
+          ds       0.69      0.70      0.70       637
+         dtp       0.63      0.19      0.29       784
+          ed       0.06      0.04      0.05        26
+          en       0.80      0.85      0.82       202
+          it       0.49      0.55      0.52        65
+          lt       0.53      0.72      0.61        71
+          nb       0.62      0.73      0.67        67
+          ne       0.75      0.57      0.65       762
+          ob       0.87      0.60      0.71      1489
+          ra       0.66      0.30      0.42       618
+          re       0.50      0.62      0.55       112
+          rs       0.75      0.93      0.83        46
+          rv       0.61      0.81      0.70       122
+          sr       0.62      0.71      0.66       350
+          fi       0.81      0.91      0.86       371
+
+   micro avg       0.76      0.53      0.63     14085
+   macro avg       0.66      0.61      0.61     14085
+weighted avg       0.78      0.53      0.61     14085
+ samples avg       0.58      0.53      0.54     14085
+
+{'eval_loss': 0.08457925915718079, 'eval_f1': 0.627055525335788, 'eval_precision': 0.7635011208477684, 'eval_recall': 0.5319843805466808, 'eval_roc_auc': 0.7591052360221817, 'eval_accuracy': 0.4416403785488959, 'eval_runtime': 71.7826, 'eval_samples_per_second': 105.987, 'eval_steps_per_second': 3.316, 'epoch': 2.98}
+{'loss': 0.0765, 'learning_rate': 1.1616072995262327e-06, 'epoch': 3.07}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.55      0.67      0.60       364
+          ID       0.83      0.72      0.77       554
+          IN       0.85      0.44      0.58      1857
+          IP       0.78      0.58      0.66       858
+          LY       0.90      0.81      0.86        81
+          NA       0.91      0.58      0.71      3020
+          OP       0.76      0.36      0.49      1378
+          SP       0.52      0.68      0.59        98
+          av       0.31      0.64      0.42       153
+          ds       0.71      0.68      0.70       637
+         dtp       0.66      0.18      0.29       784
+          ed       0.09      0.04      0.05        26
+          en       0.74      0.88      0.80       202
+          it       0.52      0.52      0.52        65
+          lt       0.45      0.75      0.56        71
+          nb       0.55      0.75      0.63        67
+          ne       0.73      0.59      0.65       762
+          ob       0.85      0.63      0.72      1489
+          ra       0.64      0.30      0.41       618
+          re       0.47      0.62      0.53       112
+          rs       0.74      0.93      0.83        46
+          rv       0.58      0.87      0.70       122
+          sr       0.63      0.68      0.65       350
+          fi       0.82      0.90      0.86       371
+
+   micro avg       0.76      0.55      0.63     14085
+   macro avg       0.65      0.62      0.61     14085
+weighted avg       0.78      0.55      0.62     14085
+ samples avg       0.59      0.54      0.55     14085
+
+{'eval_loss': 0.08448156714439392, 'eval_f1': 0.6336715334488162, 'eval_precision': 0.7560279500049207, 'eval_recall': 0.5454029108981185, 'eval_roc_auc': 0.7653456779442671, 'eval_accuracy': 0.444794952681388, 'eval_runtime': 71.6794, 'eval_samples_per_second': 106.139, 'eval_steps_per_second': 3.32, 'epoch': 3.07}
+{'loss': 0.0783, 'learning_rate': 1.0519389366555536e-06, 'epoch': 3.16}
+Best threshold: 0.3
+              precision    recall  f1-score   support
+
+          HI       0.52      0.68      0.59       364
+          ID       0.82      0.73      0.77       554
+          IN       0.82      0.46      0.59      1857
+          IP       0.77      0.58      0.66       858
+          LY       0.88      0.83      0.85        81
+          NA       0.89      0.63      0.74      3020
+          OP       0.79      0.32      0.46      1378
+          SP       0.52      0.67      0.59        98
+          av       0.41      0.52      0.46       153
+          ds       0.71      0.69      0.70       637
+         dtp       0.58      0.27      0.37       784
+          ed       0.05      0.04      0.04        26
+          en       0.78      0.85      0.81       202
+          it       0.45      0.62      0.52        65
+          lt       0.46      0.73      0.57        71
+          nb       0.55      0.75      0.63        67
+          ne       0.72      0.61      0.66       762
+          ob       0.85      0.65      0.74      1489
+          ra       0.61      0.33      0.43       618
+          re       0.51      0.58      0.54       112
+          rs       0.75      0.93      0.83        46
+          rv       0.60      0.88      0.71       122
+          sr       0.64      0.67      0.65       350
+          fi       0.80      0.93      0.86       371
+
+   micro avg       0.75      0.56      0.65     14085
+   macro avg       0.65      0.62      0.62     14085
+weighted avg       0.77      0.56      0.64     14085
+ samples avg       0.61      0.56      0.57     14085
+
+{'eval_loss': 0.08412543684244156, 'eval_f1': 0.6461488489179423, 'eval_precision': 0.7546471927162367, 'eval_recall': 0.5649272275470358, 'eval_roc_auc': 0.774787374804217, 'eval_accuracy': 0.46359095688748686, 'eval_runtime': 71.819, 'eval_samples_per_second': 105.933, 'eval_steps_per_second': 3.314, 'epoch': 3.16}
