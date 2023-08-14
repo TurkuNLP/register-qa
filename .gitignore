@@ -9,3 +9,5 @@
 /tmp_trainer
 *.ipynb_checkpoints
 /token-qa/datasets/*
+token-qa/results/*
+token-qa/qa-labelled/unsorted/qa_binary_suomi24.jsonl.gz

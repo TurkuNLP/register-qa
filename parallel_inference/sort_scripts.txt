@@ -1,3 +1,8 @@
+# grep for suomi24 jsonl
+egrep "label": "QA_NEW"
+# for others it is just 
+egrep QA_NEW
+
 # sorting
 LC_NUMERIC="en_US.UTF-8" sort -t$'\t' -n -r -k12 data/splits/labelled/just_qa_parsebank.tsv > data/splits/labelled/sorted_qa_parsebank.tsv
 # taking rows with specific label in the labels column (useful for full labels)

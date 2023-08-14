@@ -13,9 +13,9 @@ import os
 # This script was originally made by Risto Luukkonen, edited by me
 
 torch.set_num_threads(2)
-MODEL_PATH = "./../models/register-qa-no-weights" #"models/new_model" #I use base model too now so that's good, inference does not take super long
- #"finbert-base-fin-0.00002-MTv2.pt"
-TOKENIZER_PATH = "xlm-roberta-base" #"TurkuNLP/bert-base-finnish-cased-v1"
+MODEL_PATH = "finbert-base-fin-0.00002-MTv2.pt" #I use base model too now so that's good, inference does not take super long
+
+TOKENIZER_PATH = "TurkuNLP/bert-base-finnish-cased-v1" #"xlm-roberta-base"
 
 DEVICE = "cuda"
 LABELS_QA = ["NOT_QA", "QA_NEW"]
@@ -263,6 +263,9 @@ def load_text_batch(handle, options):
         texts = [json.loads(line)["text"] for line in batch]
         if options.id_col_name:
             ids = [json.loads(line)[options.id_col_name] for line in batch]
+
+        all_stuff = [json.loads(line) for line in batch] # added to get for suomi24 
+
     elif options.file_type == "tsv": # note that might have to change the column number
         batch = batch[1:]
         for i in range(len(batch)):
@@ -274,7 +277,7 @@ def load_text_batch(handle, options):
     else:
         assert "TODO"
 
-    return ids, texts
+    return ids, texts, all_stuff
 
 def main():
 
@@ -302,8 +305,10 @@ def main():
     log("...done") 
     # load our fine-tuned model
     log("Loading model")
-    # model = torch.load(options.model_path, map_location=torch.device(DEVICE))
-    model = transformers.AutoModelForSequenceClassification.from_pretrained(options.model_path)
+    if ".pt" in options.model_path:
+        model = torch.load(options.model_path, map_location=torch.device(DEVICE))
+    else:
+        model = transformers.AutoModelForSequenceClassification.from_pretrained(options.model_path)
     model.to(DEVICE)
     model = DataParallel(model) # TODO  here the documentation says to use distributed parallelism but this works too https://pytorch.org/docs/stable/notes/cuda.html#cuda-nn-ddp-instead 
     # https://pytorch.org/docs/stable/generated/torch.nn.DataParallel.html
@@ -312,15 +317,15 @@ def main():
     with open(options.text, 'r') as f:
         p_bar = tqdm(desc="Process batch: ")
         with open(options.output, 'w') as outfile:
-            if options.id_col_name:
-                header = [options.id_col_name, "labels", "text", *labels_used]
-            else:
+            if "suomi24" not in options.text: # else
                 header = ["labels", "text", *labels_used]
+                if options.id_col_name:
+                    header = [options.id_col_name, "labels", "text", *labels_used]
             
-            writer = csv.writer(outfile, delimiter="\t")
-            writer.writerow(header)
-            
-            ids, text_batch = load_text_batch(f, options)
+                writer = csv.writer(outfile, delimiter="\t")
+                writer.writerow(header)
+
+            ids, text_batch, all_stuff = load_text_batch(f, options)
 
             while text_batch:
 
@@ -344,22 +349,39 @@ def main():
                 else:
                     labels, scores = predict_labels(tokenized_batch, model, options) 
 
-                for i in range(len(text_batch)):
-                    
-                    text = text_batch[i].replace("\n", "\\n")
-                    if options.id_col_name:
-                        line = [ ids[i],  " ".join(labels[i]), text ]
-                    else:
-                        line = [ " ".join(labels[i]), text ]
-                    pred_list = [str(val) for val in scores[i]]
-                    line = [*line, *pred_list]
+                if "suomi24" in options.text:
+                        for i in range(len(text_batch)):
+                            # tsv format
+                            # line = [ ids[i],  " ".join(labels[i]), text ]
+                            # pred_list = [str(val) for val in scores[i]]
+                            # line = [*line, *pred_list]
 
-                    writer.writerow(line)
+                            # jsonl format
+                            all_stuff[i]["label"] = " ".join(labels[i])
+                            all_stuff[i]["NOT_QA"] = str(scores[i][0])
+                            all_stuff[i]["QA_NEW"] = str(scores[i][1])
+
+                            line=json.dumps(all_stuff[i] ,ensure_ascii=False)
+                            outfile.write(line + '\n') #  have to add \n for newlines
+                    
+
+                else:
+                    for i in range(len(text_batch)):
+                        
+                        text = text_batch[i].replace("\n", "\\n")
+                        if options.id_col_name:
+                            line = [ ids[i],  " ".join(labels[i]), text ]
+                        else:
+                            line = [ " ".join(labels[i]), text ]
+                        pred_list = [str(val) for val in scores[i]]
+                        line = [*line, *pred_list]
+
+                        writer.writerow(line)
 
                 p_bar.update(len(text_batch))
                 p_bar.refresh()
                 
-                ids, text_batch = load_text_batch(f, options)
+                ids, text_batch, all_stuff = load_text_batch(f, options)
 
     log("Finished processing file")
          
