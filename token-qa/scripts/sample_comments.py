@@ -2,6 +2,7 @@
 
 import sys
 import json
+import gzip
 
 from random import sample
 from logging import error
@@ -18,15 +19,17 @@ def argparser():
     ap.add_argument('number', type=int, help='e.g. 10')
     return ap
 
-#mkdir sample-01-obscene
-#for l in 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9; do h=$(python -c 'print('$l'+0.1)'); python3 sample_comments.py suomi24-2001-2020-1p-sample.jsonl s24predictions.tsv obscene $l $h 10 > sample-01-obscene/comments_${l}-${h}.jsonl; done
+#mkdir samples/sample-parsebank
+#for l in 0.5 0.6 0.7 0.8 0.9; do h=$(python3 -c 'print('$l'+0.1)'); python3 sample_comments.py ../qa-labelled/sorted/sorted_qa_binary_parsebank.tsv.gz QA_NEW $l $h 20 > ../samples/sample-parsebank/comments_${l}-${h}.jsonl; done
 
 
 def main(argv):
     args = argparser().parse_args(argv[1:])
 
     ids = []
-    with open(args.predictions) as f:
+    texts = []
+    with gzip.open(args.predictions, "rt") as f:
+        # this header thing doesn't quite work
         header = next(f).rstrip('\n')
         try:
             index = header.split('\t').index(args.label)
@@ -36,23 +39,39 @@ def main(argv):
 
         for ln, line in enumerate(f, start=2):
             fields = line.rstrip('\n').split('\t')
-            id_, value = fields[0], fields[index]
+            id_, text, value = fields[0], fields[2], fields[4] # oh id_, the underscore is just for using that keyword as variable :D
             value = float(value)
             if args.low <= value <= args.high:
                 ids.append(id_)
+                texts.append(text)
+
+    lista = []
+    for id_, text in zip(ids, texts):
+        temp = {}
+        # put the newlines back the way they were before tsv
+        text = text.replace("\\n", "\n")
+        temp["id"] = id_
+        temp["text"] = text
+        lista.append(temp)
 
     if len(ids) < args.number:
-        error(f'cannot sample {args.number} from range: only {len(ids)} found')
+        #error(f'cannot sample {args.number} from range: only {len(ids)} found')
+        error(f'cannot sample {args.number}: only {len(ids)} found')
         return 1
     id_sample = sample(ids, args.number)
-    
+
     # with open(args.comments) as f:
     #     for line in f:
     #         data = json.loads(line)
     #         if data['id'] in id_sample:
     #             print(line, end='')
 
-    #  TODO just print the line 
+    sample_list = [one for one in lista if one["id"] in id_sample]
+
+    for one in sample_list:
+        line=json.dumps(one,ensure_ascii=False)
+        print(line, end='\n')
+
 
 
 if __name__ == '__main__':
