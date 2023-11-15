@@ -16,11 +16,11 @@ def argparser():
     ap = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     ap.add_argument('--model_name',
                     help='Pretrained model name')
-    ap.add_argument('--train', metavar='FILE', required=True,
+    ap.add_argument('--train',nargs='+', metavar='FILE', required=True,
                     help='train file')
     ap.add_argument('--test', metavar='FILE', required=True,
                     help='test file')
-    ap.add_argument('--dev', metavar='FILE', required=True,
+    ap.add_argument('--dev', required=True,
                     help='dev file')
     ap.add_argument('--batch', type=int, default=8,
         help="The batch size for the model")
@@ -34,18 +34,130 @@ def argparser():
 
 args = argparser().parse_args()
 
+print(args.train)
+
+def map_text(example):
+    example["text"] = example["title"]+ " "+example["selftext"]+" "+example["best_answer"]
+
+    return example
+
+# if type(args.train) is list:
+#     #dataset = datasets.load_from_disk(args.train[0])
+# elif "annotated" in args.train:
+#     print()
+# else:
+#     dataset = datasets.load_from_disk(args.train)
+
+# dataset = dataset.rename_column("q_id", "id")
+
+# dataset = dataset.remove_columns(['title', 'selftext', 'subreddit', 'best_answer', 'question_title_split', 'question_text_split', 'answer_split'])
+
 #label_names = ["O", "QB", "QI", "AB", "AI"]
+label_names = ["QUESTION", "ANSWER", "O"]
 
-# dataset = datasets.load_dataset("json", 
-#     data_files={'train': args.train, 'validation': args.dev, 'test': args.test},
-#     features=datasets.Features({    # Here we tell how to interpret the attributes
-#         "tags":datasets.Sequence(datasets.ClassLabel(num_classes=5, names=label_names)),
-#         "tokens":datasets.Sequence(datasets.Value("string")),
-#         "q_id":datasets.Value("string"),
-#         "subreddit":datasets.Value("string")
-#     }))
+# if the train has 2 or more files (en+fi(+chatgpt))
+if type(args.train) is list and len(args.train) >= 2:
+    # for finnish and chatgpt
+    if "annotated" in args.train[0] and "annotated" in args.train[1]:
+        dataset3 = datasets.load_dataset("json", 
+        data_files={'train': args.train,'validation': args.dev, 'test': args.test},
+        features=datasets.Features({    # Here we tell how to interpret the attributes
+            "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+            "tokens":datasets.Sequence(datasets.Value("string")),
+            "id":datasets.Value("string"),
+            "text":datasets.Value("string")
+        }))
 
-dataset = datasets.load_from_disk("../../data/qa_token_classification/dataset_joined_simplified2")
+    dataset = datasets.DatasetDict({
+    "train":dataset_v3["train"],
+    "validation":dataset3["validation"],
+    "test":dataset3["test"]
+    })
+else:
+    # for only finnish
+    dataset3 = datasets.load_dataset("json", 
+    data_files={'train': args.train,'validation': args.dev, 'test': args.test},
+    features=datasets.Features({    # Here we tell how to interpret the attributes
+        "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+        "tokens":datasets.Sequence(datasets.Value("string")),
+        "id":datasets.Value("string"),
+        "text":datasets.Value("string")
+    }))
+
+    dataset = datasets.DatasetDict({
+    "train":dataset_v3["train"],
+    "validation":dataset3["validation"],
+    "test":dataset3["test"]
+    })
+
+
+#     else:
+#         dataset2 = datasets.load_dataset("json", 
+#             data_files={'train': args.train[1:]},
+#             features=datasets.Features({    # Here we tell how to interpret the attributes
+#                 "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+#                 "tokens":datasets.Sequence(datasets.Value("string")),
+#                 "id":datasets.Value("string"),
+#                 "text":datasets.Value("string")
+#             }))
+
+#     if "annotated" in args.dev:
+#         dataset3 = datasets.load_dataset("json", 
+#         data_files={'validation': args.dev, 'test': args.test},
+#         features=datasets.Features({    # Here we tell how to interpret the attributes
+#             "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+#             "tokens":datasets.Sequence(datasets.Value("string")),
+#             "id":datasets.Value("string"),
+#             "text":datasets.Value("string")
+#         }))
+
+#         dataset = datasets.DatasetDict({
+#         "train":datasets.concatenate_datasets([dataset["train"],dataset2["train"]]), # datasets.concatenate_datasets([dd1["train"], dd2["train"]]) this if it doesn't work any other way
+#         "validation":dataset3["validation"],
+#         "test":dataset3["test"]
+#         })
+#     else:
+#         dataset = datasets.DatasetDict({
+#         "train":datasets.concatenate_datasets([dataset["train"],dataset2["train"]]), # datasets.concatenate_datasets([dd1["train"], dd2["train"]]) this if it doesn't work any other way
+#         "validation":dataset["validation"],
+#         "test":dataset["test"]
+#         })
+
+# elif "annotated" in args.dev:
+#     dataset3 = datasets.load_dataset("json", 
+#         data_files={'train': args.train, 'validation': args.dev, 'test': args.test},
+#         features=datasets.Features({    # Here we tell how to interpret the attributes
+#             "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+#             "tokens":datasets.Sequence(datasets.Value("string")),
+#             "id":datasets.Value("string"),
+#             "text":datasets.Value("string")
+#         }))
+
+#     dataset = datasets.DatasetDict({
+#     "train":dataset_v3["train"],
+#     "validation":dataset3["validation"],
+#     "test":dataset3["test"]
+#     })
+
+
+# elif "annotated" in args.dev:
+#     dataset3 = datasets.load_dataset("json", 
+#         data_files={'validation': args.dev, 'test': args.test},
+#         features=datasets.Features({    # Here we tell how to interpret the attributes
+#             "tags":datasets.Sequence(datasets.ClassLabel(num_classes=3, names=label_names)),
+#             "tokens":datasets.Sequence(datasets.Value("string")),
+#             "id":datasets.Value("string"),
+#             "text":datasets.Value("string")
+#         }))
+
+#     dataset = datasets.DatasetDict({
+#     "train":dataset["train"],
+#     "validation":dataset3["validation"],
+#     "test":dataset3["test"]
+#     })
+    
+
+# else do nothing because we already have the dataset for english ready
 
 dataset=dataset.shuffle()
 
@@ -106,7 +218,7 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 model.to(device)
 
 trainer_args = transformers.TrainingArguments(
-    "checkpoints/question/",
+    f"checkpoints/{args.train[0]}+{args.dev}+{args.lr}+{args.epochs}",
     evaluation_strategy="steps",
     logging_strategy="steps",
     load_best_model_at_end=True,
@@ -122,7 +234,7 @@ trainer_args = transformers.TrainingArguments(
 metric = evaluate.load("seqeval")
 #change from accuracy to -> seqeval
 
-from seqeval.scheme import IOB2
+from seqeval.metrics import classification_report
 def compute_metrics(outputs_and_labels):
     outputs, labels = outputs_and_labels
     predictions = outputs.argmax(axis=2)
@@ -136,6 +248,8 @@ def compute_metrics(outputs_and_labels):
         [tag_names[l] for (p, l) in zip(prediction, label) if l != -100]
         for prediction, label in zip(predictions, labels)
     ]
+
+    print(classification_report(token_labels, token_predictions))
     
     results = metric.compute(
         predictions=token_predictions,

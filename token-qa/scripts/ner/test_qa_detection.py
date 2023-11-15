@@ -37,7 +37,8 @@ def predict_labels(data, model, options):
     with torch.no_grad():
         logits = model(**data).logits
 
-    predictions = [[torch.argmax(logit, dim=1)] for logit in logits] # I don't understand dimensions :'D in example on huggingface it is 2, here does not work but -1 at least works, 1 could work?
+    predictions = [[logit.argmax(-1)] for logit in logits] # This is what Amanda needs
+    #predictions = [[torch.argmax(logit, dim=1)] for logit in logits] # I don't understand dimensions :'D in example on huggingface it is 2, here does not work but -1 at least works, 1 could work?
     predicted_token_class = [[model.config.id2label[t.item()] for t in prediction[0]] for prediction in predictions]
     
     return predicted_token_class
@@ -72,7 +73,7 @@ def main():
     model.to(DEVICE)
 
 
-    with open(options.text, 'r') as f:
+    with gzip.open(options.text, 'rt') as f:
         with open(options.output, 'w') as outfile:
             header = ["id", "labels", "text"]
 

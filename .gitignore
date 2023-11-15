@@ -11,3 +11,6 @@
 /token-qa/datasets/*
 token-qa/results/*
 token-qa/qa-labelled/unsorted/qa_binary_suomi24.jsonl.gz
+token-qa/qa-labelled/sorted/sorted_qa_binary_cc-fi_all.tsv.gz
+token-qa/qa-labelled/annotated/*
+models_for_Amanda/*

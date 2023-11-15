@@ -2,7 +2,7 @@
 #SBATCH --job-name=qa_new
 #SBATCH --account=project_2005092 #2005092 # 2000539
 #SBATCH --partition=gpu #gputest
-#SBATCH --time=05:00:00 #2ish hours for one epoch with large, 30min with base
+#SBATCH --time=00:20:00 #2ish hours for one epoch with large, 30min with base
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=5
 #SBATCH --mem-per-cpu=8G  # need a lot of memory if mapping from scratch ... # now maybe not so much
@@ -44,7 +44,7 @@ module load pytorch
 echo "START: $(date)"
 
 EPOCHS=10 #3
-LR=8e-6 # "1e-5 4e-6 5e-6 7e-5 8e-6"
+LR=4e-6 # "1e-5 4e-6 5e-6 7e-5 8e-6"
 BATCH=8
 MODEL="xlm-roberta-base" # or large
 

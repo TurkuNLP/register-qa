@@ -183,9 +183,9 @@ filtered_dataset = dataset.filter(lambda example: "MT" not in example['label'])
 filtered_dataset = filtered_dataset.filter(lambda example: example["text"] != None) # filter empty text lines from english train (and others?)
 # would be more efficient to filter before I ever use in this code but ehh
 
-print("train", len(filtered_dataset["train"]))
-print("test", len(filtered_dataset["test"]))
-print("dev", len(filtered_dataset["dev"]))
+print("total train", len(filtered_dataset["train"]))
+print("total test", len(filtered_dataset["test"]))
+print("total dev", len(filtered_dataset["dev"]))
 
 # do this so that the model has these ready for easy pipeline usage
 id2label = dict(zip(range(len(unique_labels)), unique_labels))
@@ -193,6 +193,7 @@ label2id = dict(zip(unique_labels, range(len(unique_labels))))
 
 print("change labels to only qa")
 # change register to just qa
+# this maps from the string label to int 0 or 1
 def only_qa(dataset):
     if "NOT_QA" and "QA_NEW" in dataset["label"]:
         dataset["label"] = label2id["QA_NEW"]
@@ -200,14 +201,23 @@ def only_qa(dataset):
         dataset["label"] = label2id["NOT_QA"]
     elif "QA_NEW" in dataset["label"]:
         dataset["label"] = label2id["QA_NEW"]
+    # this if there is NA so not found label because of mapping weirdness or something
     else:
         dataset["label"] = label2id["NOT_QA"]
 
     return dataset
 
-dataset = filtered_dataset.map(only_qa) # does this not work as intended? they should be numbers now
+dataset = filtered_dataset.map(only_qa)
 
 print(dataset["train"]["label"][:10])
+
+# check how many qa in train data
+qa = dataset.filter(lambda example: example['label'] == 1)
+
+print("qa in train",len(qa["train"]))
+print("qa in dev",len(qa["dev"]))
+print("qa in test",len(qa["test"]))
+
 
 # then use the tokenizer
 model_name = args.model
@@ -240,9 +250,7 @@ def make_class_weights(train):
 class_weights = make_class_weights(dataset["train"])
 class_weights = torch.tensor(class_weights).to("cuda:0")
 
-from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, precision_score, recall_score, classification_report
-# source: https://jesusleal.io/2021/04/21/Longformer-multilabel-classification/
-from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import accuracy_score, classification_report, precision_recall_fscore_support
 
 def compute_metrics(pred):
     labels = pred.label_ids
@@ -332,6 +340,7 @@ trainer.train()
 
 
 eval_results = trainer.evaluate(dataset["test"])
+print(eval_results)
 print('F1:', eval_results['eval_f1'])
 
 # this part is now unnecessary as I print the classification report in the compute multilabel metrics method

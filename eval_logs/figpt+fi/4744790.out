@@ -1,0 +1,128 @@
+START 4744790: Thu 12 Oct 2023 11:10:39 AM EEST
+Namespace(model_name='xlm-roberta-base', train=['../../data/qa_token_classification/annotated/train_annotated_dataset.jsonl', '../../data/qa_token_classification/annotated/cleaned2_chatgpt_annotations_dataset.jsonl'], test='../../data/qa_token_classification/annotated/test_annotated_dataset.jsonl', dev='../../data/qa_token_classification/annotated/dev_annotated_dataset.jsonl', batch=8, epochs=10, lr=3e-05, save=None, dataset=None)
+in dictionary: 0
+DatasetDict({
+    train: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 100
+    })
+})
+in dictionary: 1
+DatasetDict({
+    train: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 3424
+    })
+})
+final train:
+DatasetDict({
+    train: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 3524
+    })
+})
+DatasetDict({
+    train: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 3524
+    })
+    validation: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 50
+    })
+    test: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 68
+    })
+})
+['QUESTION', 'ANSWER', 'O']
+3
+tokenization
+training
+{'loss': 1.0126, 'learning_rate': 2.8299319727891157e-05, 'epoch': 0.57}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.0888179540634155, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 0.5601, 'eval_samples_per_second': 89.264, 'eval_steps_per_second': 7.141, 'epoch': 0.57}
+{'loss': 1.0097, 'learning_rate': 2.6598639455782313e-05, 'epoch': 1.13}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.168266773223877, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 1.5503, 'eval_samples_per_second': 32.252, 'eval_steps_per_second': 2.58, 'epoch': 1.13}
+{'loss': 1.0118, 'learning_rate': 2.4897959183673473e-05, 'epoch': 1.7}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.0907633304595947, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 0.5078, 'eval_samples_per_second': 98.471, 'eval_steps_per_second': 7.878, 'epoch': 1.7}
+{'loss': 1.0034, 'learning_rate': 2.319727891156463e-05, 'epoch': 2.27}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.129791259765625, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 0.5075, 'eval_samples_per_second': 98.514, 'eval_steps_per_second': 7.881, 'epoch': 2.27}
+{'loss': 1.0031, 'learning_rate': 2.1496598639455785e-05, 'epoch': 2.83}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.1001441478729248, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 0.5063, 'eval_samples_per_second': 98.757, 'eval_steps_per_second': 7.901, 'epoch': 2.83}
+{'loss': 1.0099, 'learning_rate': 1.9795918367346938e-05, 'epoch': 3.4}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.00      0.00      0.00        46
+
+   micro avg       0.00      0.00      0.00        86
+   macro avg       0.00      0.00      0.00        86
+weighted avg       0.00      0.00      0.00        86
+
+{'eval_loss': 1.130436658859253, 'eval_precision': 0.0, 'eval_recall': 0.0, 'eval_f1': 0.0, 'eval_accuracy': 0.41445203745887116, 'eval_runtime': 0.5037, 'eval_samples_per_second': 99.262, 'eval_steps_per_second': 7.941, 'epoch': 3.4}
+{'train_runtime': 288.0106, 'train_samples_per_second': 122.357, 'train_steps_per_second': 15.312, 'train_loss': 1.0084191182454427, 'epoch': 3.4}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        59
+     UESTION       0.00      0.00      0.00        73
+
+   micro avg       0.00      0.00      0.00       132
+   macro avg       0.00      0.00      0.00       132
+weighted avg       0.00      0.00      0.00       132
+
+{'epoch': 3.4,
+ 'eval_accuracy': 0.4399924578108796,
+ 'eval_f1': 0.0,
+ 'eval_loss': 1.081690788269043,
+ 'eval_precision': 0.0,
+ 'eval_recall': 0.0,
+ 'eval_runtime': 0.7701,
+ 'eval_samples_per_second': 88.299,
+ 'eval_steps_per_second': 6.493}
+Accuracy: 0.4399924578108796
+PARAMETERS	model	xlm-roberta-base	data_dir	../../data/qa_token_classification	train_batch_size	8	learning_rate	3e-5	num_train_epochs	10	END 4744790: Thu 12 Oct 2023 11:16:23 AM EEST

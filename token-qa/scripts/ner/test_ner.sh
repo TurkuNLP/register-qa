@@ -29,9 +29,9 @@ module use /appl/local/csc/modulefiles
 module load pytorch 
 
 
-MODEL="../models/token_classification/qa_detection_model"
+MODEL="../../models/token-qa/joined_model_simplified"
 TOKENIZER="xlm-roberta-base"
-TEXT="../data/splits/labelled/binary/sorted_qa_binary_parsebank.tsv"
+TEXT="../../qa-labelled/sorted/sorted_qa_binary_parsebank.tsv.gz"
 BATCH=64
 OUTPUT="ner_test.tsv"
 
