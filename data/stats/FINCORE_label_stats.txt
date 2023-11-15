@@ -1,4 +1,0 @@
-      1 DS IP QA ID
-     23 FA IN
-     89 QA ID
-      1 QA ID RS OP

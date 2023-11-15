@@ -1,0 +1,740 @@
+START: Thu Jun 22 12:32:27 EEST 2023
+Namespace(train_set=['data/CORE-corpus/train.tsv.gz', 'data/SweCORE/swe_train.tsv', 'data/FreCORE/fre_train.tsv'], dev_set=['data/CORE-corpus/dev.tsv.gz', 'data/SweCORE/swe_dev.tsv', 'data/FreCORE/fre_dev.tsv'], test_set=['data/CORE-corpus/test.tsv.gz', 'data/SweCORE/swe_test.tsv', 'data/FreCORE/fre_test.tsv'], model='xlm-roberta-base', threshold=0.5, batch=8, epochs=4, learning=8e-06, save=True, weights=False)
+DatasetDict({
+    train: Dataset({
+        features: ['text', 'label'],
+        num_rows: 38072
+    })
+    dev: Dataset({
+        features: ['text', 'label'],
+        num_rows: 6534
+    })
+    test: Dataset({
+        features: ['text', 'label'],
+        num_rows: 12226
+    })
+})
+sub-register mapping
+filtering
+train 37762
+test 12040
+dev 6413
+binarization
+tokenization
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[('IN', tensor(2.4930, device='cuda:0')), ('NA', tensor(1.5827, device='cuda:0')), ('HI', tensor(0.4218, device='cuda:0')), ('LY', tensor(1.5881, device='cuda:0')), ('IP', tensor(8.3085, device='cuda:0')), ('SP', tensor(0.2613, device='cuda:0')), ('ID', tensor(0.5282, device='cuda:0')), ('OP', tensor(3.5588, device='cuda:0')), ('QA_NEW', tensor(22.5984, device='cuda:0'))]
+9
+training
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+{'loss': 0.324, 'learning_rate': 7.788180470239356e-06, 'epoch': 0.11}
+              precision    recall  f1-score   support
+
+          IN       0.00      0.00      0.00       315
+          NA       0.00      0.00      0.00       449
+          HI       0.59      0.58      0.59      1683
+          LY       0.00      0.00      0.00       732
+          IP       0.00      0.00      0.00        80
+          SP       0.72      0.77      0.75      2614
+          ID       0.00      0.00      0.00      1242
+          OP       0.00      0.00      0.00       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.67      0.41      0.51      7393
+   macro avg       0.15      0.15      0.15      7393
+weighted avg       0.39      0.41      0.40      7393
+ samples avg       0.47      0.43      0.44      7393
+
+{'eval_loss': 0.2629064917564392, 'eval_f1': 0.5067995607737139, 'eval_precision': 0.6747638326585695, 'eval_recall': 0.4057892601109157, 'eval_roc_auc': 0.6885277275834762, 'eval_accuracy': 0.39575861531264617, 'eval_runtime': 60.8438, 'eval_samples_per_second': 105.401, 'eval_steps_per_second': 3.304, 'epoch': 0.11}
+{'loss': 0.2348, 'learning_rate': 7.576360940478712e-06, 'epoch': 0.21}
+              precision    recall  f1-score   support
+
+          IN       0.00      0.00      0.00       315
+          NA       0.72      0.56      0.63       449
+          HI       0.75      0.46      0.57      1683
+          LY       1.00      0.00      0.00       732
+          IP       0.00      0.00      0.00        80
+          SP       0.77      0.79      0.78      2614
+          ID       0.64      0.37      0.47      1242
+          OP       0.00      0.00      0.00       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.74      0.48      0.58      7393
+   macro avg       0.43      0.24      0.27      7393
+weighted avg       0.69      0.48      0.52      7393
+ samples avg       0.55      0.51      0.52      7393
+
+{'eval_loss': 0.22503986954689026, 'eval_f1': 0.5825593819347414, 'eval_precision': 0.7423544197737746, 'eval_recall': 0.4793723792776951, 'eval_roc_auc': 0.7274653804821828, 'eval_accuracy': 0.4615624512708561, 'eval_runtime': 60.9193, 'eval_samples_per_second': 105.27, 'eval_steps_per_second': 3.299, 'epoch': 0.21}
+{'loss': 0.2124, 'learning_rate': 7.364541410718068e-06, 'epoch': 0.32}
+              precision    recall  f1-score   support
+
+          IN       0.00      0.00      0.00       315
+          NA       0.87      0.57      0.69       449
+          HI       0.75      0.58      0.66      1683
+          LY       0.83      0.35      0.49       732
+          IP       1.00      0.29      0.45        80
+          SP       0.78      0.80      0.79      2614
+          ID       0.67      0.32      0.43      1242
+          OP       0.00      0.00      0.00       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.77      0.54      0.63      7393
+   macro avg       0.54      0.32      0.39      7393
+weighted avg       0.70      0.54      0.60      7393
+ samples avg       0.62      0.57      0.59      7393
+
+{'eval_loss': 0.20566338300704956, 'eval_f1': 0.6339023421992853, 'eval_precision': 0.7673971549404075, 'eval_recall': 0.5399702421209251, 'eval_roc_auc': 0.7579630242478086, 'eval_accuracy': 0.5152034929050366, 'eval_runtime': 60.973, 'eval_samples_per_second': 105.178, 'eval_steps_per_second': 3.297, 'epoch': 0.32}
+{'loss': 0.2012, 'learning_rate': 7.152721880957424e-06, 'epoch': 0.42}
+              precision    recall  f1-score   support
+
+          IN       0.81      0.07      0.12       315
+          NA       0.72      0.78      0.75       449
+          HI       0.72      0.63      0.68      1683
+          LY       0.74      0.59      0.66       732
+          IP       0.94      0.76      0.84        80
+          SP       0.86      0.68      0.76      2614
+          ID       0.69      0.40      0.51      1242
+          OP       0.43      0.44      0.44       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.76      0.58      0.66      7393
+   macro avg       0.66      0.48      0.53      7393
+weighted avg       0.76      0.58      0.64      7393
+ samples avg       0.65      0.61      0.62      7393
+
+{'eval_loss': 0.1949031800031662, 'eval_f1': 0.660518023211129, 'eval_precision': 0.7648629405482378, 'eval_recall': 0.5812254835655349, 'eval_roc_auc': 0.7774877914608535, 'eval_accuracy': 0.5435833463277717, 'eval_runtime': 61.0112, 'eval_samples_per_second': 105.112, 'eval_steps_per_second': 3.294, 'epoch': 0.42}
+{'loss': 0.1878, 'learning_rate': 6.94090235119678e-06, 'epoch': 0.53}
+              precision    recall  f1-score   support
+
+          IN       0.84      0.20      0.32       315
+          NA       0.79      0.74      0.76       449
+          HI       0.81      0.51      0.63      1683
+          LY       0.74      0.65      0.69       732
+          IP       0.98      0.74      0.84        80
+          SP       0.77      0.82      0.79      2614
+          ID       0.72      0.32      0.44      1242
+          OP       0.93      0.35      0.51       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.78      0.59      0.67      7393
+   macro avg       0.73      0.48      0.55      7393
+weighted avg       0.77      0.59      0.65      7393
+ samples avg       0.67      0.62      0.64      7393
+
+{'eval_loss': 0.18927089869976044, 'eval_f1': 0.6730119742093951, 'eval_precision': 0.7779946761313221, 'eval_recall': 0.5929933721087515, 'eval_roc_auc': 0.7840672289364996, 'eval_accuracy': 0.5685326680180882, 'eval_runtime': 61.0286, 'eval_samples_per_second': 105.082, 'eval_steps_per_second': 3.294, 'epoch': 0.53}
+{'loss': 0.1868, 'learning_rate': 6.7290828214361355e-06, 'epoch': 0.64}
+              precision    recall  f1-score   support
+
+          IN       0.76      0.41      0.53       315
+          NA       0.81      0.73      0.77       449
+          HI       0.82      0.54      0.65      1683
+          LY       0.77      0.64      0.70       732
+          IP       1.00      0.72      0.84        80
+          SP       0.78      0.81      0.80      2614
+          ID       0.66      0.52      0.58      1242
+          OP       0.81      0.37      0.51       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.77      0.64      0.70      7393
+   macro avg       0.71      0.53      0.60      7393
+weighted avg       0.76      0.64      0.69      7393
+ samples avg       0.71      0.67      0.68      7393
+
+{'eval_loss': 0.18306763470172882, 'eval_f1': 0.6999925942383175, 'eval_precision': 0.7734860883797054, 'eval_recall': 0.6392533477613959, 'eval_roc_auc': 0.8058757796751499, 'eval_accuracy': 0.5947294557929206, 'eval_runtime': 61.0893, 'eval_samples_per_second': 104.977, 'eval_steps_per_second': 3.29, 'epoch': 0.64}
+{'loss': 0.1835, 'learning_rate': 6.517263291675492e-06, 'epoch': 0.74}
+              precision    recall  f1-score   support
+
+          IN       0.76      0.39      0.52       315
+          NA       0.81      0.76      0.78       449
+          HI       0.75      0.64      0.69      1683
+          LY       0.80      0.59      0.68       732
+          IP       0.87      0.84      0.85        80
+          SP       0.87      0.67      0.76      2614
+          ID       0.63      0.63      0.63      1242
+          OP       0.85      0.36      0.50       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.78      0.63      0.69      7393
+   macro avg       0.70      0.54      0.60      7393
+weighted avg       0.78      0.63      0.69      7393
+ samples avg       0.70      0.66      0.67      7393
+
+{'eval_loss': 0.1798875629901886, 'eval_f1': 0.6943757957013404, 'eval_precision': 0.7778523489932886, 'eval_recall': 0.6270796699580684, 'eval_roc_auc': 0.8003850778055185, 'eval_accuracy': 0.5911429907999376, 'eval_runtime': 61.1354, 'eval_samples_per_second': 104.898, 'eval_steps_per_second': 3.288, 'epoch': 0.74}
+{'loss': 0.1793, 'learning_rate': 6.3054437619148486e-06, 'epoch': 0.85}
+              precision    recall  f1-score   support
+
+          IN       0.73      0.44      0.55       315
+          NA       0.85      0.72      0.78       449
+          HI       0.71      0.67      0.69      1683
+          LY       0.90      0.38      0.54       732
+          IP       0.98      0.75      0.85        80
+          SP       0.84      0.75      0.79      2614
+          ID       0.69      0.48      0.56      1242
+          OP       0.76      0.41      0.53       185
+      QA_NEW       0.00      0.00      0.00        93
+
+   micro avg       0.78      0.62      0.69      7393
+   macro avg       0.72      0.51      0.59      7393
+weighted avg       0.78      0.62      0.68      7393
+ samples avg       0.68      0.64      0.65      7393
+
+{'eval_loss': 0.1776822805404663, 'eval_f1': 0.6892014519056261, 'eval_precision': 0.7815126050420168, 'eval_recall': 0.616393886108481, 'eval_roc_auc': 0.7955389667407519, 'eval_accuracy': 0.5772649306096991, 'eval_runtime': 65.0298, 'eval_samples_per_second': 98.616, 'eval_steps_per_second': 3.091, 'epoch': 0.85}
+{'loss': 0.169, 'learning_rate': 6.093624232154204e-06, 'epoch': 0.95}
+              precision    recall  f1-score   support
+
+          IN       0.74      0.41      0.52       315
+          NA       0.85      0.73      0.78       449
+          HI       0.83      0.52      0.64      1683
+          LY       0.76      0.64      0.70       732
+          IP       1.00      0.70      0.82        80
+          SP       0.83      0.77      0.80      2614
+          ID       0.62      0.67      0.64      1242
+          OP       0.95      0.33      0.49       185
+      QA_NEW       0.80      0.35      0.49        93
+
+   micro avg       0.78      0.65      0.71      7393
+   macro avg       0.82      0.57      0.65      7393
+weighted avg       0.79      0.65      0.70      7393
+ samples avg       0.72      0.68      0.69      7393
+
+{'eval_loss': 0.1754305511713028, 'eval_f1': 0.7059257619363883, 'eval_precision': 0.7767132185774602, 'eval_recall': 0.6469633437035033, 'eval_roc_auc': 0.8098201982010085, 'eval_accuracy': 0.5998752533915485, 'eval_runtime': 61.2461, 'eval_samples_per_second': 104.709, 'eval_steps_per_second': 3.282, 'epoch': 0.95}
+{'loss': 0.1648, 'learning_rate': 5.881804702393561e-06, 'epoch': 1.06}
+              precision    recall  f1-score   support
+
+          IN       0.63      0.59      0.61       315
+          NA       0.81      0.76      0.78       449
+          HI       0.73      0.64      0.68      1683
+          LY       0.89      0.45      0.60       732
+          IP       0.97      0.79      0.87        80
+          SP       0.78      0.84      0.81      2614
+          ID       0.72      0.42      0.53      1242
+          OP       0.89      0.39      0.54       185
+      QA_NEW       0.70      0.51      0.59        93
+
+   micro avg       0.77      0.65      0.71      7393
+   macro avg       0.79      0.60      0.67      7393
+weighted avg       0.77      0.65      0.69      7393
+ samples avg       0.72      0.68      0.69      7393
+
+{'eval_loss': 0.17779496312141418, 'eval_f1': 0.7053584464885384, 'eval_precision': 0.7662172878667725, 'eval_recall': 0.6534559718652779, 'eval_roc_auc': 0.8120828861790423, 'eval_accuracy': 0.6034617183845314, 'eval_runtime': 61.197, 'eval_samples_per_second': 104.793, 'eval_steps_per_second': 3.284, 'epoch': 1.06}
+{'loss': 0.1616, 'learning_rate': 5.6699851726329165e-06, 'epoch': 1.17}
+              precision    recall  f1-score   support
+
+          IN       0.66      0.58      0.62       315
+          NA       0.87      0.71      0.78       449
+          HI       0.79      0.59      0.67      1683
+          LY       0.83      0.57      0.67       732
+          IP       0.94      0.80      0.86        80
+          SP       0.82      0.79      0.80      2614
+          ID       0.65      0.61      0.63      1242
+          OP       0.90      0.39      0.55       185
+      QA_NEW       0.77      0.53      0.62        93
+
+   micro avg       0.78      0.66      0.72      7393
+   macro avg       0.80      0.62      0.69      7393
+weighted avg       0.78      0.66      0.71      7393
+ samples avg       0.73      0.69      0.70      7393
+
+{'eval_loss': 0.17203675210475922, 'eval_f1': 0.7173199036566675, 'eval_precision': 0.7790107799619531, 'eval_recall': 0.66468280806168, 'eval_roc_auc': 0.8184911536532865, 'eval_accuracy': 0.6139092468423515, 'eval_runtime': 61.1833, 'eval_samples_per_second': 104.816, 'eval_steps_per_second': 3.285, 'epoch': 1.17}
+{'loss': 0.1691, 'learning_rate': 5.458165642872273e-06, 'epoch': 1.27}
+              precision    recall  f1-score   support
+
+          IN       0.73      0.47      0.57       315
+          NA       0.79      0.78      0.78       449
+          HI       0.80      0.57      0.67      1683
+          LY       0.77      0.66      0.71       732
+          IP       0.92      0.82      0.87        80
+          SP       0.84      0.76      0.80      2614
+          ID       0.66      0.59      0.63      1242
+          OP       0.77      0.47      0.58       185
+      QA_NEW       0.73      0.53      0.61        93
+
+   micro avg       0.78      0.66      0.72      7393
+   macro avg       0.78      0.63      0.69      7393
+weighted avg       0.78      0.66      0.71      7393
+ samples avg       0.73      0.69      0.70      7393
+
+{'eval_loss': 0.16803430020809174, 'eval_f1': 0.7159316063697072, 'eval_precision': 0.782483156881617, 'eval_recall': 0.6598133369403489, 'eval_roc_auc': 0.8164339715462415, 'eval_accuracy': 0.6123499142367067, 'eval_runtime': 61.224, 'eval_samples_per_second': 104.746, 'eval_steps_per_second': 3.283, 'epoch': 1.27}
+{'loss': 0.1616, 'learning_rate': 5.246346113111628e-06, 'epoch': 1.38}
+              precision    recall  f1-score   support
+
+          IN       0.75      0.41      0.53       315
+          NA       0.85      0.73      0.79       449
+          HI       0.73      0.65      0.69      1683
+          LY       0.76      0.69      0.72       732
+          IP       0.95      0.78      0.86        80
+          SP       0.82      0.79      0.80      2614
+          ID       0.74      0.46      0.57      1242
+          OP       0.92      0.38      0.54       185
+      QA_NEW       0.73      0.53      0.61        93
+
+   micro avg       0.78      0.66      0.72      7393
+   macro avg       0.81      0.60      0.68      7393
+weighted avg       0.78      0.66      0.71      7393
+ samples avg       0.73      0.69      0.70      7393
+
+{'eval_loss': 0.16932228207588196, 'eval_f1': 0.7164748148691255, 'eval_precision': 0.7822606468139609, 'eval_recall': 0.6608954416339781, 'eval_roc_auc': 0.8169352814242541, 'eval_accuracy': 0.6121939809761422, 'eval_runtime': 61.2172, 'eval_samples_per_second': 104.758, 'eval_steps_per_second': 3.283, 'epoch': 1.38}
+{'loss': 0.1577, 'learning_rate': 5.034526583350984e-06, 'epoch': 1.48}
+              precision    recall  f1-score   support
+
+          IN       0.60      0.63      0.61       315
+          NA       0.89      0.69      0.78       449
+          HI       0.77      0.63      0.70      1683
+          LY       0.79      0.62      0.69       732
+          IP       0.97      0.78      0.86        80
+          SP       0.82      0.80      0.81      2614
+          ID       0.67      0.62      0.64      1242
+          OP       0.90      0.41      0.57       185
+      QA_NEW       0.84      0.39      0.53        93
+
+   micro avg       0.78      0.68      0.73      7393
+   macro avg       0.81      0.62      0.69      7393
+weighted avg       0.78      0.68      0.72      7393
+ samples avg       0.75      0.71      0.72      7393
+
+{'eval_loss': 0.1663086712360382, 'eval_f1': 0.7270762803428653, 'eval_precision': 0.7776579352850539, 'eval_recall': 0.6826727985932639, 'eval_roc_auc': 0.8269993036762521, 'eval_accuracy': 0.6237330422579136, 'eval_runtime': 61.19, 'eval_samples_per_second': 104.805, 'eval_steps_per_second': 3.285, 'epoch': 1.48}
+{'loss': 0.1561, 'learning_rate': 4.822707053590341e-06, 'epoch': 1.59}
+              precision    recall  f1-score   support
+
+          IN       0.61      0.56      0.59       315
+          NA       0.88      0.70      0.78       449
+          HI       0.75      0.65      0.69      1683
+          LY       0.78      0.65      0.71       732
+          IP       0.94      0.82      0.88        80
+          SP       0.81      0.81      0.81      2614
+          ID       0.75      0.47      0.58      1242
+          OP       0.91      0.41      0.56       185
+      QA_NEW       0.70      0.58      0.64        93
+
+   micro avg       0.78      0.67      0.72      7393
+   macro avg       0.79      0.63      0.69      7393
+weighted avg       0.78      0.67      0.72      7393
+ samples avg       0.74      0.70      0.71      7393
+
+{'eval_loss': 0.1688060611486435, 'eval_f1': 0.7219072539613317, 'eval_precision': 0.780204241948154, 'eval_recall': 0.6717164885702692, 'eval_roc_auc': 0.8219583158215784, 'eval_accuracy': 0.6207703103071885, 'eval_runtime': 61.1375, 'eval_samples_per_second': 104.895, 'eval_steps_per_second': 3.288, 'epoch': 1.59}
+{'loss': 0.1501, 'learning_rate': 4.610887523829697e-06, 'epoch': 1.69}
+              precision    recall  f1-score   support
+
+          IN       0.60      0.63      0.61       315
+          NA       0.88      0.70      0.78       449
+          HI       0.77      0.62      0.69      1683
+          LY       0.82      0.61      0.70       732
+          IP       0.94      0.82      0.88        80
+          SP       0.82      0.80      0.81      2614
+          ID       0.65      0.65      0.65      1242
+          OP       0.91      0.43      0.59       185
+      QA_NEW       0.67      0.62      0.64        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.78      0.65      0.71      7393
+weighted avg       0.78      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16678859293460846, 'eval_f1': 0.7275711940618086, 'eval_precision': 0.770172257479601, 'eval_recall': 0.6894359529284458, 'eval_roc_auc': 0.8296059027022008, 'eval_accuracy': 0.6224855761733978, 'eval_runtime': 61.2334, 'eval_samples_per_second': 104.73, 'eval_steps_per_second': 3.283, 'epoch': 1.69}
+{'loss': 0.1549, 'learning_rate': 4.399067994069053e-06, 'epoch': 1.8}
+              precision    recall  f1-score   support
+
+          IN       0.59      0.65      0.62       315
+          NA       0.85      0.76      0.80       449
+          HI       0.77      0.62      0.68      1683
+          LY       0.82      0.61      0.70       732
+          IP       0.94      0.84      0.89        80
+          SP       0.80      0.84      0.82      2614
+          ID       0.73      0.50      0.59      1242
+          OP       0.80      0.49      0.61       185
+      QA_NEW       0.61      0.71      0.65        93
+
+   micro avg       0.78      0.69      0.73      7393
+   macro avg       0.77      0.67      0.71      7393
+weighted avg       0.78      0.69      0.72      7393
+ samples avg       0.75      0.71      0.72      7393
+
+{'eval_loss': 0.16468572616577148, 'eval_f1': 0.7282132337093182, 'eval_precision': 0.7765859638369599, 'eval_recall': 0.6855133234140403, 'eval_roc_auc': 0.8282705318286321, 'eval_accuracy': 0.6232652424762202, 'eval_runtime': 61.2349, 'eval_samples_per_second': 104.728, 'eval_steps_per_second': 3.282, 'epoch': 1.8}
+{'loss': 0.1527, 'learning_rate': 4.187248464308409e-06, 'epoch': 1.91}
+              precision    recall  f1-score   support
+
+          IN       0.67      0.54      0.60       315
+          NA       0.84      0.76      0.80       449
+          HI       0.75      0.64      0.69      1683
+          LY       0.74      0.69      0.72       732
+          IP       0.93      0.81      0.87        80
+          SP       0.83      0.79      0.81      2614
+          ID       0.72      0.57      0.64      1242
+          OP       0.64      0.55      0.59       185
+      QA_NEW       0.60      0.73      0.66        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.75      0.68      0.71      7393
+weighted avg       0.77      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16458037495613098, 'eval_f1': 0.7295633500357909, 'eval_precision': 0.7748213471187472, 'eval_recall': 0.6893006898417422, 'eval_roc_auc': 0.8299356958468707, 'eval_accuracy': 0.6209262435677531, 'eval_runtime': 61.2335, 'eval_samples_per_second': 104.73, 'eval_steps_per_second': 3.283, 'epoch': 1.91}
+{'loss': 0.1523, 'learning_rate': 3.975428934547765e-06, 'epoch': 2.01}
+              precision    recall  f1-score   support
+
+          IN       0.67      0.55      0.61       315
+          NA       0.81      0.80      0.81       449
+          HI       0.73      0.68      0.70      1683
+          LY       0.81      0.64      0.72       732
+          IP       0.89      0.85      0.87        80
+          SP       0.84      0.78      0.81      2614
+          ID       0.70      0.56      0.62      1242
+          OP       0.59      0.58      0.58       185
+      QA_NEW       0.59      0.74      0.66        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.74      0.69      0.71      7393
+weighted avg       0.77      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16562974452972412, 'eval_f1': 0.7298989611498505, 'eval_precision': 0.770004503828254, 'eval_recall': 0.6937643717029622, 'eval_roc_auc': 0.831660820300253, 'eval_accuracy': 0.6217059098705754, 'eval_runtime': 60.7653, 'eval_samples_per_second': 105.537, 'eval_steps_per_second': 3.308, 'epoch': 2.01}
+{'loss': 0.1436, 'learning_rate': 3.763609404787121e-06, 'epoch': 2.12}
+              precision    recall  f1-score   support
+
+          IN       0.64      0.55      0.59       315
+          NA       0.83      0.79      0.81       449
+          HI       0.74      0.64      0.68      1683
+          LY       0.77      0.66      0.71       732
+          IP       0.92      0.84      0.88        80
+          SP       0.83      0.78      0.80      2614
+          ID       0.67      0.63      0.65      1242
+          OP       0.80      0.48      0.60       185
+      QA_NEW       0.63      0.67      0.65        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.76      0.67      0.71      7393
+weighted avg       0.76      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16424626111984253, 'eval_f1': 0.7270790426816277, 'eval_precision': 0.7654007177033493, 'eval_recall': 0.6924117408359258, 'eval_roc_auc': 0.8306168870303149, 'eval_accuracy': 0.617651645095899, 'eval_runtime': 60.7431, 'eval_samples_per_second': 105.576, 'eval_steps_per_second': 3.309, 'epoch': 2.12}
+{'loss': 0.142, 'learning_rate': 3.5517898750264772e-06, 'epoch': 2.22}
+              precision    recall  f1-score   support
+
+          IN       0.64      0.55      0.59       315
+          NA       0.84      0.78      0.81       449
+          HI       0.73      0.66      0.69      1683
+          LY       0.76      0.67      0.71       732
+          IP       0.97      0.78      0.86        80
+          SP       0.82      0.79      0.81      2614
+          ID       0.71      0.54      0.61      1242
+          OP       0.82      0.45      0.58       185
+      QA_NEW       0.71      0.68      0.69        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.78      0.66      0.71      7393
+weighted avg       0.77      0.69      0.72      7393
+ samples avg       0.75      0.71      0.72      7393
+
+{'eval_loss': 0.1657113879919052, 'eval_f1': 0.7273507943323315, 'eval_precision': 0.7722230664032822, 'eval_recall': 0.6874070066278912, 'eval_roc_auc': 0.8288100131303355, 'eval_accuracy': 0.61733977857477, 'eval_runtime': 60.9098, 'eval_samples_per_second': 105.287, 'eval_steps_per_second': 3.3, 'epoch': 2.22}
+{'loss': 0.143, 'learning_rate': 3.3399703452658333e-06, 'epoch': 2.33}
+              precision    recall  f1-score   support
+
+          IN       0.66      0.51      0.57       315
+          NA       0.79      0.82      0.80       449
+          HI       0.74      0.66      0.69      1683
+          LY       0.76      0.71      0.73       732
+          IP       0.92      0.82      0.87        80
+          SP       0.83      0.79      0.81      2614
+          ID       0.71      0.58      0.64      1242
+          OP       0.86      0.47      0.61       185
+      QA_NEW       0.61      0.72      0.66        93
+
+   micro avg       0.77      0.70      0.73      7393
+   macro avg       0.76      0.68      0.71      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16584697365760803, 'eval_f1': 0.7328927733958643, 'eval_precision': 0.7720059880239521, 'eval_recall': 0.6975517381306642, 'eval_roc_auc': 0.833643924068909, 'eval_accuracy': 0.628099173553719, 'eval_runtime': 61.0107, 'eval_samples_per_second': 105.113, 'eval_steps_per_second': 3.295, 'epoch': 2.33}
+{'loss': 0.138, 'learning_rate': 3.128150815505189e-06, 'epoch': 2.44}
+              precision    recall  f1-score   support
+
+          IN       0.64      0.57      0.60       315
+          NA       0.86      0.74      0.80       449
+          HI       0.70      0.72      0.71      1683
+          LY       0.78      0.65      0.71       732
+          IP       0.93      0.84      0.88        80
+          SP       0.83      0.79      0.81      2614
+          ID       0.74      0.48      0.58      1242
+          OP       0.88      0.46      0.61       185
+      QA_NEW       0.59      0.71      0.65        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.77      0.66      0.70      7393
+weighted avg       0.77      0.69      0.72      7393
+ samples avg       0.75      0.71      0.72      7393
+
+{'eval_loss': 0.16952288150787354, 'eval_f1': 0.7254256689082844, 'eval_precision': 0.7699316628701595, 'eval_recall': 0.6857838495874475, 'eval_roc_auc': 0.827839464734905, 'eval_accuracy': 0.6195228442226727, 'eval_runtime': 61.0594, 'eval_samples_per_second': 105.029, 'eval_steps_per_second': 3.292, 'epoch': 2.44}
+{'loss': 0.1345, 'learning_rate': 2.9163312857445456e-06, 'epoch': 2.54}
+              precision    recall  f1-score   support
+
+          IN       0.66      0.56      0.60       315
+          NA       0.84      0.77      0.80       449
+          HI       0.78      0.61      0.68      1683
+          LY       0.79      0.66      0.72       732
+          IP       0.92      0.84      0.88        80
+          SP       0.82      0.82      0.82      2614
+          ID       0.69      0.61      0.65      1242
+          OP       0.76      0.48      0.58       185
+      QA_NEW       0.70      0.67      0.68        93
+
+   micro avg       0.78      0.70      0.74      7393
+   macro avg       0.77      0.67      0.71      7393
+weighted avg       0.78      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16642725467681885, 'eval_f1': 0.7354765129374866, 'eval_precision': 0.7774261603375527, 'eval_recall': 0.6978222643040715, 'eval_roc_auc': 0.8342362255468374, 'eval_accuracy': 0.6324653048495245, 'eval_runtime': 61.0331, 'eval_samples_per_second': 105.074, 'eval_steps_per_second': 3.293, 'epoch': 2.54}
+{'loss': 0.1397, 'learning_rate': 2.7045117559839017e-06, 'epoch': 2.65}
+              precision    recall  f1-score   support
+
+          IN       0.66      0.53      0.59       315
+          NA       0.79      0.82      0.81       449
+          HI       0.76      0.63      0.69      1683
+          LY       0.76      0.67      0.71       732
+          IP       0.91      0.84      0.87        80
+          SP       0.83      0.81      0.82      2614
+          ID       0.70      0.57      0.63      1242
+          OP       0.71      0.50      0.59       185
+      QA_NEW       0.56      0.73      0.64        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.74      0.68      0.70      7393
+weighted avg       0.77      0.69      0.73      7393
+ samples avg       0.76      0.72      0.73      7393
+
+{'eval_loss': 0.16579046845436096, 'eval_f1': 0.7311169644764006, 'eval_precision': 0.7717162608957019, 'eval_recall': 0.6945759502231841, 'eval_roc_auc': 0.832195772583971, 'eval_accuracy': 0.6265398409480742, 'eval_runtime': 69.7858, 'eval_samples_per_second': 91.896, 'eval_steps_per_second': 2.88, 'epoch': 2.65}
+{'loss': 0.1361, 'learning_rate': 2.492692226223258e-06, 'epoch': 2.75}
+              precision    recall  f1-score   support
+
+          IN       0.58      0.63      0.60       315
+          NA       0.87      0.76      0.81       449
+          HI       0.74      0.66      0.70      1683
+          LY       0.79      0.66      0.72       732
+          IP       0.89      0.84      0.86        80
+          SP       0.82      0.81      0.81      2614
+          ID       0.72      0.52      0.61      1242
+          OP       0.83      0.49      0.61       185
+      QA_NEW       0.63      0.72      0.67        93
+
+   micro avg       0.78      0.69      0.73      7393
+   macro avg       0.76      0.68      0.71      7393
+weighted avg       0.78      0.69      0.73      7393
+ samples avg       0.76      0.72      0.73      7393
+
+{'eval_loss': 0.1661592423915863, 'eval_f1': 0.7319373972700636, 'eval_precision': 0.7759090909090909, 'eval_recall': 0.6926822670093331, 'eval_roc_auc': 0.8316463556650672, 'eval_accuracy': 0.6271635739903322, 'eval_runtime': 66.4828, 'eval_samples_per_second': 96.461, 'eval_steps_per_second': 3.023, 'epoch': 2.75}
+{'loss': 0.1405, 'learning_rate': 2.2808726964626135e-06, 'epoch': 2.86}
+              precision    recall  f1-score   support
+
+          IN       0.58      0.65      0.61       315
+          NA       0.86      0.78      0.82       449
+          HI       0.78      0.61      0.68      1683
+          LY       0.79      0.65      0.72       732
+          IP       0.94      0.85      0.89        80
+          SP       0.83      0.79      0.81      2614
+          ID       0.69      0.60      0.64      1242
+          OP       0.77      0.50      0.61       185
+      QA_NEW       0.69      0.71      0.70        93
+
+   micro avg       0.78      0.69      0.73      7393
+   macro avg       0.77      0.68      0.72      7393
+weighted avg       0.78      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16203247010707855, 'eval_f1': 0.7310255858955065, 'eval_precision': 0.7774390243902439, 'eval_recall': 0.6898417421885568, 'eval_roc_auc': 0.8304148699814893, 'eval_accuracy': 0.6224855761733978, 'eval_runtime': 60.8703, 'eval_samples_per_second': 105.355, 'eval_steps_per_second': 3.302, 'epoch': 2.86}
+{'loss': 0.1419, 'learning_rate': 2.0690531667019696e-06, 'epoch': 2.97}
+              precision    recall  f1-score   support
+
+          IN       0.63      0.56      0.59       315
+          NA       0.85      0.79      0.82       449
+          HI       0.73      0.67      0.70      1683
+          LY       0.76      0.69      0.72       732
+          IP       0.90      0.88      0.89        80
+          SP       0.86      0.75      0.80      2614
+          ID       0.69      0.59      0.63      1242
+          OP       0.70      0.53      0.60       185
+      QA_NEW       0.61      0.74      0.67        93
+
+   micro avg       0.77      0.69      0.73      7393
+   macro avg       0.75      0.69      0.71      7393
+weighted avg       0.77      0.69      0.73      7393
+ samples avg       0.75      0.72      0.72      7393
+
+{'eval_loss': 0.16527296602725983, 'eval_f1': 0.7286522081454442, 'eval_precision': 0.773791425965339, 'eval_recall': 0.6884891113215204, 'eval_roc_auc': 0.8294603572663559, 'eval_accuracy': 0.6215499766100109, 'eval_runtime': 60.8371, 'eval_samples_per_second': 105.413, 'eval_steps_per_second': 3.304, 'epoch': 2.97}
+{'loss': 0.1331, 'learning_rate': 1.857233636941326e-06, 'epoch': 3.07}
+              precision    recall  f1-score   support
+
+          IN       0.67      0.53      0.59       315
+          NA       0.84      0.80      0.82       449
+          HI       0.76      0.62      0.69      1683
+          LY       0.80      0.64      0.71       732
+          IP       0.94      0.84      0.89        80
+          SP       0.82      0.81      0.82      2614
+          ID       0.68      0.64      0.66      1242
+          OP       0.76      0.51      0.61       185
+      QA_NEW       0.64      0.73      0.68        93
+
+   micro avg       0.77      0.70      0.74      7393
+   macro avg       0.77      0.68      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16563664376735687, 'eval_f1': 0.7366182204891881, 'eval_precision': 0.7739868891537545, 'eval_recall': 0.7026917354254024, 'eval_roc_auc': 0.8362735364194813, 'eval_accuracy': 0.6326212381100889, 'eval_runtime': 60.9818, 'eval_samples_per_second': 105.162, 'eval_steps_per_second': 3.296, 'epoch': 3.07}
+{'loss': 0.1281, 'learning_rate': 1.645414107180682e-06, 'epoch': 3.18}
+              precision    recall  f1-score   support
+
+          IN       0.66      0.57      0.61       315
+          NA       0.84      0.80      0.82       449
+          HI       0.75      0.64      0.69      1683
+          LY       0.78      0.65      0.71       732
+          IP       0.93      0.84      0.88        80
+          SP       0.83      0.80      0.81      2614
+          ID       0.68      0.63      0.65      1242
+          OP       0.81      0.49      0.61       185
+      QA_NEW       0.68      0.68      0.68        93
+
+   micro avg       0.78      0.70      0.74      7393
+   macro avg       0.77      0.68      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.1668630987405777, 'eval_f1': 0.7365954122576521, 'eval_precision': 0.7754186602870813, 'eval_recall': 0.7014743676450697, 'eval_roc_auc': 0.8358138867873229, 'eval_accuracy': 0.6301263059410572, 'eval_runtime': 61.046, 'eval_samples_per_second': 105.052, 'eval_steps_per_second': 3.293, 'epoch': 3.18}
+{'loss': 0.1278, 'learning_rate': 1.433594577420038e-06, 'epoch': 3.28}
+              precision    recall  f1-score   support
+
+          IN       0.62      0.59      0.61       315
+          NA       0.85      0.79      0.82       449
+          HI       0.72      0.68      0.70      1683
+          LY       0.79      0.64      0.71       732
+          IP       0.91      0.84      0.87        80
+          SP       0.82      0.81      0.82      2614
+          ID       0.73      0.56      0.63      1242
+          OP       0.81      0.49      0.61       185
+      QA_NEW       0.67      0.69      0.68        93
+
+   micro avg       0.77      0.70      0.74      7393
+   macro avg       0.77      0.68      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16653765738010406, 'eval_f1': 0.7357660088030669, 'eval_precision': 0.7742417451068281, 'eval_recall': 0.7009333152982551, 'eval_roc_auc': 0.8354539400591109, 'eval_accuracy': 0.6285669733354124, 'eval_runtime': 61.0302, 'eval_samples_per_second': 105.079, 'eval_steps_per_second': 3.293, 'epoch': 3.28}
+{'loss': 0.1279, 'learning_rate': 1.2217750476593943e-06, 'epoch': 3.39}
+              precision    recall  f1-score   support
+
+          IN       0.65      0.57      0.61       315
+          NA       0.86      0.77      0.81       449
+          HI       0.76      0.63      0.69      1683
+          LY       0.79      0.66      0.72       732
+          IP       0.91      0.84      0.87        80
+          SP       0.80      0.83      0.82      2614
+          ID       0.73      0.57      0.64      1242
+          OP       0.75      0.51      0.61       185
+      QA_NEW       0.63      0.72      0.67        93
+
+   micro avg       0.78      0.70      0.74      7393
+   macro avg       0.76      0.68      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16787630319595337, 'eval_f1': 0.7365576102418208, 'eval_precision': 0.7766611669416529, 'eval_recall': 0.7003922629514405, 'eval_roc_auc': 0.8354019974641155, 'eval_accuracy': 0.6309059722438796, 'eval_runtime': 61.1754, 'eval_samples_per_second': 104.83, 'eval_steps_per_second': 3.286, 'epoch': 3.39}
+{'loss': 0.1255, 'learning_rate': 1.0099555178987502e-06, 'epoch': 3.5}
+              precision    recall  f1-score   support
+
+          IN       0.63      0.58      0.60       315
+          NA       0.85      0.78      0.81       449
+          HI       0.74      0.66      0.69      1683
+          LY       0.76      0.67      0.71       732
+          IP       0.93      0.84      0.88        80
+          SP       0.82      0.82      0.82      2614
+          ID       0.72      0.57      0.63      1242
+          OP       0.74      0.52      0.61       185
+      QA_NEW       0.66      0.72      0.69        93
+
+   micro avg       0.77      0.70      0.74      7393
+   macro avg       0.76      0.68      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16678325831890106, 'eval_f1': 0.7360668507896041, 'eval_precision': 0.7724435196195006, 'eval_recall': 0.7029622615988097, 'eval_roc_auc': 0.8362697008653773, 'eval_accuracy': 0.6273195072508966, 'eval_runtime': 61.1465, 'eval_samples_per_second': 104.879, 'eval_steps_per_second': 3.287, 'epoch': 3.5}
+{'loss': 0.1258, 'learning_rate': 7.981359881381063e-07, 'epoch': 3.6}
+              precision    recall  f1-score   support
+
+          IN       0.64      0.57      0.60       315
+          NA       0.82      0.81      0.81       449
+          HI       0.74      0.65      0.69      1683
+          LY       0.76      0.67      0.71       732
+          IP       0.93      0.84      0.88        80
+          SP       0.83      0.81      0.82      2614
+          ID       0.71      0.59      0.64      1242
+          OP       0.67      0.54      0.59       185
+      QA_NEW       0.65      0.72      0.68        93
+
+   micro avg       0.77      0.70      0.74      7393
+   macro avg       0.75      0.69      0.72      7393
+weighted avg       0.77      0.70      0.73      7393
+ samples avg       0.76      0.73      0.73      7393
+
+{'eval_loss': 0.16740387678146362, 'eval_f1': 0.7357410417697364, 'eval_precision': 0.7704262877442274, 'eval_recall': 0.7040443662924388, 'eval_roc_auc': 0.8366120408681811, 'eval_accuracy': 0.628722906595977, 'eval_runtime': 61.1431, 'eval_samples_per_second': 104.885, 'eval_steps_per_second': 3.287, 'epoch': 3.6}
+{'train_runtime': 7943.7022, 'train_samples_per_second': 19.015, 'train_steps_per_second': 2.377, 'train_loss': 0.16138781872917624, 'epoch': 3.6}
+              precision    recall  f1-score   support
+
+          IN       0.74      0.55      0.63       556
+          NA       0.85      0.78      0.81       857
+          HI       0.78      0.62      0.69      3169
+          LY       0.81      0.64      0.72      1173
+          IP       0.95      0.81      0.87       163
+          SP       0.82      0.82      0.82      4981
+          ID       0.66      0.63      0.65      2410
+          OP       0.76      0.55      0.64       354
+      QA_NEW       0.66      0.71      0.68       168
+
+   micro avg       0.78      0.70      0.74     13831
+   macro avg       0.78      0.68      0.72     13831
+weighted avg       0.78      0.70      0.74     13831
+ samples avg       0.76      0.73      0.73     13831
+
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+F1: 0.7398593423303556
+END: Thu Jun 22 14:49:27 EEST 2023

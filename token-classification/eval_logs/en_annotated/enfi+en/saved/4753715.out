@@ -1,0 +1,149 @@
+
+START 4753715: Fri 13 Oct 2023 01:05:54 PM EEST
+Namespace(model_name='xlm-roberta-base', train=['../../data/qa_token_classification/dataset_punct2', '../../data/qa_token_classification/annotated/cleaned2_train_annotated_dataset.jsonl'], test='../../data/qa_token_classification/annotated/en_test_dataset.jsonl', dev='../../data/qa_token_classification/annotated/en_dev_dataset.jsonl', batch=8, epochs=10, lr=5e-05, save='enfi_en-ann_5e-5')
+in dictionary: 0
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 134658
+    })
+    validation: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 1683
+    })
+    test: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 5693
+    })
+})
+in dictionary: 1
+DatasetDict({
+    train: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 100
+    })
+})
+final train:
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens', 'text'],
+        num_rows: 134758
+    })
+})
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens', 'text'],
+        num_rows: 134758
+    })
+    validation: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 40
+    })
+    test: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 60
+    })
+})
+['QUESTION', 'ANSWER', 'O']
+3
+tokenization
+training
+{'loss': 0.1308, 'learning_rate': 4.925794004155536e-05, 'epoch': 0.15}
+              precision    recall  f1-score   support
+
+       NSWER       0.02      0.05      0.03        40
+     UESTION       0.04      0.04      0.04        92
+
+   micro avg       0.03      0.05      0.04       132
+   macro avg       0.03      0.05      0.04       132
+weighted avg       0.04      0.05      0.04       132
+
+{'eval_loss': 5.884878635406494, 'eval_precision': 0.033707865168539325, 'eval_recall': 0.045454545454545456, 'eval_f1': 0.03870967741935484, 'eval_accuracy': 0.32408536585365855, 'eval_runtime': 0.622, 'eval_samples_per_second': 64.31, 'eval_steps_per_second': 4.823, 'epoch': 0.15}
+{'loss': 0.0854, 'learning_rate': 4.8515880083110716e-05, 'epoch': 0.3}
+              precision    recall  f1-score   support
+
+       NSWER       0.02      0.05      0.03        40
+     UESTION       0.04      0.03      0.03        92
+
+   micro avg       0.03      0.04      0.03       132
+   macro avg       0.03      0.04      0.03       132
+weighted avg       0.03      0.04      0.03       132
+
+{'eval_loss': 5.776349067687988, 'eval_precision': 0.028089887640449437, 'eval_recall': 0.03787878787878788, 'eval_f1': 0.03225806451612903, 'eval_accuracy': 0.3024390243902439, 'eval_runtime': 0.5774, 'eval_samples_per_second': 69.275, 'eval_steps_per_second': 5.196, 'epoch': 0.3}
+{'loss': 0.0782, 'learning_rate': 4.777382012466607e-05, 'epoch': 0.45}
+              precision    recall  f1-score   support
+
+       NSWER       0.00      0.00      0.00        40
+     UESTION       0.06      0.04      0.05        92
+
+   micro avg       0.03      0.03      0.03       132
+   macro avg       0.03      0.02      0.02       132
+weighted avg       0.04      0.03      0.03       132
+
+{'eval_loss': 6.016451835632324, 'eval_precision': 0.02857142857142857, 'eval_recall': 0.030303030303030304, 'eval_f1': 0.029411764705882356, 'eval_accuracy': 0.36341463414634145, 'eval_runtime': 0.5724, 'eval_samples_per_second': 69.879, 'eval_steps_per_second': 5.241, 'epoch': 0.45}
+{'loss': 0.0765, 'learning_rate': 4.703176016622143e-05, 'epoch': 0.59}
+              precision    recall  f1-score   support
+
+       NSWER       0.05      0.07      0.06        40
+     UESTION       0.03      0.02      0.03        92
+
+   micro avg       0.04      0.04      0.04       132
+   macro avg       0.04      0.05      0.04       132
+weighted avg       0.04      0.04      0.04       132
+
+{'eval_loss': 5.843356132507324, 'eval_precision': 0.0390625, 'eval_recall': 0.03787878787878788, 'eval_f1': 0.038461538461538464, 'eval_accuracy': 0.3361788617886179, 'eval_runtime': 0.5722, 'eval_samples_per_second': 69.905, 'eval_steps_per_second': 5.243, 'epoch': 0.59}
+{'loss': 0.0703, 'learning_rate': 4.6289700207776794e-05, 'epoch': 0.74}
+              precision    recall  f1-score   support
+
+       NSWER       0.05      0.07      0.06        40
+     UESTION       0.03      0.02      0.02        92
+
+   micro avg       0.04      0.04      0.04       132
+   macro avg       0.04      0.05      0.04       132
+weighted avg       0.03      0.04      0.03       132
+
+{'eval_loss': 6.134198188781738, 'eval_precision': 0.03759398496240601, 'eval_recall': 0.03787878787878788, 'eval_f1': 0.03773584905660377, 'eval_accuracy': 0.33272357723577234, 'eval_runtime': 0.57, 'eval_samples_per_second': 70.18, 'eval_steps_per_second': 5.264, 'epoch': 0.74}
+{'loss': 0.0668, 'learning_rate': 4.5547640249332144e-05, 'epoch': 0.89}
+              precision    recall  f1-score   support
+
+       NSWER       0.04      0.07      0.05        40
+     UESTION       0.03      0.02      0.02        92
+
+   micro avg       0.03      0.04      0.04       132
+   macro avg       0.04      0.05      0.04       132
+weighted avg       0.03      0.04      0.03       132
+
+{'eval_loss': 6.21029806137085, 'eval_precision': 0.03496503496503497, 'eval_recall': 0.03787878787878788, 'eval_f1': 0.03636363636363637, 'eval_accuracy': 0.3386178861788618, 'eval_runtime': 0.5758, 'eval_samples_per_second': 69.465, 'eval_steps_per_second': 5.21, 'epoch': 0.89}
+{'loss': 0.0618, 'learning_rate': 4.480558029088751e-05, 'epoch': 1.04}
+              precision    recall  f1-score   support
+
+       NSWER       0.04      0.05      0.04        40
+     UESTION       0.07      0.04      0.05        92
+
+   micro avg       0.05      0.05      0.05       132
+   macro avg       0.05      0.05      0.05       132
+weighted avg       0.06      0.05      0.05       132
+
+{'eval_loss': 6.237246513366699, 'eval_precision': 0.05309734513274336, 'eval_recall': 0.045454545454545456, 'eval_f1': 0.04897959183673469, 'eval_accuracy': 0.35508130081300815, 'eval_runtime': 0.5734, 'eval_samples_per_second': 69.759, 'eval_steps_per_second': 5.232, 'epoch': 1.04}
+{'train_runtime': 3008.8903, 'train_samples_per_second': 447.866, 'train_steps_per_second': 55.984, 'train_loss': 0.08140309099469865, 'epoch': 1.04}
+saved model
+              precision    recall  f1-score   support
+
+       NSWER       0.03      0.04      0.03        79
+     UESTION       0.05      0.05      0.05       109
+
+   micro avg       0.04      0.04      0.04       188
+   macro avg       0.04      0.04      0.04       188
+weighted avg       0.04      0.04      0.04       188
+
+{'epoch': 1.04,
+ 'eval_accuracy': 0.2800253289242243,
+ 'eval_f1': 0.03990024937655861,
+ 'eval_loss': 6.051506996154785,
+ 'eval_precision': 0.03755868544600939,
+ 'eval_recall': 0.0425531914893617,
+ 'eval_runtime': 0.8898,
+ 'eval_samples_per_second': 67.432,
+ 'eval_steps_per_second': 4.495}
+Accuracy: 0.2800253289242243
+END 4753715: Fri 13 Oct 2023 02:02:41 PM EEST

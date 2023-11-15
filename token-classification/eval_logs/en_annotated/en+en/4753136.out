@@ -1,0 +1,131 @@
+START 4753136: Fri 13 Oct 2023 12:18:34 PM EEST
+Namespace(model_name='xlm-roberta-base', train=['../../data/qa_token_classification/dataset_punct2'], test='../../data/qa_token_classification/annotated/en_test_dataset.jsonl', dev='../../data/qa_token_classification/annotated/en_dev_dataset.jsonl', batch=8, epochs=10, lr=3e-05, save=None)
+in dictionary: 0
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 134658
+    })
+    validation: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 1683
+    })
+    test: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 5693
+    })
+})
+final train:
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 134658
+    })
+})
+Downloading and preparing dataset json/default to /users/annieske/.cache/huggingface/datasets/json/default-69d7b1eea13b89df/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51...
+Dataset json downloaded and prepared to /users/annieske/.cache/huggingface/datasets/json/default-69d7b1eea13b89df/0.0.0/0f7e3662623656454fcd2b650f34e886a7db4b9104504885bd462096cc7a9f51. Subsequent calls will reuse this data.
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'tags', 'tokens'],
+        num_rows: 134658
+    })
+    validation: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 40
+    })
+    test: Dataset({
+        features: ['tags', 'tokens', 'id', 'text'],
+        num_rows: 60
+    })
+})
+['QUESTION', 'ANSWER', 'O']
+3
+tokenization
+training
+{'loss': 0.1136, 'learning_rate': 2.95544466227054e-05, 'epoch': 0.15}
+              precision    recall  f1-score   support
+
+       NSWER       0.03      0.07      0.04        40
+     UESTION       0.07      0.08      0.07        92
+
+   micro avg       0.05      0.08      0.06       132
+   macro avg       0.05      0.08      0.06       132
+weighted avg       0.06      0.08      0.06       132
+
+{'eval_loss': 6.579237937927246, 'eval_precision': 0.04878048780487805, 'eval_recall': 0.07575757575757576, 'eval_f1': 0.05934718100890208, 'eval_accuracy': 0.3330284552845528, 'eval_runtime': 0.5777, 'eval_samples_per_second': 69.24, 'eval_steps_per_second': 5.193, 'epoch': 0.15}
+{'loss': 0.0751, 'learning_rate': 2.91088932454108e-05, 'epoch': 0.3}
+              precision    recall  f1-score   support
+
+       NSWER       0.07      0.10      0.09        40
+     UESTION       0.09      0.05      0.07        92
+
+   micro avg       0.08      0.07      0.07       132
+   macro avg       0.08      0.08      0.08       132
+weighted avg       0.08      0.07      0.07       132
+
+{'eval_loss': 7.362359046936035, 'eval_precision': 0.08181818181818182, 'eval_recall': 0.06818181818181818, 'eval_f1': 0.0743801652892562, 'eval_accuracy': 0.33973577235772356, 'eval_runtime': 0.5661, 'eval_samples_per_second': 70.66, 'eval_steps_per_second': 5.299, 'epoch': 0.3}
+{'loss': 0.0651, 'learning_rate': 2.86633398681162e-05, 'epoch': 0.45}
+              precision    recall  f1-score   support
+
+       NSWER       0.03      0.05      0.03        40
+     UESTION       0.03      0.02      0.02        92
+
+   micro avg       0.03      0.03      0.03       132
+   macro avg       0.03      0.04      0.03       132
+weighted avg       0.03      0.03      0.03       132
+
+{'eval_loss': 8.545104026794434, 'eval_precision': 0.02564102564102564, 'eval_recall': 0.030303030303030304, 'eval_f1': 0.027777777777777776, 'eval_accuracy': 0.32408536585365855, 'eval_runtime': 0.5678, 'eval_samples_per_second': 70.442, 'eval_steps_per_second': 5.283, 'epoch': 0.45}
+{'loss': 0.0605, 'learning_rate': 2.82177864908216e-05, 'epoch': 0.59}
+              precision    recall  f1-score   support
+
+       NSWER       0.04      0.05      0.04        40
+     UESTION       0.02      0.01      0.01        92
+
+   micro avg       0.03      0.02      0.02       132
+   macro avg       0.03      0.03      0.03       132
+weighted avg       0.02      0.02      0.02       132
+
+{'eval_loss': 9.803945541381836, 'eval_precision': 0.02586206896551724, 'eval_recall': 0.022727272727272728, 'eval_f1': 0.024193548387096774, 'eval_accuracy': 0.3258130081300813, 'eval_runtime': 0.5665, 'eval_samples_per_second': 70.611, 'eval_steps_per_second': 5.296, 'epoch': 0.59}
+{'loss': 0.0592, 'learning_rate': 2.7772233113527e-05, 'epoch': 0.74}
+              precision    recall  f1-score   support
+
+       NSWER       0.04      0.07      0.05        40
+     UESTION       0.04      0.03      0.04        92
+
+   micro avg       0.04      0.05      0.04       132
+   macro avg       0.04      0.05      0.04       132
+weighted avg       0.04      0.05      0.04       132
+
+{'eval_loss': 10.396219253540039, 'eval_precision': 0.04054054054054054, 'eval_recall': 0.045454545454545456, 'eval_f1': 0.04285714285714286, 'eval_accuracy': 0.3568089430894309, 'eval_runtime': 0.5663, 'eval_samples_per_second': 70.637, 'eval_steps_per_second': 5.298, 'epoch': 0.74}
+{'loss': 0.0552, 'learning_rate': 2.7326679736232404e-05, 'epoch': 0.89}
+              precision    recall  f1-score   support
+
+       NSWER       0.05      0.07      0.06        40
+     UESTION       0.02      0.01      0.01        92
+
+   micro avg       0.03      0.03      0.03       132
+   macro avg       0.03      0.04      0.04       132
+weighted avg       0.03      0.03      0.03       132
+
+{'eval_loss': 10.698695182800293, 'eval_precision': 0.031746031746031744, 'eval_recall': 0.030303030303030304, 'eval_f1': 0.031007751937984496, 'eval_accuracy': 0.3384146341463415, 'eval_runtime': 0.568, 'eval_samples_per_second': 70.425, 'eval_steps_per_second': 5.282, 'epoch': 0.89}
+{'train_runtime': 2567.0134, 'train_samples_per_second': 524.571, 'train_steps_per_second': 65.574, 'train_loss': 0.07145838724772136, 'epoch': 0.89}
+              precision    recall  f1-score   support
+
+       NSWER       0.03      0.06      0.04        79
+     UESTION       0.04      0.05      0.04       109
+
+   micro avg       0.03      0.05      0.04       188
+   macro avg       0.03      0.05      0.04       188
+weighted avg       0.04      0.05      0.04       188
+
+{'epoch': 0.89,
+ 'eval_accuracy': 0.34172940265953705,
+ 'eval_f1': 0.042105263157894736,
+ 'eval_loss': 6.785118103027344,
+ 'eval_precision': 0.03484320557491289,
+ 'eval_recall': 0.05319148936170213,
+ 'eval_runtime': 0.8918,
+ 'eval_samples_per_second': 67.277,
+ 'eval_steps_per_second': 4.485}
+Accuracy: 0.34172940265953705
+PARAMETERS	model	xlm-roberta-base	data_dir	../../data/qa_token_classification	train_batch_size	8	learning_rate	3e-5	num_train_epochs	10	END 4753136: Fri 13 Oct 2023 01:06:59 PM EEST

@@ -1,0 +1,16 @@
+     52 FA MT
+      1 ID HI QA
+      1 ID OP QA RS
+     12 ID QA
+      1 IN DT FA
+     15 IN FA
+      4 IN HI FA
+      3 IN IP FA
+      1 IN IP FA DS
+      1 IN LT FA
+      1 IN NA FA CB
+      2 IN OP FA AV
+      1 IP ID DS QA
+     16 IP IN DS FA
+      4 IP IN FA
+      1 OP IN RV FA
