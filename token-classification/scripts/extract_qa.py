@@ -40,7 +40,7 @@ import re
 # after amandas suggestions
 #amount of docs after discarding: 27853 amount of pairs after discarding: 72128
 
-data = "../results/final/falcon_all.jsonl"
+data = "../results/final/cc_all_enfigpt.jsonl"
 
 
 # read the file
@@ -103,9 +103,14 @@ for qa in final_texts:
                     elif temp_q:
                         short_count = short_count + 1
 
-                else:
-                    if previous == "a":
+                else: 
+                    if previous == "a": # here only append if two questions back to back (because of the stuff below here)
                         temp_a[len(temp_a) -1] = temp_a[len(temp_a) -1] + part["a"]
+
+                    # here do the opposite and make the question twice because there are two separate answers
+                    # if previous == "a":  # TODO test this method with what amanda's stuff gives me
+                    #     temp_a.append(part["a"])
+                    #     temp_q.append(temp_q[len(temp_q) -1]) 
                     elif not temp_q:
                         # if there is no question before an answer
                         continue
@@ -117,7 +122,7 @@ for qa in final_texts:
             # Amanda can modify the whole script if needed
            
             elif "t" in part:
-                if len(part["t"]) < 5: 
+                if len(part["t"]) < 5:  #TODO not sure if making this number bigger has an effect?
                     # if there is a reaaally short one
                     if previous == "a":
                         temp_a[len(temp_a) -1] = temp_a[len(temp_a) -1] + part["t"]
@@ -138,7 +143,7 @@ for qa in final_texts:
 
 
 # save in the format
-multiple=open("../qa_predicted_final_files/falcon_qa.jsonl","wt")
+multiple=open("../qa_predicted_final_files/test_cleaned/cc_all.jsonl","wt")
 pair_count = 0
 doc_count = 0
 for idd, que,ans in zip(final_ids, questions, answers):

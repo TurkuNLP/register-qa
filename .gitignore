@@ -17,6 +17,7 @@ token-classification/results/falcon*
 token-classification/results/OLD*
 token-classification/qa-labelled/unsorted/qa_binary_suomi24.jsonl.gz
 token-classification/qa-labelled/sorted/sorted_qa_binary_cc-fi_all.tsv.gz
+token-classification/qa-labelled/sorted/sorted_qa_binary_cc-fi.tsv.gz
 token-classification/qa-labelled/annotated/*
 token-classification/models_for_Amanda/*
 register-identification/data/predictions/*
