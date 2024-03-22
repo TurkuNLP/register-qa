@@ -9,12 +9,14 @@ tokenizer_name = "xlm-roberta-base"
 
 # parameters
 # forbidden: words which, if they are alone, should be removed
-forbidden = ["question:", "answer:", "question", "answers", "q:", "a:", "faq"]
+forbidden = ["question:", "answer:", "question", "answers", "q:", "a:", "faq", "q.", "a."]
 # len_limit: together with forbidden, e.g. remove strings that are <= 10 chars AND have forbidden word
 # this ensures we remove despite small whitespace differences e.g. "vastaus :\n" vs "vastaus:"
 len_limit=13  
 # note that these should be different for en! 
 
+
+path_to_save=""
 
 def find_sentences(text, tokens):
     """
@@ -159,12 +161,12 @@ def passable(sentence):
 
 
 
-def extract(texts, tokens,debug=False):
+def extract(texts, tokens, ids, debug=False):
     questions = []
     answers = []
     all_found = []
     # loop over documents
-    for te,to in zip(texts,tokens):
+    for te,to,id in zip(texts,tokens, ids):
         if debug: print("Original text:\n",te, "\n")
         questions.append([])
         answers.append([])
@@ -225,7 +227,8 @@ def extract(texts, tokens,debug=False):
                 if winner[0] == "QUESTION":
                     if debug: print("Added as new entry to question")
                     all_found[-1].append({"q"+str(q_index):s})
-                    a_index+=1
+                    #a_index+=1
+                    a_index = q_index
                     if last == winner[0]:
                         questions[-1][-1] += s
                     else:
@@ -264,12 +267,28 @@ def extract(texts, tokens,debug=False):
         # clean each of the found thingies :) == remove trailing newlines or hyphens (from lists)
         questions[-1] = [q.rstrip(" \n-").lstrip(" \n-") for q in questions[-1]]
         answers[-1] = [a.rstrip(" \n-").lstrip(" \n-") for a in answers[-1]]
+
+        with open(str(path_to_save)+"_pairs.tsv", "a") as f:
+            #f.write("id \t question \t answer \n")
+            for q,a in zip_longest(questions[-1], answers[-1]):
+                if len(str(q)) >= 15 and (a == None or len(str(a)) >= 15):
+                    f.write(str(id)+ "\t"+ str(q).replace("\n", "\\n") + "\t"+ str(a).replace("\n", "\\n") +"\n")
+
+        with open(str(path_to_save)+".jsonl", "a") as f:
+            f.write(json.dumps({"id": id, "text": te, "extracted": all_found[-1]})+"\n")
+
+        # To save space we're not collecting these anymore
+        questions = []
+        answers = []
+        all_found = []
+
+        
         
         
     return all_found, questions, answers
 
 
-def main(data):
+def main(data, path_to_save):
     texts = []
     ids = []
     if ".jsonl" in str(data):
@@ -282,7 +301,7 @@ def main(data):
         with open(data) as f:
             for line in f:
                 ids.append(line.split("\t")[0])
-                texts.append(line.split("\t")[2])
+                texts.append(line.split("\t")[2].replace("\\n", "\n"))
     else:
         id = 0
         with open(data) as f:
@@ -296,25 +315,37 @@ def main(data):
     for i,t in enumerate(texts):
         tokens.append(token_classifier(t))
 
-    extracted_texts, questions, answers = extract(texts, tokens)
-    
-    with open("testi_en.jsonl", "w") as f:
-        for id, text, extr in zip(ids, texts, extracted_texts):
-            #print(json.dumps({"id": id, "text": text, "extracted": {"qa":e for e in extr}}))
-            f.write(json.dumps({"id": id, "text": text, "extracted": extr})+"\n")
+    extracted_texts, questions, answers = extract(texts, tokens, ids)
 
-    for i in range(len(extracted_texts)):
-        print(ids[i])
-        for q,a in zip_longest(questions[i], answers[i]):
-            
-            print("-Question-")
-            if q != None:
-                print(q.replace("\n", "\\"))
-            print("-Answer-")
-            if a != None:
-                print(a.replace("\n", "\\"))
-            print("--")
-        print("-----------------------------------------------------------------")
+    exit()
+    
+    #with open(str(path_to_save)+".jsonl", "w") as f:
+    #    for id, text, extr in zip(ids, texts, extracted_texts):
+    #        #print(json.dumps({"id": id, "text": text, "extracted": {"qa":e for e in extr}}))
+    #        f.write(json.dumps({"id": id, "text": text, "extracted": extr})+"\n")
+
+    
+    #with open(str(path_to_save)+"_pairs.tsv", "w") as f:
+    #    f.write("id \t question \t answer \n")
+    #    for i in range(len(extracted_texts)):
+    #        for q,a in zip_longest(questions[i], answers[i]):
+    #            if len(str(q)) >= 15 and (a == None or len(str(a)) >= 15):
+    #                f.write(str(ids[i])+ "\t"+ str(q).replace("\n", "\\n") + "\t"+ str(a).replace("\n", "\\n") +"\n")
+
+    
+    #for i in range(len(extracted_texts)):
+    #    print(ids[i])
+    #    for q,a in zip_longest(questions[i], answers[i]):
+    #        
+    #        print("-Question-")
+    #        if q != None:
+    #            print(q.replace("\n", "\\"))
+    #        print("-Answer-")
+    #        if a != None:
+    #            print(a.replace("\n", "\\"))
+    #        print("--")
+
+    #    print("-----------------------------------------------------------------")
 
     
 
@@ -322,4 +353,7 @@ def main(data):
 
 if __name__ == "__main__":
     data = sys.argv[1]
-    main(data)
+    path_to_save = sys.argv[2]
+    if ".jsonl" in path_to_save:
+        path_to_save = path_to_save.replace(".jsonl", "")
+    main(data, path_to_save)
