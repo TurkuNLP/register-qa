@@ -10,8 +10,7 @@ register-identification/data/SweCORE
 *.ipynb_checkpoints
 token-classification/datasets/*
 token-classification/results/*
-token-classification/labelled-data/register-sorted/sorted_qa_binary_cc-fi_all.tsv.gz
-token-classification/labelled-data/register-unsorted/qa_binary_suomi24.jsonl.gz
+register-identification/labelled-data/register-sorted/sorted_qa_binary_cc-fi_all.tsv.gz
+register-identification/labelled-data/register-unsorted/qa_binary_suomi24.jsonl.gz
 token-classification/models_for_Amanda/*
 register-identification/data/predictions/*
-register-identification/parallel_inference/*
