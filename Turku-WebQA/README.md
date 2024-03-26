@@ -15,3 +15,11 @@ Pairs (as .tsv):
   - field 1: id of the document
   - field 2: extracted question
   - field 3: extracted answer
+
+## How was this dataset created?
+
+1. Filter web sources with a register classifier, keeping files that are likely to contain questions and answers based on their register.
+2. Use a token classifier to mark tokens in the text as Q(uestion), A(answer) or O.
+3. Use simple heuristics to aggregate the results of the token classifier.
+
+[citing information coming soon]
