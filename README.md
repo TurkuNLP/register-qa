@@ -4,11 +4,7 @@ Repository for finding questions and answers from texts using register identific
 
 The repository includes the scripts, logs, and some of the data as well.
 
-![image](https://github.com/TurkuNLP/register-qa/assets/92675015/39b67d70-630e-46e7-8308-514732e0d3f0)
-
-![image](https://github.com/TurkuNLP/register-qa/assets/92675015/953199c8-1057-4b31-9ad5-68bb22604bd4)
-
-## Citing
+### Citing
 To cite our work please use the following bibtex.
 
 ```
@@ -35,3 +31,8 @@ To cite our work please use the following bibtex.
     abstract = "This article introduces a resource-efficient method for developing question-answer (QA) datasets by extracting QA pairs from web-scale data using machine learning (ML). Our method benefits from recent advances in web register (genre) identification and consists of two ML steps with an additional post-processing step. First, using XLM-R and the multilingual CORE web register corpus series with categories such as QA Forum, we train a multilingual classifier to retrieve documents that are likely to contain QA pairs from web-scale data. Second, we develop a NER-style token classifier to identify the QA text spans within these documents. To this end, we experiment with training on a semi-synthetic dataset built on top of the English LFQA, a small set of manually cleaned web QA pairs in English and Finnish, and a Finnish web QA pair dataset cleaned using ChatGPT. The evaluation of our pipeline demonstrates its capability to efficiently retrieve a substantial volume of QA pairs. While the approach is adaptable to any language given the availability of language models and extensive web data, we showcase its efficiency in English and Finnish, developing the first open, non-synthetic and non-machine translated QA dataset for Finnish {--} Turku WebQA {--} comprising over 200,000 QA pairs.",
 }
 ```
+
+
+![image](https://github.com/TurkuNLP/register-qa/assets/92675015/39b67d70-630e-46e7-8308-514732e0d3f0)
+
+![image](https://github.com/TurkuNLP/register-qa/assets/92675015/953199c8-1057-4b31-9ad5-68bb22604bd4)
